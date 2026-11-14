@@ -57,7 +57,11 @@ test("V2 Collections, cluster, and alias discovery/mutation routes enforce Basic
     { path: "/api/aliases/" + probe + "/properties", method: "PUT", body: JSON.stringify({ properties: { owner: "security-probe" } }) },
     { path: "/api/aliases/" + probe + "/properties/owner", method: "PUT", body: JSON.stringify({ value: "security-probe" }) },
     { path: "/api/aliases/" + probe + "/properties/owner", method: "DELETE" },
-    { path: "/api/collections/" + probe + "_missing", method: "POST", body: JSON.stringify({ modify: { readOnly: false } }) }
+    { path: "/api/collections/" + probe + "_missing", method: "POST", body: JSON.stringify({ modify: { readOnly: false } }) },
+    { path: "/api/collections/" + probe + "_missing/properties", method: "GET" },
+    { path: "/api/collections/" + probe + "_missing/properties/owner", method: "GET" },
+    { path: "/api/collections/" + probe + "_missing/properties/owner", method: "PUT", body: JSON.stringify({ value: "security-probe" }) },
+    { path: "/api/collections/" + probe + "_missing/properties/owner", method: "DELETE" }
   ];
   if (["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")) {
     const backup = "security_backup_" + randomUUID().replaceAll("-", "");

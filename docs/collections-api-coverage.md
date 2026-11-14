@@ -8,7 +8,11 @@ The parallel V2 namespace exposes `client.v2.collections.list()` (`GET /api/coll
 
 ## V2 lifecycle methods
 
-The V2 namespace now has typed `create()`, `delete()`, and `reload()` methods in addition to read-only discovery. The implementation uses the post-Solr-9.3 routes and does not translate to the legacy Solr 8.11 command envelope. Exact serialization and consumer type fixtures are present. Integration and BasicAuth route-gate evidence has not yet been collected; these operations must not be described as runtime-tested until the pinned Solr 9.11.0 and 10.1.0 workflows pass. CREATE/DELETE/RELOAD tests must use disposable collections only.
+The V2 namespace now has typed `create()`, `delete()`, `reload()`, and `modify()` methods in addition to read-only discovery. The implementation uses the post-Solr-9.3 routes and does not translate to the legacy Solr 8.11 command envelope. Exact serialization and consumer type fixtures are present. Integration and BasicAuth route-gate evidence has not yet been collected; these operations must not be described as runtime-tested until the pinned Solr 9.11.0 and 10.1.0 workflows pass. CREATE/DELETE/RELOAD tests must use disposable collections only.
+
+## V2 collection property methods
+
+The V2 namespace exposes `getProperties(collection)`, `getProperty(collection, property)`, `setProperty(collection, property, value)`, and `deleteProperty(collection, property)` using the documented `/api/collections/{collection}/properties` subresource. Reads return either the full `properties` map or one `value`; writes send `{ value }` and deletes target one named property. Property values are strings. The GET routes are documented in the Solr 9.11 guide; PUT/DELETE are documented from Solr 9.3. Solr 8.11.4 is not claimed. Exact unit serialization, consumer type, isolated SolrCloud read-back, and BasicAuth route-gate tests are present; runtime evidence remains pending on pinned Solr 9.11.0 and 10.1.0. See [V2 strategy](solr-v2-api-strategy.md).
 
 ## V2 collection backup operations
 

@@ -51,6 +51,29 @@ cloudIntegrationTest("V2 Collections modify updates collection attributes on an 
   ? undefined
   : "The redesigned V2 modify command is not claimed on Solr 8.11.4");
 
+cloudIntegrationTest("V2 collection properties round-trip on an isolated collection", async ({
+  client,
+  createCollection
+}) => {
+  const collection = await createCollection("v2_collection_properties");
+  await client.v2.collections.setProperty(collection, "test.owner", "integration");
+  const one = await client.v2.collections.getProperty(collection, "test.owner");
+  assert.equal(one.value, "integration");
+
+  const all = await client.v2.collections.getProperties(collection);
+  assert.equal(all.properties?.["test.owner"], "integration");
+
+  await client.v2.collections.setProperty(collection, "test.owner", "updated");
+  const updated = await client.v2.collections.getProperty(collection, "test.owner");
+  assert.equal(updated.value, "updated");
+
+  await client.v2.collections.deleteProperty(collection, "test.owner");
+  const afterDelete = await client.v2.collections.getProperties(collection);
+  assert.equal(afterDelete.properties?.["test.owner"], undefined);
+}, false, false, ["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")
+  ? undefined
+  : "The collection-property GET routes are documented in Solr 9.11; PUT/DELETE are documented from Solr 9.3. Solr 8.11.4 is not claimed");
+
 cloudIntegrationTest("V2 replica add and exact delete update isolated collection topology", async ({
   client,
   createCollection

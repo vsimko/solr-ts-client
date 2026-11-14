@@ -1309,6 +1309,23 @@ export interface SolrV2CollectionModifyParams {
   async?: string;
 }
 
+/** String value accepted by the V2 collection property API. */
+export type SolrV2CollectionPropertyValue = string;
+
+/** Response from GET /api/collections/{collection}/properties. */
+export interface SolrV2CollectionPropertiesResponse {
+  responseHeader?: SolrResponseHeader;
+  properties?: Readonly<Record<string, string>>;
+  readonly [key: string]: unknown;
+}
+
+/** Response from GET /api/collections/{collection}/properties/{property}. */
+export interface SolrV2CollectionPropertyResponse {
+  responseHeader?: SolrResponseHeader;
+  value?: string;
+  readonly [key: string]: unknown;
+}
+
 /** Query controls for deleting a V2 collection. Destructive directory deletion is opt-in. */
 export interface SolrV2CollectionDeleteOptions {
   deleteInstanceDir?: boolean;

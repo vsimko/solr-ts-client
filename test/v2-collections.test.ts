@@ -98,6 +98,57 @@ test("V2 Collections modify rejects empty and invalid attributes before fetch", 
   assert.throws(() => client.v2.collections.modify("books", { async: "bad/id" }), /must not contain/);
 });
 
+test("V2 collection properties serialize GET, PUT and DELETE routes", async () => {
+  const requests: { url: URL; method: string; body: string }[] = [];
+  const client = createSolrClient({
+    fetch: async (input, init) => {
+      const url = new URL(String(input));
+      const method = String(init?.method);
+      requests.push({ url, method, body: String(init?.body ?? "") });
+      const payload = method === "GET" && url.pathname.endsWith("/properties")
+        ? { responseHeader: { status: 0 }, properties: { owner: "tests", generation: "2" } }
+        : method === "GET"
+          ? { responseHeader: { status: 0 }, value: "tests" }
+          : { responseHeader: { status: 0 } };
+      return new Response(JSON.stringify(payload));
+    }
+  });
+
+  const all = await client.v2.collections.getProperties("books archive");
+  const one = await client.v2.collections.getProperty("books archive", "owner name");
+  await client.v2.collections.setProperty("books archive", "owner name", "tests");
+  await client.v2.collections.deleteProperty("books archive", "owner name");
+
+  assert.deepEqual(all.properties, { owner: "tests", generation: "2" });
+  assert.equal(one.value, "tests");
+  assert.deepEqual(requests.map(({ url, method }) => [url.pathname, method]), [
+    ["/api/collections/books%20archive/properties", "GET"],
+    ["/api/collections/books%20archive/properties/owner%20name", "GET"],
+    ["/api/collections/books%20archive/properties/owner%20name", "PUT"],
+    ["/api/collections/books%20archive/properties/owner%20name", "DELETE"]
+  ]);
+  assert.deepEqual(JSON.parse(requests[2]!.body), { value: "tests" });
+  assert.equal(requests[0]!.body, "");
+  assert.equal(requests[1]!.body, "");
+  assert.equal(requests[3]!.body, "");
+});
+
+test("V2 collection property methods reject invalid collection/property paths and values", () => {
+  const client = createSolrClient({ fetch: async () => { throw new Error("fetch must not run"); } });
+  for (const collection of ["", " ", ".", "..", "../admin", "a/b", "a\\\\b"]) {
+    assert.throws(() => client.v2.collections.getProperties(collection), /non-empty collection name/);
+  }
+  for (const property of ["", " ", ".", "..", "../admin", "a/b", "a\\\\b"]) {
+    assert.throws(() => client.v2.collections.getProperty("books", property), /non-empty property name/);
+    assert.throws(() => client.v2.collections.setProperty("books", property, "value"), /non-empty property name/);
+    assert.throws(() => client.v2.collections.deleteProperty("books", property), /non-empty property name/);
+  }
+  assert.throws(
+    () => client.v2.collections.setProperty("books", "owner", 1 as unknown as string),
+    /value must be a string/
+  );
+});
+
 test("V2 Collections reload uses POST /api/collections/{collection}/reload", async () => {
   let captured: { url: URL; method: string } | undefined;
   const client = createSolrClient({

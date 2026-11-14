@@ -1,6 +1,6 @@
 import { SolrHttpError } from "./errors.js";
 import type { SolrTransport } from "./transport.js";
-import type { RequestControlOptions, RequestOptions, SolrV2ClusterStatusResponse, SolrV2CollectionListResponse, SolrV2CollectionStatusOptions, SolrV2CollectionStatusResponse, SolrV2CollectionCreateParams, SolrV2CollectionDeleteOptions, SolrV2CollectionModifyParams, SolrV2CollectionOperationResponse, SolrV2AliasListResponse, SolrV2AliasStatusResponse, SolrV2AliasCreateParams, SolrV2AliasMutationOptions, SolrV2AliasPropertyValue, SolrV2AliasOperationResponse, SolrV2AliasPropertiesResponse, SolrV2AliasPropertyResponse, SolrV2AddReplicaParams, SolrV2ReplicaMutationOptions, SolrV2DeleteReplicaOptions, SolrV2ReplicaOperationResponse, SolrV2CollectionBackupParams, SolrV2BackupListOptions, SolrV2BackupDeleteOptions, SolrV2BackupRestoreParams, SolrV2BackupOperationResponse, SolrV2BackupListResponse, SolrV2BackupDeleteResponse, SolrV2CoreOperationResponse, SolrV2CoreRenameParams, SolrV2CoreStatusOptions, SolrV2CoreStatusResponse, SolrV2CoreUnloadParams } from "./types.js";
+import type { RequestControlOptions, RequestOptions, SolrV2ClusterStatusResponse, SolrV2CollectionListResponse, SolrV2CollectionStatusOptions, SolrV2CollectionStatusResponse, SolrV2CollectionCreateParams, SolrV2CollectionDeleteOptions, SolrV2CollectionModifyParams, SolrV2CollectionOperationResponse, SolrV2CollectionPropertyValue, SolrV2CollectionPropertiesResponse, SolrV2CollectionPropertyResponse, SolrV2AliasListResponse, SolrV2AliasStatusResponse, SolrV2AliasCreateParams, SolrV2AliasMutationOptions, SolrV2AliasPropertyValue, SolrV2AliasOperationResponse, SolrV2AliasPropertiesResponse, SolrV2AliasPropertyResponse, SolrV2AddReplicaParams, SolrV2ReplicaMutationOptions, SolrV2DeleteReplicaOptions, SolrV2ReplicaOperationResponse, SolrV2CollectionBackupParams, SolrV2BackupListOptions, SolrV2BackupDeleteOptions, SolrV2BackupRestoreParams, SolrV2BackupOperationResponse, SolrV2BackupListResponse, SolrV2BackupDeleteResponse, SolrV2CoreOperationResponse, SolrV2CoreRenameParams, SolrV2CoreStatusOptions, SolrV2CoreStatusResponse, SolrV2CoreUnloadParams } from "./types.js";
 
 /**
  * Explicit Solr V2 API namespace sharing the configured V1 transport.
@@ -317,6 +317,66 @@ export class SolrV2CollectionsClient {
       method: "POST",
       body: { modify: params }
     });
+  }
+
+  /** Read all custom properties on a collection (documented on Solr 9.11+). */
+  getProperties(
+    collection: string,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2CollectionPropertiesResponse> {
+    return this.v2.request<SolrV2CollectionPropertiesResponse>(`${this.collectionPath(collection)}/properties`, {
+      ...requestOptions,
+      method: "GET"
+    });
+  }
+
+  /** Read one custom property on a collection (documented on Solr 9.11+). */
+  getProperty(
+    collection: string,
+    property: string,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2CollectionPropertyResponse> {
+    return this.v2.request<SolrV2CollectionPropertyResponse>(this.propertyPath(collection, property), {
+      ...requestOptions,
+      method: "GET"
+    });
+  }
+
+  /** Create or update one custom collection property (documented from Solr 9.3). */
+  setProperty(
+    collection: string,
+    property: string,
+    value: SolrV2CollectionPropertyValue,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2CollectionOperationResponse> {
+    if (typeof value !== "string") {
+      throw new TypeError("Solr V2 collection property value must be a string");
+    }
+    return this.v2.request<SolrV2CollectionOperationResponse>(this.propertyPath(collection, property), {
+      ...requestOptions,
+      method: "PUT",
+      body: { value }
+    });
+  }
+
+  /** Delete one custom collection property (documented from Solr 9.3). */
+  deleteProperty(
+    collection: string,
+    property: string,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2CollectionOperationResponse> {
+    return this.v2.request<SolrV2CollectionOperationResponse>(this.propertyPath(collection, property), {
+      ...requestOptions,
+      method: "DELETE"
+    });
+  }
+
+  private propertyPath(collection: string, property: string): `/api/collections/${string}/properties/${string}` {
+    if (typeof property !== "string" || property.trim().length === 0 ||
+      property === "." || property === ".." || property.includes("/") || property.includes("\\")) {
+      throw new TypeError("Solr V2 Collections requires a non-empty property name without path separators");
+    }
+    return `${this.collectionPath(collection)}/properties/${encodeURIComponent(property)}`;
   }
 
   /** Reload a collection using the REST-style V2 route (Solr 9.3+). */
