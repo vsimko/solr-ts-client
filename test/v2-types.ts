@@ -59,21 +59,36 @@ const clusterStatus: Promise<SolrV2ClusterStatusResponse> = clusterNamespace.sta
 import type {
   SolrV2CollectionCreateParams,
   SolrV2CollectionDeleteOptions,
+  SolrV2CollectionModifyParams,
   SolrV2CollectionOperationResponse
 } from "../src/index.js";
 const createParams: SolrV2CollectionCreateParams = {
   name: "books", config: "books-config", numShards: 2, replicationFactor: 2
 };
 const deleteOptions: SolrV2CollectionDeleteOptions = { deleteIndex: true };
+const modifyParams: SolrV2CollectionModifyParams = {
+  replicationFactor: 2,
+  "collection.configName": "books-config",
+  readOnly: false,
+  async: "modify-books"
+};
+const modifiedCollection: Promise<SolrV2CollectionOperationResponse> =
+  collectionsNamespace.modify("books", modifyParams);
+void modifiedCollection;
+
 const createdCollection: Promise<SolrV2CollectionOperationResponse> =
   collectionsNamespace.create(createParams);
 const deletedCollection: Promise<SolrV2CollectionOperationResponse> =
   collectionsNamespace.delete("books", deleteOptions);
 const reloadedCollection: Promise<SolrV2CollectionOperationResponse> =
   collectionsNamespace.reload("books");
-void [createdCollection, deletedCollection, reloadedCollection];
+void [createdCollection, deletedCollection, reloadedCollection, modifiedCollection];
 // @ts-expect-error Collection creation requires a configset name.
 void collectionsNamespace.create({ name: "books" });
+// @ts-expect-error Collection modification rejects unknown attributes.
+void collectionsNamespace.modify("books", { unknownAttribute: true });
+// @ts-expect-error Replication factor must be numeric.
+void collectionsNamespace.modify("books", { replicationFactor: "2" });
 // @ts-expect-error Destructive directory flags are boolean.
 void collectionsNamespace.delete("books", { deleteIndex: "true" });
 
