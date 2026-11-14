@@ -12,7 +12,7 @@ The V2 namespace now has typed `create()`, `delete()`, `reload()`, and `modify()
 
 ## V2 collection property methods
 
-The V2 namespace exposes `getProperties(collection)`, `getProperty(collection, property)`, `setProperty(collection, property, value)`, and `deleteProperty(collection, property)` using the documented `/api/collections/{collection}/properties` subresource. Reads return either the full `properties` map or one `value`; writes send `{ value }` and deletes target one named property. Property values are strings. These routes are documented from Solr 9.3; Solr 8.11.4 is not claimed. Exact unit serialization, consumer type, isolated SolrCloud read-back, and BasicAuth route-gate tests are present; runtime evidence remains pending on pinned Solr 9.11.0 and 10.1.0. See [V2 strategy](solr-v2-api-strategy.md).
+The V2 namespace exposes `getProperties(collection)`, `getProperty(collection, property)`, `setProperty(collection, property, value)`, and `deleteProperty(collection, property)` using the documented `/api/collections/{collection}/properties` subresource. Reads return either the full `properties` map or one `value`; writes send `{ value }` and deletes target one named property. Property values are strings. The GET routes are documented in the Solr 9.11 guide; PUT/DELETE are documented from Solr 9.3. Solr 8.11.4 is not claimed. Exact unit serialization, consumer type, isolated SolrCloud read-back, and BasicAuth route-gate tests are present; runtime evidence remains pending on pinned Solr 9.11.0 and 10.1.0. See [V2 strategy](solr-v2-api-strategy.md).
 
 ## V2 collection backup operations
 
