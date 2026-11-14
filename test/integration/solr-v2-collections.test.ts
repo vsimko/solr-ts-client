@@ -38,6 +38,19 @@ cloudIntegrationTest("V2 cluster status reports the isolated collection", async 
   ? undefined
   : "GET /api/cluster CLUSTERSTATUS is documented from Solr 9.11; Solr 8.11 is not claimed");
 
+cloudIntegrationTest("V2 Collections modify updates collection attributes on an isolated collection", async ({
+  client,
+  createCollection
+}) => {
+  const collection = await createCollection("v2_modify");
+  await client.v2.collections.modify(collection, { replicationFactor: 2 });
+  const status = await client.v2.collections.status(collection);
+  assert.equal(Number(status.properties?.replicationFactor), 2,
+    "MODIFY must persist replicationFactor in the collection properties");
+}, false, false, ["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")
+  ? undefined
+  : "The redesigned V2 modify command is not claimed on Solr 8.11.4");
+
 cloudIntegrationTest("V2 replica add and exact delete update isolated collection topology", async ({
   client,
   createCollection
