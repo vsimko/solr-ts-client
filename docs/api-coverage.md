@@ -69,7 +69,7 @@ The following gaps were reviewed for the TypeScript-first, balanced product scop
 - **Retry telemetry** — retry policy is opt-in; logging/metrics integration belongs to caller observability policy. The transport deliberately avoids logging credentials or server-controlled bodies.
 - **Additional validation adapters and operation-specific schema examples** — the generic schema interface and optional Zod peer cover the supported extension contract. Add another adapter only for a demonstrated ecosystem demand.
 - **Runtime verification of Core Admin `RENAME`, `SWAP`, `MERGEINDEXES`, `SPLIT`, `REQUESTSTATUS`, and `REQUESTRECOVERY`** — these operations have isolated/destructive or operational side effects and remain type/serialization-covered only until a safe, deterministic disposable environment is justified.
-- **Collections `MODIFYCOLLECTION`, `ADDROLE`, and `REMOVEROLE` runtime verification** — these mutate cluster-wide policy/configuration and are not run against shared CI state. SPLITSHARD/MIGRATE have the separate opt-in gate in [#232](https://github.com/vsimko/solr-ts-client/issues/232).
+- **V1 Collections `MODIFYCOLLECTION`, `ADDROLE`, and `REMOVEROLE` runtime verification** — these mutate cluster-wide policy/configuration and remain unverified on the V1 route. The separately typed V2 `collections.modify()` operation has its own isolated test, but is not runtime-certified until the pinned CI matrix passes. SPLITSHARD/MIGRATE have the separate opt-in gate in [#232](https://github.com/vsimko/solr-ts-client/issues/232).
 
 ### Intentional non-goals
 
