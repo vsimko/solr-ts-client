@@ -133,11 +133,38 @@ cloudIntegrationTest(
       assert.equal(restored.response?.numFound, 1);
       assert.ok(restored.response?.docs?.[0]?.title?.includes("solrcloud v2 backup fixture"));
     } finally {
-      if (backupId !== undefined) {
-        await client.v2.backups.delete(backupName, backupId, { location }).catch(() => undefined);
+      const cleanupErrors: unknown[] = [];
+      const backupIds = new Set<number>();
+
+      // Discover backup points again during cleanup: the test may fail after the
+      // server accepted the async backup but before the normal list assertion.
+      try {
+        const remaining = await client.v2.backups.list(backupName, { location });
+        for (const point of remaining.backups ?? []) {
+          if (typeof point.backupId === "number") backupIds.add(point.backupId);
+        }
+      } catch (error) {
+        if (backupId === undefined) cleanupErrors.push(error);
       }
-      await client.collections("DELETESTATUS", { requestid: backupRequest }).catch(() => undefined);
-      await client.collections("DELETESTATUS", { requestid: restoreRequest }).catch(() => undefined);
+      if (backupId !== undefined) backupIds.add(backupId);
+
+      for (const id of backupIds) {
+        try {
+          await client.v2.backups.delete(backupName, id, { location });
+        } catch (error) {
+          cleanupErrors.push(error);
+        }
+      }
+      for (const requestid of [backupRequest, restoreRequest]) {
+        try {
+          await client.collections("DELETESTATUS", { requestid });
+        } catch (error) {
+          cleanupErrors.push(error);
+        }
+      }
+      if (cleanupErrors.length > 0) {
+        throw new AggregateError(cleanupErrors, "Failed to clean up V2 collection backup integration resources");
+      }
     }
   },
   false,
