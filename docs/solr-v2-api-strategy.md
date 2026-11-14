@@ -152,15 +152,17 @@ Issue #409 adds the first state-changing V2 collection methods independently of 
 - `client.v2.collections.create(params)` — `POST /api/collections` with the flat request body introduced by the Solr 9.3-era redesign. The required typed fields are `name` and `config`; commonly used shard and replica placement fields are optional.
 - `client.v2.collections.delete(name, options?)` — `DELETE /api/collections/{collection}`. Directory deletion controls are explicit opt-ins and are omitted unless supplied.
 - `client.v2.collections.reload(name)` — `POST /api/collections/{collection}/reload`, documented as the REST-style V2 route from Solr 9.3.
+- `client.v2.collections.modify(name, params)` — `POST /api/collections/{collection}` with a `{ modify: { ...attributes } }` JSON body. The initial typed fields are `replicationFactor`, `collection.configName`, and `readOnly`; optional `async` stays inside the command body. This updates collection metadata, not replica topology.
 
 These methods use V2-specific contracts and the shared authenticated transport. They do not reuse V1 request models, infer a V1 fallback, or claim Solr 8.11 compatibility. The Solr 8.11 guide predates the flat create-body and REST-style lifecycle redesign; its legacy command envelope is intentionally not synthesized by these methods. The current unit and consumer fixtures assert method, path, body/query serialization, input validation, and response extensibility. Runtime compatibility and security-gate checks remain pending; source presence is not runtime evidence.
 
 Official evidence:
 - [Solr 9.11 release notes](https://solr.apache.org/docs/9_11_0/changes/Changes.html) — SOLR-16391 records the flat `POST /api/collections` create body; SOLR-16398 records `POST /api/collections/{collection}/reload`.
+- [Solr 9.11 Collection Management guide](https://solr.apache.org/guide/solr/9_11/deployment-guide/collection-management.html) — MODIFYCOLLECTION route, command body, supported attributes, and read-only semantics.
 - [Solr 10.1 Collections API guide](https://solr.apache.org/guide/solr/10_1/configuration-guide/collections-api.html) — current collection lifecycle API family.
 - [Solr V2 API guide](https://solr.apache.org/guide/solr/10_1/configuration-guide/v2-api.html) — V2 route and request-body model.
 
-Collection deletion, create and reload are state-changing operations. Runtime tests must use uniquely named disposable collections and verify state before cleanup; no shared or user data may be targeted.
+The modify operation is also state-changing. Increasing `replicationFactor` only updates collection metadata and does not create replicas. Changing `readOnly` can reject writes, abort in-flight update requests, force a commit, and reload the collection; callers should treat that flag as an operational control. Runtime tests use uniquely named disposable collections and verify persisted properties before cleanup; no shared or user data may be targeted.
 
 ## V2 shard and replica administration (issue #411)
 
