@@ -1497,6 +1497,30 @@
       "clientMethod": "v2.backups.restore",
       "httpMethod": "POST",
       "path": "/api/backups/{backup}/restore"
+    },
+    {
+      "id": "v2.collections.modify",
+      "area": "Solr V2 Collections",
+      "clientMethod": "v2.collections.modify",
+      "httpMethod": "POST",
+      "path": "/api/collections/{collection}",
+      "methodImplemented": true,
+      "typeCoverage": "complete",
+      "unitTests": "present",
+      "integrationTests": "not-run",
+      "versions": {
+        "8": "unverified",
+        "9": "unverified",
+        "10": "unverified"
+      },
+      "documentation": "docs/solr-v2-api-strategy.md",
+      "testFiles": [
+        "test/v2-collections.test.ts",
+        "test/v2-types.ts",
+        "test/integration/solr-v2-collections.test.ts",
+        "test/integration/solr-v2-security.test.ts"
+      ],
+      "notes": "Typed V2 modify command for replicationFactor, collection.configName, and readOnly. Attributes are sent inside the {modify:{...}} body; async is part of that command body. This updates collection metadata and does not change replica topology. readOnly transitions can reject writes and trigger a commit/reload. Unit/type and isolated SolrCloud/security tests are present; runtime evidence remains pending CI. Solr 8.11 legacy command behavior is not claimed."
     }
   ]
 }
