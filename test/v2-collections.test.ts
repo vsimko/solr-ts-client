@@ -62,6 +62,42 @@ test("V2 Collections delete uses DELETE and serializes only explicit directory f
   assert.equal(captured!.url.searchParams.has("deleteInstanceDir"), false);
 });
 
+test("V2 Collections modify posts the documented modify command and preserves async in its body", async () => {
+  let captured: { url: URL; method: string; body: string | undefined } | undefined;
+  const client = createSolrClient({
+    fetch: async (input, init) => {
+      captured = { url: new URL(String(input)), method: String(init?.method), body: String(init?.body ?? "") };
+      return new Response(JSON.stringify({ responseHeader: { status: 0 } }));
+    }
+  });
+  await client.v2.collections.modify("books archive", {
+    replicationFactor: 2,
+    "collection.configName": "books-config",
+    readOnly: false,
+    async: "modify-books"
+  });
+  assert.equal(captured!.url.pathname, "/api/collections/books%20archive");
+  assert.equal(captured!.method, "POST");
+  assert.deepEqual(JSON.parse(captured!.body!), {
+    modify: {
+      replicationFactor: 2,
+      "collection.configName": "books-config",
+      readOnly: false,
+      async: "modify-books"
+    }
+  });
+});
+
+test("V2 Collections modify rejects empty and invalid attributes before fetch", () => {
+  const client = createSolrClient({ fetch: async () => { throw new Error("fetch must not run"); } });
+  assert.throws(() => client.v2.collections.modify("books", {}), /at least one collection attribute/);
+  assert.throws(() => client.v2.collections.modify("books", { replicationFactor: 0 }), /positive safe integer/);
+  assert.throws(() => client.v2.collections.modify("books", { "collection.configName": " " }), /configName must be non-empty/);
+  assert.throws(() => client.v2.collections.modify("books", { readOnly: "true" as unknown as boolean }), /readOnly must be a boolean/);
+  assert.throws(() => client.v2.collections.modify("books", { async: " " }), /async request id/);
+  assert.throws(() => client.v2.collections.modify("books", { async: "bad/id" }), /must not contain/);
+});
+
 test("V2 Collections reload uses POST /api/collections/{collection}/reload", async () => {
   let captured: { url: URL; method: string } | undefined;
   const client = createSolrClient({

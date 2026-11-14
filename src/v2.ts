@@ -1,6 +1,6 @@
 import { SolrHttpError } from "./errors.js";
 import type { SolrTransport } from "./transport.js";
-import type { RequestControlOptions, RequestOptions, SolrV2ClusterStatusResponse, SolrV2CollectionListResponse, SolrV2CollectionStatusOptions, SolrV2CollectionStatusResponse, SolrV2CollectionCreateParams, SolrV2CollectionDeleteOptions, SolrV2CollectionOperationResponse, SolrV2AliasListResponse, SolrV2AliasStatusResponse, SolrV2AliasCreateParams, SolrV2AliasMutationOptions, SolrV2AliasPropertyValue, SolrV2AliasOperationResponse, SolrV2AliasPropertiesResponse, SolrV2AliasPropertyResponse, SolrV2AddReplicaParams, SolrV2ReplicaMutationOptions, SolrV2DeleteReplicaOptions, SolrV2ReplicaOperationResponse, SolrV2CollectionBackupParams, SolrV2BackupListOptions, SolrV2BackupDeleteOptions, SolrV2BackupRestoreParams, SolrV2BackupOperationResponse, SolrV2BackupListResponse, SolrV2BackupDeleteResponse, SolrV2CoreOperationResponse, SolrV2CoreRenameParams, SolrV2CoreStatusOptions, SolrV2CoreStatusResponse, SolrV2CoreUnloadParams } from "./types.js";
+import type { RequestControlOptions, RequestOptions, SolrV2ClusterStatusResponse, SolrV2CollectionListResponse, SolrV2CollectionStatusOptions, SolrV2CollectionStatusResponse, SolrV2CollectionCreateParams, SolrV2CollectionDeleteOptions, SolrV2CollectionModifyParams, SolrV2CollectionOperationResponse, SolrV2AliasListResponse, SolrV2AliasStatusResponse, SolrV2AliasCreateParams, SolrV2AliasMutationOptions, SolrV2AliasPropertyValue, SolrV2AliasOperationResponse, SolrV2AliasPropertiesResponse, SolrV2AliasPropertyResponse, SolrV2AddReplicaParams, SolrV2ReplicaMutationOptions, SolrV2DeleteReplicaOptions, SolrV2ReplicaOperationResponse, SolrV2CollectionBackupParams, SolrV2BackupListOptions, SolrV2BackupDeleteOptions, SolrV2BackupRestoreParams, SolrV2BackupOperationResponse, SolrV2BackupListResponse, SolrV2BackupDeleteResponse, SolrV2CoreOperationResponse, SolrV2CoreRenameParams, SolrV2CoreStatusOptions, SolrV2CoreStatusResponse, SolrV2CoreUnloadParams } from "./types.js";
 
 /**
  * Explicit Solr V2 API namespace sharing the configured V1 transport.
@@ -277,6 +277,45 @@ export class SolrV2CollectionsClient {
       method: "POST",
       body,
       ...(asyncId === undefined ? {} : { query: { async: this.asyncId(asyncId) } })
+    });
+  }
+
+  /**
+   * Modify collection attributes using the post-Solr-9.3 V2 command envelope.
+   * This updates collection metadata; changing replicationFactor does not
+   * create or remove replicas. Setting readOnly can interrupt in-flight updates.
+   */
+  modify(
+    collection: string,
+    params: SolrV2CollectionModifyParams,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2CollectionOperationResponse> {
+    const path = this.collectionPath(collection);
+    if (!params || typeof params !== "object") {
+      throw new TypeError("Solr V2 Collections modify requires an attributes object");
+    }
+    const { async: asyncId, ...attributes } = params;
+    if (Object.keys(attributes).length === 0) {
+      throw new TypeError("Solr V2 Collections modify requires at least one collection attribute");
+    }
+    if (attributes.replicationFactor !== undefined &&
+      (!Number.isSafeInteger(attributes.replicationFactor) || attributes.replicationFactor < 1)) {
+      throw new TypeError("Solr V2 Collections modify replicationFactor must be a positive safe integer");
+    }
+    if (attributes["collection.configName"] !== undefined &&
+      (typeof attributes["collection.configName"] !== "string" || attributes["collection.configName"].trim().length === 0)) {
+      throw new TypeError("Solr V2 Collections modify collection.configName must be non-empty");
+    }
+    if (attributes.readOnly !== undefined && typeof attributes.readOnly !== "boolean") {
+      throw new TypeError("Solr V2 Collections modify readOnly must be a boolean");
+    }
+    if (asyncId !== undefined && (typeof asyncId !== "string" || asyncId.trim().length === 0 || asyncId.includes("/"))) {
+      throw new TypeError("Solr V2 Collections modify async request id must be non-empty and must not contain '/'");
+    }
+    return this.v2.request<SolrV2CollectionOperationResponse>(path, {
+      ...requestOptions,
+      method: "POST",
+      body: { modify: params }
     });
   }
 
