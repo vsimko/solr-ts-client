@@ -62,6 +62,10 @@ The client also exposes an opt-in `client.v2` namespace. It uses the same config
 | `SolrV2CollectionsClient.delete()` | Delete a SolrCloud collection | `DELETE /api/collections/{collection}`; data/index directory deletion flags are opt-in. |
 | `SolrV2CollectionsClient.reload()` | Reload a SolrCloud collection | `POST /api/collections/{collection}/reload`; documented from Solr 9.3. |
 | `SolrV2CollectionsClient.status()` | Read one collection's status | `GET /api/collections/{collection}`; direct `CollectionStatusResponse` with `name`, `activeShards`, `inactiveShards`, `properties`, and `shards`; supports `coreInfo`, `segments`, `fieldInfo`, and `sizeInfo` flags. |
+| `SolrV2CollectionsClient.getProperties()` | Read all custom properties on a collection | `GET /api/collections/{collection}/properties`; Solr 9.3+. |
+| `SolrV2CollectionsClient.getProperty()` | Read one custom collection property | `GET /api/collections/{collection}/properties/{property}`; Solr 9.3+. |
+| `SolrV2CollectionsClient.setProperty()` | Create or update one custom collection property | `PUT /api/collections/{collection}/properties/{property}` with a `{ value }` JSON body; Solr 9.3+. |
+| `SolrV2CollectionsClient.deleteProperty()` | Delete one custom collection property | `DELETE /api/collections/{collection}/properties/{property}`; Solr 9.3+. |
 | `SolrV2CollectionsClient.addReplica()` | Add replica(s) to a shard | `POST /api/collections/{collection}/shards/{shard}/replicas` with a typed body; alternatively uses `route` when shard is omitted. Solr 9.0+. |
 | `SolrV2CollectionsClient.deleteReplica()` | Delete one named replica | `DELETE /api/collections/{collection}/shards/{shard}/replicas/{replica}`; preserves instance/data/index directories by default, with explicit opt-in flags. Solr 9.0+. |
 | `SolrV2ClusterClient.status()` | Read SolrCloud cluster status | `GET /api/cluster`; documented from Solr 9.11. |
