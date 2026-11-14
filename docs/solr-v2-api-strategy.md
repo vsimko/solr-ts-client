@@ -164,6 +164,22 @@ Official evidence:
 
 The modify operation is also state-changing. Increasing `replicationFactor` only updates collection metadata and does not create replicas. Changing `readOnly` can reject writes, abort in-flight update requests, force a commit, and reload the collection; callers should treat that flag as an operational control. Runtime tests use uniquely named disposable collections and verify persisted properties before cleanup; no shared or user data may be targeted.
 
+## V2 collection property operations (issue #419)
+
+The V2 Collections namespace exposes the collection-property subresource independently of the collection `modify` command:
+
+- `getProperties(collection)` — `GET /api/collections/{collection}/properties`, returning a `properties` string map.
+- `getProperty(collection, property)` — `GET /api/collections/{collection}/properties/{property}`, returning `value`.
+- `setProperty(collection, property, value)` — `PUT /api/collections/{collection}/properties/{property}` with a `{ value }` JSON body.
+- `deleteProperty(collection, property)` — `DELETE /api/collections/{collection}/properties/{property}`.
+
+These are collection metadata properties, not the `replicationFactor`, `readOnly`, or `collection.configName` fields handled by `modify()`. Property values are strings as documented by Solr. Collection and property path segments are validated and URL-encoded; property names cannot contain path separators. The methods use the shared transport and have no V1 fallback. The official Collection Management guide documents the modern property subroutes from Solr 9.3; Solr 8.11.4 is not claimed. The new unit/type, disposable SolrCloud read-back, and BasicAuth route-gate tests are present, but runtime compatibility remains pending until CI passes on Solr 9.11.0 and 10.1.0.
+
+Official route and response evidence:
+- [Solr 10.1 Collection Management — COLLECTIONPROP](https://solr.apache.org/guide/solr/10_1/deployment-guide/collection-management.html) — list all properties, read one property, set with `{ value }`, delete, and response envelopes.
+- [Solr 9.5 Collection Management — COLLECTIONPROP](https://solr.apache.org/guide/solr/9_5/deployment-guide/collection-management.html) — confirms the modern property mutation routes before the 9.11 baseline.
+- [Solr 9.3 CollectionProperty API](https://solr.apache.org/__root/docs.solr.apache.org/docs/9_3_0/core/org/apache/solr/handler/admin/api/CollectionPropertyAPI.html) — confirms the property subresource was present in the 9.3 line.
+
 ## V2 shard and replica administration (issue #411)
 
 The first typed administration slice is intentionally limited to additive replica creation and deletion of one explicitly named replica:
