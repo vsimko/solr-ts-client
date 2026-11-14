@@ -319,7 +319,7 @@ export class SolrV2CollectionsClient {
     });
   }
 
-  /** Read all custom properties on a collection (Solr 9.3+). */
+  /** Read all custom properties on a collection (documented on Solr 9.11+). */
   getProperties(
     collection: string,
     requestOptions: RequestControlOptions = {}
@@ -330,7 +330,7 @@ export class SolrV2CollectionsClient {
     });
   }
 
-  /** Read one custom property on a collection (Solr 9.3+). */
+  /** Read one custom property on a collection (documented on Solr 9.11+). */
   getProperty(
     collection: string,
     property: string,
@@ -342,7 +342,7 @@ export class SolrV2CollectionsClient {
     });
   }
 
-  /** Create or update one custom collection property (Solr 9.3+). */
+  /** Create or update one custom collection property (documented from Solr 9.3). */
   setProperty(
     collection: string,
     property: string,
@@ -359,7 +359,7 @@ export class SolrV2CollectionsClient {
     });
   }
 
-  /** Delete one custom collection property (Solr 9.3+). */
+  /** Delete one custom collection property (documented from Solr 9.3). */
   deleteProperty(
     collection: string,
     property: string,
