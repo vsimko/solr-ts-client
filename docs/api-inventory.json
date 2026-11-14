@@ -1544,7 +1544,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Reads all custom properties on one collection and returns the documented properties string map. The property subresource is documented from Solr 9.3; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
+      "notes": "Reads all custom properties on one collection and returns the documented properties string map. The property subresource is documented in the Solr 9.11 guide; no earlier minimum is claimed; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
     },
     {
       "id": "v2.collections.getProperty",
@@ -1568,7 +1568,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Reads one custom collection property and returns its string value. The property subresource is documented from Solr 9.3; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
+      "notes": "Reads one custom collection property and returns its string value. The property subresource is documented in the Solr 9.11 guide; no earlier minimum is claimed; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
     },
     {
       "id": "v2.collections.setProperty",
