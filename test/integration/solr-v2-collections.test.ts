@@ -72,7 +72,7 @@ cloudIntegrationTest("V2 collection properties round-trip on an isolated collect
   assert.equal(afterDelete.properties?.["test.owner"], undefined);
 }, false, false, ["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")
   ? undefined
-  : "The V2 collection property subroutes are documented from Solr 9.3; Solr 8.11.4 is not claimed");
+  : "The collection-property GET routes are documented in Solr 9.11; PUT/DELETE are documented from Solr 9.3. Solr 8.11.4 is not claimed");
 
 cloudIntegrationTest("V2 replica add and exact delete update isolated collection topology", async ({
   client,
