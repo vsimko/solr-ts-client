@@ -1521,6 +1521,102 @@
         "test/integration/solr-v2-security.test.ts"
       ],
       "notes": "Typed V2 modify command for replicationFactor, collection.configName, and readOnly. Attributes are sent inside the {modify:{...}} body; async is part of that command body. This updates collection metadata and does not change replica topology. readOnly transitions can reject writes and trigger a commit/reload. Unit/type and isolated SolrCloud/security tests are present; runtime evidence remains pending CI. Solr 8.11 legacy command behavior is not claimed."
+    },
+    {
+      "id": "v2.collections.getProperties",
+      "area": "Solr V2 Collections",
+      "clientMethod": "v2.collections.getProperties",
+      "httpMethod": "GET",
+      "path": "/api/collections/{collection}/properties",
+      "methodImplemented": true,
+      "typeCoverage": "complete",
+      "unitTests": "present",
+      "integrationTests": "not-run",
+      "versions": {
+        "8": "unverified",
+        "9": "unverified",
+        "10": "unverified"
+      },
+      "documentation": "docs/solr-v2-api-strategy.md",
+      "testFiles": [
+        "test/v2-collections.test.ts",
+        "test/v2-types.ts",
+        "test/integration/solr-v2-collections.test.ts",
+        "test/integration/solr-v2-security.test.ts"
+      ],
+      "notes": "Reads all custom properties on one collection and returns the documented properties string map. The property subresource is documented from Solr 9.3; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
+    },
+    {
+      "id": "v2.collections.getProperty",
+      "area": "Solr V2 Collections",
+      "clientMethod": "v2.collections.getProperty",
+      "httpMethod": "GET",
+      "path": "/api/collections/{collection}/properties/{property}",
+      "methodImplemented": true,
+      "typeCoverage": "complete",
+      "unitTests": "present",
+      "integrationTests": "not-run",
+      "versions": {
+        "8": "unverified",
+        "9": "unverified",
+        "10": "unverified"
+      },
+      "documentation": "docs/solr-v2-api-strategy.md",
+      "testFiles": [
+        "test/v2-collections.test.ts",
+        "test/v2-types.ts",
+        "test/integration/solr-v2-collections.test.ts",
+        "test/integration/solr-v2-security.test.ts"
+      ],
+      "notes": "Reads one custom collection property and returns its string value. The property subresource is documented from Solr 9.3; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
+    },
+    {
+      "id": "v2.collections.setProperty",
+      "area": "Solr V2 Collections",
+      "clientMethod": "v2.collections.setProperty",
+      "httpMethod": "PUT",
+      "path": "/api/collections/{collection}/properties/{property}",
+      "methodImplemented": true,
+      "typeCoverage": "complete",
+      "unitTests": "present",
+      "integrationTests": "not-run",
+      "versions": {
+        "8": "unverified",
+        "9": "unverified",
+        "10": "unverified"
+      },
+      "documentation": "docs/solr-v2-api-strategy.md",
+      "testFiles": [
+        "test/v2-collections.test.ts",
+        "test/v2-types.ts",
+        "test/integration/solr-v2-collections.test.ts",
+        "test/integration/solr-v2-security.test.ts"
+      ],
+      "notes": "Creates or updates one custom collection property using the documented {value} JSON body; values are strings. The property subresource is documented from Solr 9.3; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
+    },
+    {
+      "id": "v2.collections.deleteProperty",
+      "area": "Solr V2 Collections",
+      "clientMethod": "v2.collections.deleteProperty",
+      "httpMethod": "DELETE",
+      "path": "/api/collections/{collection}/properties/{property}",
+      "methodImplemented": true,
+      "typeCoverage": "complete",
+      "unitTests": "present",
+      "integrationTests": "not-run",
+      "versions": {
+        "8": "unverified",
+        "9": "unverified",
+        "10": "unverified"
+      },
+      "documentation": "docs/solr-v2-api-strategy.md",
+      "testFiles": [
+        "test/v2-collections.test.ts",
+        "test/v2-types.ts",
+        "test/integration/solr-v2-collections.test.ts",
+        "test/integration/solr-v2-security.test.ts"
+      ],
+      "notes": "Deletes exactly one named custom collection property. The property subresource is documented from Solr 9.3; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
     }
   ]
 }
