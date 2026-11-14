@@ -1298,6 +1298,17 @@ export interface SolrV2CollectionCreateParams {
   properties?: Readonly<Record<string, string | number | boolean>>;
 }
 
+/**
+ * Attributes accepted by the V2 collection "modify" command.
+ * This updates collection metadata only; it does not change replica topology.
+ */
+export interface SolrV2CollectionModifyParams {
+  replicationFactor?: number;
+  "collection.configName"?: string;
+  readOnly?: boolean;
+  async?: string;
+}
+
 /** Query controls for deleting a V2 collection. Destructive directory deletion is opt-in. */
 export interface SolrV2CollectionDeleteOptions {
   deleteInstanceDir?: boolean;
