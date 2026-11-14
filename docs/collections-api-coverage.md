@@ -8,7 +8,7 @@ The parallel V2 namespace exposes `client.v2.collections.list()` (`GET /api/coll
 
 ## V2 lifecycle methods
 
-The V2 namespace now has typed `create()`, `delete()`, and `reload()` methods in addition to read-only discovery. The implementation uses the post-Solr-9.3 routes and does not translate to the legacy Solr 8.11 command envelope. Exact serialization and consumer type fixtures are present. Integration and BasicAuth route-gate evidence has not yet been collected; these operations must not be described as runtime-tested until the pinned Solr 9.11.0 and 10.1.0 workflows pass. CREATE/DELETE/RELOAD tests must use disposable collections only.
+The V2 namespace now has typed `create()`, `delete()`, `reload()`, and `modify()` methods in addition to read-only discovery. The implementation uses the post-Solr-9.3 routes and does not translate to the legacy Solr 8.11 command envelope. Exact serialization and consumer type fixtures are present. Integration and BasicAuth route-gate evidence has not yet been collected; these operations must not be described as runtime-tested until the pinned Solr 9.11.0 and 10.1.0 workflows pass. CREATE/DELETE/RELOAD tests must use disposable collections only.
 
 ## V2 collection property methods
 
