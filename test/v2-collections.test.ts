@@ -145,7 +145,11 @@ test("V2 collection property methods reject invalid collection/property paths an
   }
   assert.throws(
     () => client.v2.collections.setProperty("books", "owner", 1 as unknown as string),
-    /value must be a string/
+    /value must be a non-empty string/
+  );
+  assert.throws(
+    () => client.v2.collections.setProperty("books", "owner", ""),
+    /value must be a non-empty string/
   );
 });
 
