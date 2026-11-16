@@ -37,7 +37,7 @@ The following is a route-family map, not a promise that every listed operation e
 | Config | `/{core-or-collection}/config` | `/api/c/{collection}/config` | Same API family, but request/response contracts and supported commands must be verified separately. |
 | Collections | `/admin/collections?action=...` | `/api/collections`, `/api/collections/{collection}`, `/api/collections/{collection}/shards/...`, `/api/aliases` | Solr 9.3 changed multiple paths and removed/renamed command envelopes. Backup, alias, replica, shard, and force-leader routes need version-specific mappings. |
 | Core Admin | `/admin/cores?action=...` | `/api/cores`, `/api/cores/{core}`, and operation subpaths such as `reload`, `rename`, `unload`, and `merge-indices` | V2 uses path parameters and JSON bodies for several actions. Core lifecycle operations are distinct from SolrCloud Collections operations. |
-| Collection backups | Collections V1 backup/list/restore/delete actions | `/api/collections/backups/{backup}/versions`, `/api/backups/{backup}/versions`, and `/api/backups/{backup}/restore` | Solr 9.3 redesigned backup creation/list/deletion/restore routes. Do not reuse the V1 backup parameter model. |
+| Collection backups | Collections V1 backup/list/restore/delete actions | `/api/collections/{collection}/backups/{backup}/versions`, `/api/backups/{backup}/versions`, and `/api/backups/{backup}/restore` | Solr 9.3 redesigned backup creation/list/deletion/restore routes. Do not reuse the V1 backup parameter model. |
 | Core backups and replication | CoreAdmin and ReplicationHandler V1 routes | V2 equivalents include `/api/cores/{core}/backups`, `/api/cores/{core}/restore`, and `/api/cores/{core}/replication/backups` in the documented 9.x line | Core-level and collection-level backup APIs have different topology/storage semantics. Verify availability and payloads per pinned version. |
 | Cluster and node administration | Collections cluster actions and node-specific V1 admin handlers | `/api/cluster`, `/api/node`, plus subpaths for health and logging | These operations have cluster-wide security and operational impact. Only expose named, scoped operations with clear authorization and risk documentation. |
 | Security and metrics | Existing V1 security and metrics handlers | V2 coverage is not fully mapped in this audit | Keep out of the first V2 implementation tranche until official per-version route, permission, and response evidence is recorded. |
@@ -57,7 +57,7 @@ The 9.3 redesign is a hard compatibility boundary for several V2 operations. Exa
 - `POST /api/collections/{collection}/reload`
 - `POST /api/collections/{collection}/rename`
 - `POST /api/collections/{collection}/shards/{shard}/replicas` for add-replica
-- `POST /api/collections/backups/{backup}/versions` for collection backup creation
+- `POST /api/collections/{collection}/backups/{backup}/versions` for collection backup creation
 - `POST /api/backups/{backup}/restore` for collection restore
 - `GET /api/backups/{backup}/versions` and DELETE variants for backup versions
 
