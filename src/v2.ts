@@ -14,7 +14,7 @@ export class SolrV2Client {
   /** Typed Core Admin V2 operations. These target standalone/user-managed cores, not SolrCloud collections. */
   readonly coreAdmin: SolrV2CoreAdminClient;
 
-  /** Read-only SolrCloud Collections V2 operations. */
+  /** SolrCloud Collections V2 discovery, lifecycle, metadata, replica, and backup operations. */
   readonly collections: SolrV2CollectionsClient;
 
   /** Read-only cluster-level V2 discovery operations. */
@@ -78,7 +78,8 @@ export class SolrV2Client {
 
 
 /**
- * Read-only SolrCloud Collections V2 discovery operations.
+ * SolrCloud Collections V2 operations, including discovery, lifecycle,
+ * metadata properties, replica administration, and collection backups.
  *
  * Collection listing and per-collection status are documented by the official
  * Solr V2 Collections API. The status response is intentionally open because
