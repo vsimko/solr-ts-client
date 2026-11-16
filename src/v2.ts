@@ -6,7 +6,7 @@ import type { RequestControlOptions, RequestOptions, SolrV2ClusterStatusResponse
  * Explicit Solr V2 API namespace sharing the configured V1 transport.
  *
  * Exposes a generic JSON/raw request escape hatch and operation-specific typed
- * typed Core Admin, Collections, and cluster discovery methods. V1 methods never fall back to V2 routes.
+ * typed Core Admin, Collections, alias, and cluster operations. V1 methods never fall back to V2 routes.
  */
 export class SolrV2Client {
   private readonly apiBaseUrl: string;
@@ -23,7 +23,7 @@ export class SolrV2Client {
   /** SolrCloud collection backup and restore operations (Solr 9.3+). */
   readonly backups: SolrV2BackupsClient;
 
-  /** Read-only SolrCloud alias discovery operations (Solr 9.3+). */
+  /** SolrCloud alias discovery and mutation operations (Solr 9.3+). */
   readonly aliases: SolrV2AliasesClient;
 
   constructor(private readonly transport: SolrTransport, baseUrl = "http://localhost:8983/") {
@@ -522,7 +522,7 @@ export class SolrV2BackupsClient {
 }
 
 /**
- * Read-only SolrCloud alias discovery operations.
+ * SolrCloud alias discovery and mutation operations.
  * GET /api/aliases and GET /api/aliases/{alias} are documented in the Solr 9.2+ reference guides.
  * The Solr 8.11 line is intentionally not claimed.
  */
