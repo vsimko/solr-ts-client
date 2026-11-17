@@ -212,9 +212,9 @@ void backupsNamespace.delete("books-backup", "0", { location: "file:///backups" 
 // @ts-expect-error Restore requires a target collection.
 void backupsNamespace.restore("books-backup", { location: "file:///backups" });
 
-const renameParams: SolrV2CollectionRenameParams = { to: "books-archive" };
-const renameResult: Promise<SolrV2CollectionRenameResponse> = namespace.collections.rename("books", renameParams);
-void renameResult;
+const collectionRenameParams: SolrV2CollectionRenameParams = { to: "books-archive" };
+const collectionRenameResult: Promise<SolrV2CollectionRenameResponse> = namespace.collections.rename("books", collectionRenameParams);
+void collectionRenameResult;
 // @ts-expect-error Collection rename requires a target name.
 void namespace.collections.rename("books", {});
 // @ts-expect-error Collection rename target must be a string.
