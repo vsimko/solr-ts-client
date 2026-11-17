@@ -22,9 +22,11 @@ async function waitForCollectionRequest(
       : await client.collections("REQUESTSTATUS", { requestid });
     const state = status.status?.state;
     if (state === "completed") return;
-    if (state === "failed" || state === "notfound") {
+    if (state === "failed" || (state === "notfound" && !useV2)) {
       throw new Error(`Collection request ${requestid} ended in ${state}: ${JSON.stringify(status)}`);
     }
+    // V2 async commands can briefly be absent from the status queue immediately
+    // after the accepting POST returns; keep polling until they are registered.
     await new Promise(resolve => setTimeout(resolve, 500));
   }
   throw new Error(`Timed out waiting for collection request ${requestid}`);
