@@ -7,7 +7,10 @@ async function waitForCollectionRequest(
   requestid: string
 ): Promise<void> {
   for (let attempt = 0; attempt < 120; attempt++) {
-    const status = await client.collections("REQUESTSTATUS", { requestid });
+    const status = await client.v2.request<{ status?: { state?: string; msg?: string } }>(
+      `/api/cluster/command-status/${encodeURIComponent(requestid)}`,
+      { method: "GET" }
+    );
     const state = status.status?.state;
     if (state === "completed") return;
     if (state === "failed" || state === "notfound") {
@@ -157,7 +160,10 @@ cloudIntegrationTest(
       }
       for (const requestid of [backupRequest, restoreRequest]) {
         try {
-          await client.collections("DELETESTATUS", { requestid });
+          await client.v2.request(
+          `/api/cluster/command-status/${encodeURIComponent(requestid)}`,
+          { method: "DELETE" }
+        );
         } catch (error) {
           cleanupErrors.push(error);
         }
