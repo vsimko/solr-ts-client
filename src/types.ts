@@ -1309,6 +1309,23 @@ export interface SolrV2CollectionModifyParams {
   async?: string;
 }
 
+/** String value accepted by the V2 collection property API. */
+export type SolrV2CollectionPropertyValue = string;
+
+/** Response from GET /api/collections/{collection}/properties. */
+export interface SolrV2CollectionPropertiesResponse {
+  responseHeader?: SolrResponseHeader;
+  properties?: Readonly<Record<string, string>>;
+  readonly [key: string]: unknown;
+}
+
+/** Response from GET /api/collections/{collection}/properties/{property}. */
+export interface SolrV2CollectionPropertyResponse {
+  responseHeader?: SolrResponseHeader;
+  value?: string;
+  readonly [key: string]: unknown;
+}
+
 /** Query controls for deleting a V2 collection. Destructive directory deletion is opt-in. */
 export interface SolrV2CollectionDeleteOptions {
   deleteInstanceDir?: boolean;
@@ -1328,10 +1345,11 @@ export interface SolrV2CollectionOperationResponse {
 export type SolrV2ReplicaType = "nrt" | "tlog" | "pull";
 
 /** Parameters for adding one or more replicas to a shard (Solr 9+). */
-export interface SolrV2AddReplicaParams {
+export type SolrV2AddReplicaParams = (
   /** Exact shard name or route selector; at least one is required. */
-  shard?: string;
-  route?: string;
+  | { shard: string; route?: string }
+  | { shard?: never; route: string }
+) & {
   node?: string;
   nodeSet?: readonly string[];
   instanceDir?: string;
@@ -1341,7 +1359,7 @@ export interface SolrV2AddReplicaParams {
   tlogReplicas?: number;
   pullReplicas?: number;
   waitForFinalState?: boolean;
-}
+};
 
 /** Async tracking option for replica administration requests. */
 export interface SolrV2ReplicaMutationOptions {

@@ -83,6 +83,24 @@ const deletedCollection: Promise<SolrV2CollectionOperationResponse> =
 const reloadedCollection: Promise<SolrV2CollectionOperationResponse> =
   collectionsNamespace.reload("books");
 void [createdCollection, deletedCollection, reloadedCollection, modifiedCollection];
+
+import type {
+  SolrV2CollectionPropertiesResponse,
+  SolrV2CollectionPropertyResponse,
+  SolrV2CollectionPropertyValue
+} from "../src/index.js";
+const collectionPropertyValue: SolrV2CollectionPropertyValue = "integration";
+const collectionProperties: Promise<SolrV2CollectionPropertiesResponse> =
+  collectionsNamespace.getProperties("books");
+const collectionProperty: Promise<SolrV2CollectionPropertyResponse> =
+  collectionsNamespace.getProperty("books", "owner");
+const setCollectionProperty: Promise<SolrV2CollectionOperationResponse> =
+  collectionsNamespace.setProperty("books", "owner", collectionPropertyValue);
+const deleteCollectionProperty: Promise<SolrV2CollectionOperationResponse> =
+  collectionsNamespace.deleteProperty("books", "owner");
+void [collectionProperties, collectionProperty, setCollectionProperty, deleteCollectionProperty];
+// @ts-expect-error Collection property values are strings.
+void collectionsNamespace.setProperty("books", "owner", 1);
 // @ts-expect-error Collection creation requires a configset name.
 void collectionsNamespace.create({ name: "books" });
 // @ts-expect-error Collection modification rejects unknown attributes.
