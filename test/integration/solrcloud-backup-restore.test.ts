@@ -2,6 +2,12 @@ import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { cloudIntegrationTest, type SolrCloudIntegrationFixture } from "./fixtures.js";
 
+function v2CommandStatusPath(requestid: string): `/api/cluster/${string}/${string}` {
+  // Solr 10.1 renamed the cluster async command endpoint from command-status to commands.
+  const resource = process.env.SOLR_VERSION === "10.1.0" ? "commands" : "command-status";
+  return `/api/cluster/${resource}/${encodeURIComponent(requestid)}`;
+}
+
 async function waitForCollectionRequest(
   client: SolrCloudIntegrationFixture["client"],
   requestid: string,
@@ -10,7 +16,7 @@ async function waitForCollectionRequest(
   for (let attempt = 0; attempt < 120; attempt++) {
     const status = useV2
       ? await client.v2.request<{ status?: { state?: string; msg?: string } }>(
-        `/api/cluster/command-status/${encodeURIComponent(requestid)}`,
+        v2CommandStatusPath(requestid),
         { method: "GET" }
       )
       : await client.collections("REQUESTSTATUS", { requestid });
@@ -164,7 +170,7 @@ cloudIntegrationTest(
       for (const requestid of [backupRequest, restoreRequest]) {
         try {
           await client.v2.request(
-            `/api/cluster/command-status/${encodeURIComponent(requestid)}`,
+            v2CommandStatusPath(requestid),
             { method: "DELETE" }
           );
         } catch (error) {
