@@ -44,6 +44,7 @@ test("V2 Collections, cluster, and alias discovery/mutation routes enforce Basic
   const probe = "security_alias_" + randomUUID().replaceAll("-", "");
   const requests: { path: string; method: string; body?: string }[] = [
     { path: "/api/collections", method: "GET" },
+    { path: "/api/collections/nonexistent/rename", method: "POST", body: JSON.stringify({ to: "security-probe-target" }) },
     { path: "/api/cluster", method: "GET" },
     { path: "/api/aliases", method: "GET" },
     { path: "/api/collections/security_probe_collection/shards/shard1/replicas", method: "POST", body: JSON.stringify({ node: "missing-node" }) },

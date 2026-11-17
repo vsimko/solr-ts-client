@@ -167,3 +167,5 @@ The website is a discovery and evidence surface, not a second source of technica
 - **Cross-client regression audit (#297):** merged; nested-document and Unicode read-back passed on all three pinned Solr versions.
 
 The feature work is independent of the stable-release approval gate (#110) and the manually dispatched destructive SolrCloud verification gate (#232).
+
+- **V2 Collections RENAME (#421):** typed `client.v2.collections.rename(collection, { to })` implemented; runtime evidence pending CI on Solr 9.11.0 and 10.1.0.

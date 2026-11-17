@@ -1,6 +1,6 @@
 import { SolrHttpError } from "./errors.js";
 import type { SolrTransport } from "./transport.js";
-import type { RequestControlOptions, RequestOptions, SolrV2ClusterStatusResponse, SolrV2CollectionListResponse, SolrV2CollectionStatusOptions, SolrV2CollectionStatusResponse, SolrV2CollectionCreateParams, SolrV2CollectionDeleteOptions, SolrV2CollectionModifyParams, SolrV2CollectionOperationResponse, SolrV2CollectionPropertyValue, SolrV2CollectionPropertiesResponse, SolrV2CollectionPropertyResponse, SolrV2AliasListResponse, SolrV2AliasStatusResponse, SolrV2AliasCreateParams, SolrV2AliasMutationOptions, SolrV2AliasPropertyValue, SolrV2AliasOperationResponse, SolrV2AliasPropertiesResponse, SolrV2AliasPropertyResponse, SolrV2AddReplicaParams, SolrV2ReplicaMutationOptions, SolrV2DeleteReplicaOptions, SolrV2ReplicaOperationResponse, SolrV2CollectionBackupParams, SolrV2BackupListOptions, SolrV2BackupDeleteOptions, SolrV2BackupRestoreParams, SolrV2BackupOperationResponse, SolrV2BackupListResponse, SolrV2BackupDeleteResponse, SolrV2CoreOperationResponse, SolrV2CoreRenameParams, SolrV2CoreStatusOptions, SolrV2CoreStatusResponse, SolrV2CoreUnloadParams } from "./types.js";
+import type { RequestControlOptions, RequestOptions, SolrV2ClusterStatusResponse, SolrV2CollectionListResponse, SolrV2CollectionStatusOptions, SolrV2CollectionStatusResponse, SolrV2CollectionRenameParams, SolrV2CollectionRenameResponse, SolrV2CollectionCreateParams, SolrV2CollectionDeleteOptions, SolrV2CollectionModifyParams, SolrV2CollectionOperationResponse, SolrV2CollectionPropertyValue, SolrV2CollectionPropertiesResponse, SolrV2CollectionPropertyResponse, SolrV2AliasListResponse, SolrV2AliasStatusResponse, SolrV2AliasCreateParams, SolrV2AliasMutationOptions, SolrV2AliasPropertyValue, SolrV2AliasOperationResponse, SolrV2AliasPropertiesResponse, SolrV2AliasPropertyResponse, SolrV2AddReplicaParams, SolrV2ReplicaMutationOptions, SolrV2DeleteReplicaOptions, SolrV2ReplicaOperationResponse, SolrV2CollectionBackupParams, SolrV2BackupListOptions, SolrV2BackupDeleteOptions, SolrV2BackupRestoreParams, SolrV2BackupOperationResponse, SolrV2BackupListResponse, SolrV2BackupDeleteResponse, SolrV2CoreOperationResponse, SolrV2CoreRenameParams, SolrV2CoreStatusOptions, SolrV2CoreStatusResponse, SolrV2CoreUnloadParams } from "./types.js";
 
 /**
  * Explicit Solr V2 API namespace sharing the configured V1 transport.
@@ -93,6 +93,19 @@ export class SolrV2CollectionsClient {
     return this.v2.request<SolrV2CollectionListResponse>("/api/collections", {
       ...requestOptions,
       method: "GET"
+    });
+  }
+
+  /** Create a standard alias under a new name; the physical collection is unchanged. */
+  rename(collection: string, params: SolrV2CollectionRenameParams, requestOptions: RequestControlOptions = {}): Promise<SolrV2CollectionRenameResponse> {
+    const path = this.collectionPath(collection);
+    if (!params || typeof params !== "object" || Array.isArray(params) ||
+      typeof params.to !== "string" || params.to.trim().length === 0 ||
+      params.to === "." || params.to === ".." || params.to.includes("/") || params.to.includes("\\")) {
+      throw new TypeError("Solr V2 Collections rename requires a non-empty target name without path separators");
+    }
+    return this.v2.request<SolrV2CollectionRenameResponse>(`${path}/rename`, {
+      ...requestOptions, method: "POST", body: { to: params.to }
     });
   }
 
