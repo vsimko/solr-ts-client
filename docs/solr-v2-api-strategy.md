@@ -262,10 +262,3 @@ Official references:
 - [Solr 8.11 V2 API guide — legacy route baseline](https://solr.apache.org/guide/8_11/v2-api.html)
 
 Unit serialization and consumer type fixtures are in `test/v2-collections.test.ts` and `test/v2-types.ts`. An isolated SolrCloud backup/list/restore/read-back/delete scenario is in `test/integration/solrcloud-backup-restore.test.ts`; it skips Solr 8.11.4 because that line predates the redesigned routes. BasicAuth route probes for create/list/delete/restore are included in `test/integration/solr-v2-security.test.ts` on Solr 9.11.0 and 10.1.0. Runtime and security evidence remains pending CI; the inventory intentionally records all pinned versions as unverified until the corresponding jobs pass.
-
-
-## V2 Collections RENAME
-
-`client.v2.collections.rename(collection, { to })` uses `POST /api/collections/{collection}/rename`. Solr creates a standard one-to-one alias to the same physical collection; it does not rename the underlying collection. Existing aliases are updated by Solr to refer to the new name. Routed aliases, aliases targeting multiple collections, and targets that are already aliases are rejected server-side. The client validates source and target path-segment shape and leaves topology checks to Solr.
-
-The route is documented from Solr 9.2; Solr 8.11.4 is not claimed. Unit serialization, consumer type, isolated SolrCloud alias/physical-collection read-back, and BasicAuth fixtures are present. Runtime evidence is pending CI on pinned Solr 9.11.0 and 10.1.0.
