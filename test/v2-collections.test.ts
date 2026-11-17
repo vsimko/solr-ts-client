@@ -190,28 +190,6 @@ test("V2 Collections lifecycle methods validate names before fetch", () => {
   }
 });
 
-test("V2 Collections rename posts the alias target to the documented route", async () => {
-  const requests: { url: URL; method: string; body: string }[] = [];
-  const client = createSolrClient({ fetch: async (input, init) => {
-    requests.push({url:new URL(String(input)),method:String(init?.method),body:String(init?.body??"")});
-    return new Response(JSON.stringify({responseHeader:{status:0}}));
-  }});
-  const response = await client.v2.collections.rename("books archive", {to:"books-v2 archive"});
-  assert.equal(response.responseHeader?.status,0);
-  assert.equal(requests[0]!.url.pathname,"/api/collections/books%20archive/rename");
-  assert.equal(requests[0]!.method,"POST");
-  assert.deepEqual(JSON.parse(requests[0]!.body),{to:"books-v2 archive"});
-});
-
-test("V2 Collections rename rejects invalid source and target names before fetch", () => {
-  const client=createSolrClient({fetch:async()=>{throw new Error("fetch must not run");}});
-  for(const collection of [""," ",".", "..","../admin","a/b","a\\b"])
-    assert.throws(()=>client.v2.collections.rename(collection,{to:"renamed"}),/non-empty collection name/);
-  for(const to of [""," ",".", "..","../admin","a/b","a\\b"])
-    assert.throws(()=>client.v2.collections.rename("books",{to}),/non-empty target name/);
-  assert.throws(()=>client.v2.collections.rename("books",null as unknown as {to:string}),/non-empty target name/);
-});
-
 test("V2 cluster status uses GET /api/cluster and preserves the extensible response", async () => {
   const requests: { url: URL; method: string }[] = [];
   const client = createSolrClient({

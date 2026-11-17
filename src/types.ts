@@ -1283,14 +1283,6 @@ export interface SolrV2CollectionStatusResponse extends SolrV2CollectionStatus {
   responseHeader?: SolrResponseHeader;
 }
 
-/** V2 Collections RENAME request body; this creates an alias, not a physical rename. */
-export interface SolrV2CollectionRenameParams { to: string; }
-/** Extensible response envelope for V2 Collections RENAME. */
-export interface SolrV2CollectionRenameResponse {
-  responseHeader?: SolrResponseHeader;
-  readonly [key: string]: unknown;
-}
-
 /** Common fields accepted by the post-Solr-9.3 V2 collection creation API. */
 export interface SolrV2CollectionCreateParams {
   name: string;

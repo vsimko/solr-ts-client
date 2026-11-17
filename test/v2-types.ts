@@ -1,5 +1,5 @@
 import { createSolrClient, SolrV2Client } from "../src/index.js";
-import type { RequestOptions, SolrV2CollectionRenameParams, SolrV2CollectionRenameResponse } from "../src/index.js";
+import type { RequestOptions } from "../src/index.js";
 
 const client = createSolrClient();
 const namespace: SolrV2Client = client.v2;
@@ -211,11 +211,3 @@ void collectionsNamespace.backup("books", "books-backup", {});
 void backupsNamespace.delete("books-backup", "0", { location: "file:///backups" });
 // @ts-expect-error Restore requires a target collection.
 void backupsNamespace.restore("books-backup", { location: "file:///backups" });
-
-const renameParams: SolrV2CollectionRenameParams = { to: "books-archive" };
-const renameResult: Promise<SolrV2CollectionRenameResponse> = namespace.collections.rename("books", renameParams);
-void renameResult;
-// @ts-expect-error Collection rename requires a target name.
-void namespace.collections.rename("books", {});
-// @ts-expect-error Collection rename target must be a string.
-void namespace.collections.rename("books", { to: 42 });
