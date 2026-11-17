@@ -1345,10 +1345,11 @@ export interface SolrV2CollectionOperationResponse {
 export type SolrV2ReplicaType = "nrt" | "tlog" | "pull";
 
 /** Parameters for adding one or more replicas to a shard (Solr 9+). */
-export interface SolrV2AddReplicaParams {
+export type SolrV2AddReplicaParams = (
   /** Exact shard name or route selector; at least one is required. */
-  shard?: string;
-  route?: string;
+  | { shard: string; route?: string }
+  | { shard?: never; route: string }
+) & {
   node?: string;
   nodeSet?: readonly string[];
   instanceDir?: string;
@@ -1358,7 +1359,7 @@ export interface SolrV2AddReplicaParams {
   tlogReplicas?: number;
   pullReplicas?: number;
   waitForFinalState?: boolean;
-}
+};
 
 /** Async tracking option for replica administration requests. */
 export interface SolrV2ReplicaMutationOptions {
