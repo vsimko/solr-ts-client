@@ -4,13 +4,16 @@ import { cloudIntegrationTest, type SolrCloudIntegrationFixture } from "./fixtur
 
 async function waitForCollectionRequest(
   client: SolrCloudIntegrationFixture["client"],
-  requestid: string
+  requestid: string,
+  useV2 = false
 ): Promise<void> {
   for (let attempt = 0; attempt < 120; attempt++) {
-    const status = await client.v2.request<{ status?: { state?: string; msg?: string } }>(
-      `/api/cluster/command-status/${encodeURIComponent(requestid)}`,
-      { method: "GET" }
-    );
+    const status = useV2
+      ? await client.v2.request<{ status?: { state?: string; msg?: string } }>(
+        `/api/cluster/command-status/${encodeURIComponent(requestid)}`,
+        { method: "GET" }
+      )
+      : await client.collections("REQUESTSTATUS", { requestid });
     const state = status.status?.state;
     if (state === "completed") return;
     if (state === "failed" || state === "notfound") {
@@ -114,7 +117,7 @@ cloudIntegrationTest(
         backupStrategy: "copy-files"
       });
       assert.ok(backup.response || backup.requestid, JSON.stringify(backup));
-      await waitForCollectionRequest(client, backupRequest);
+      await waitForCollectionRequest(client, backupRequest, true);
 
       const listed = await client.v2.backups.list(backupName, { location });
       const backupPoint = listed.backups?.[0];
@@ -128,7 +131,7 @@ cloudIntegrationTest(
         { async: restoreRequest }
       );
       assert.ok(restore.response || restore.requestid, JSON.stringify(restore));
-      await waitForCollectionRequest(client, restoreRequest);
+      await waitForCollectionRequest(client, restoreRequest, true);
 
       const restored = await targetClient.query({ query: `id:${id}`, limit: 1 }) as {
         response?: { numFound?: number; docs?: readonly { title?: string | readonly string[] }[] };
