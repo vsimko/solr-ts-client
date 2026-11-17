@@ -59,21 +59,54 @@ const clusterStatus: Promise<SolrV2ClusterStatusResponse> = clusterNamespace.sta
 import type {
   SolrV2CollectionCreateParams,
   SolrV2CollectionDeleteOptions,
+  SolrV2CollectionModifyParams,
   SolrV2CollectionOperationResponse
 } from "../src/index.js";
 const createParams: SolrV2CollectionCreateParams = {
   name: "books", config: "books-config", numShards: 2, replicationFactor: 2
 };
 const deleteOptions: SolrV2CollectionDeleteOptions = { deleteIndex: true };
+const modifyParams: SolrV2CollectionModifyParams = {
+  replicationFactor: 2,
+  "collection.configName": "books-config",
+  readOnly: false,
+  async: "modify-books"
+};
+const modifiedCollection: Promise<SolrV2CollectionOperationResponse> =
+  collectionsNamespace.modify("books", modifyParams);
+void modifiedCollection;
+
 const createdCollection: Promise<SolrV2CollectionOperationResponse> =
   collectionsNamespace.create(createParams);
 const deletedCollection: Promise<SolrV2CollectionOperationResponse> =
   collectionsNamespace.delete("books", deleteOptions);
 const reloadedCollection: Promise<SolrV2CollectionOperationResponse> =
   collectionsNamespace.reload("books");
-void [createdCollection, deletedCollection, reloadedCollection];
+void [createdCollection, deletedCollection, reloadedCollection, modifiedCollection];
+
+import type {
+  SolrV2CollectionPropertiesResponse,
+  SolrV2CollectionPropertyResponse,
+  SolrV2CollectionPropertyValue
+} from "../src/index.js";
+const collectionPropertyValue: SolrV2CollectionPropertyValue = "integration";
+const collectionProperties: Promise<SolrV2CollectionPropertiesResponse> =
+  collectionsNamespace.getProperties("books");
+const collectionProperty: Promise<SolrV2CollectionPropertyResponse> =
+  collectionsNamespace.getProperty("books", "owner");
+const setCollectionProperty: Promise<SolrV2CollectionOperationResponse> =
+  collectionsNamespace.setProperty("books", "owner", collectionPropertyValue);
+const deleteCollectionProperty: Promise<SolrV2CollectionOperationResponse> =
+  collectionsNamespace.deleteProperty("books", "owner");
+void [collectionProperties, collectionProperty, setCollectionProperty, deleteCollectionProperty];
+// @ts-expect-error Collection property values are strings.
+void collectionsNamespace.setProperty("books", "owner", 1);
 // @ts-expect-error Collection creation requires a configset name.
 void collectionsNamespace.create({ name: "books" });
+// @ts-expect-error Collection modification rejects unknown attributes.
+void collectionsNamespace.modify("books", { unknownAttribute: true });
+// @ts-expect-error Replication factor must be numeric.
+void collectionsNamespace.modify("books", { replicationFactor: "2" });
 // @ts-expect-error Destructive directory flags are boolean.
 void collectionsNamespace.delete("books", { deleteIndex: "true" });
 
@@ -89,3 +122,92 @@ const alias: Promise<SolrV2AliasStatusResponse> = aliasesNamespace.status("books
 void [aliases, alias];
 // @ts-expect-error Alias names must be strings.
 void aliasesNamespace.status(123);
+import type {
+  SolrV2AliasCreateParams,
+  SolrV2AliasMutationOptions,
+  SolrV2AliasOperationResponse,
+  SolrV2AliasPropertiesResponse,
+  SolrV2AliasPropertyResponse,
+  SolrV2AliasPropertyValue
+} from "../src/index.js";
+const aliasCreateParams: SolrV2AliasCreateParams = { name: "books_alias", collections: ["books", "archive"] };
+const aliasMutationOptions: SolrV2AliasMutationOptions = { async: "alias-task-1" };
+const aliasPropertyValue: SolrV2AliasPropertyValue = "integration";
+const createdAlias: Promise<SolrV2AliasOperationResponse> = aliasesNamespace.create(aliasCreateParams, aliasMutationOptions);
+const deletedAlias: Promise<SolrV2AliasOperationResponse> = aliasesNamespace.delete("books_alias", aliasMutationOptions);
+const aliasPropertiesResponse: Promise<SolrV2AliasPropertiesResponse> = aliasesNamespace.getProperties("books_alias");
+const aliasPropertyResponse: Promise<SolrV2AliasPropertyResponse> = aliasesNamespace.getProperty("books_alias", "owner");
+const setAliasProperties: Promise<SolrV2AliasOperationResponse> = aliasesNamespace.setProperties("books_alias", { owner: "tests", generation: "2" }, aliasMutationOptions);
+const setAliasProperty: Promise<SolrV2AliasOperationResponse> = aliasesNamespace.setProperty("books_alias", "owner", "tests");
+const deleteAliasProperty: Promise<SolrV2AliasOperationResponse> = aliasesNamespace.deleteProperty("books_alias", "owner", aliasMutationOptions);
+void [createdAlias, deletedAlias, aliasPropertiesResponse, aliasPropertyResponse, setAliasProperties, setAliasProperty, deleteAliasProperty, aliasPropertyValue];
+// @ts-expect-error Standard alias creation requires a collection mapping.
+void aliasesNamespace.create({ name: "books_alias" });
+// @ts-expect-error Property values are limited to JSON scalar values.
+void aliasesNamespace.setProperty("books_alias", "owner", {});
+// @ts-expect-error Solr alias metadata values are strings.
+void aliasesNamespace.setProperty("books_alias", "generation", 2);
+// @ts-expect-error Async request identifiers must be strings.
+void aliasesNamespace.delete("books_alias", { async: 1 });
+
+import type {
+  SolrV2AddReplicaParams,
+  SolrV2DeleteReplicaOptions,
+  SolrV2ReplicaOperationResponse,
+  SolrV2ReplicaType
+} from "../src/index.js";
+const replicaType: SolrV2ReplicaType = "tlog";
+const addReplicaParams: SolrV2AddReplicaParams = {
+  shard: "shard1", nodeSet: ["node-a", "node-b"], type: replicaType, waitForFinalState: true
+};
+const deleteReplicaOptions: SolrV2DeleteReplicaOptions = {
+  deleteDataDir: true, deleteIndex: true, async: "delete-replica-1"
+};
+const addedReplica: Promise<SolrV2ReplicaOperationResponse> =
+  namespace.collections.addReplica("books", addReplicaParams, { async: "add-replica-1" });
+const deletedReplica: Promise<SolrV2ReplicaOperationResponse> =
+  namespace.collections.deleteReplica("books", "shard1", "core_node2", deleteReplicaOptions);
+void [addedReplica, deletedReplica];
+// @ts-expect-error Replica types are restricted to Solr's NRT/TLOG/PULL values.
+void namespace.collections.addReplica("books", { shard: "shard1", type: "leader" });
+// @ts-expect-error At least one of shard or route is required.
+void namespace.collections.addReplica("books", {});
+// @ts-expect-error Filesystem deletion flags must be booleans.
+void namespace.collections.deleteReplica("books", "shard1", "core_node2", { deleteDataDir: "yes" });
+
+import type {
+  SolrV2BackupsClient,
+  SolrV2CollectionBackupParams,
+  SolrV2BackupListResponse,
+  SolrV2BackupDeleteResponse,
+  SolrV2BackupRestoreParams,
+  SolrV2BackupOperationResponse
+} from "../src/index.js";
+const backupsNamespace: SolrV2BackupsClient = client.v2.backups;
+const backupParams: SolrV2CollectionBackupParams = {
+  location: "file:///backups",
+  repository: "shared",
+  incremental: true,
+  extraProperties: { source: "tests" }
+};
+const createdBackup: Promise<SolrV2BackupOperationResponse> =
+  collectionsNamespace.backup("books", "books-backup", backupParams);
+const listedBackups: Promise<SolrV2BackupListResponse> =
+  backupsNamespace.list("books-backup", { location: "file:///backups" });
+const deletedBackup: Promise<SolrV2BackupDeleteResponse> =
+  backupsNamespace.delete("books-backup", 0, { location: "file:///backups" });
+const restoreParams: SolrV2BackupRestoreParams = {
+  collection: "books-restored",
+  location: "file:///backups",
+  backupId: 0,
+  "create-collection": { nrtReplicas: 1, nodeSet: ["node-a"] }
+};
+const restoredBackup: Promise<SolrV2BackupOperationResponse> =
+  backupsNamespace.restore("books-backup", restoreParams, { async: "restore-1" });
+void [createdBackup, listedBackups, deletedBackup, restoredBackup];
+// @ts-expect-error Backup creation requires a location.
+void collectionsNamespace.backup("books", "books-backup", {});
+// @ts-expect-error Backup IDs must be numbers.
+void backupsNamespace.delete("books-backup", "0", { location: "file:///backups" });
+// @ts-expect-error Restore requires a target collection.
+void backupsNamespace.restore("books-backup", { location: "file:///backups" });
