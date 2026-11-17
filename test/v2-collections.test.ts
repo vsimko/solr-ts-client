@@ -94,8 +94,8 @@ test("V2 Collections modify rejects empty and invalid attributes before fetch", 
   assert.throws(() => client.v2.collections.modify("books", { replicationFactor: 0 }), /positive safe integer/);
   assert.throws(() => client.v2.collections.modify("books", { "collection.configName": " " }), /configName must be non-empty/);
   assert.throws(() => client.v2.collections.modify("books", { readOnly: "true" as unknown as boolean }), /readOnly must be a boolean/);
-  assert.throws(() => client.v2.collections.modify("books", { async: " " }), /async request id/);
-  assert.throws(() => client.v2.collections.modify("books", { async: "bad/id" }), /must not contain/);
+  assert.throws(() => client.v2.collections.modify("books", { replicationFactor: 2, async: " " }), /async request id/);
+  assert.throws(() => client.v2.collections.modify("books", { replicationFactor: 2, async: "bad/id" }), /must not contain/);
 });
 
 test("V2 collection properties serialize GET, PUT and DELETE routes", async () => {
@@ -286,7 +286,7 @@ test("V2 replica administration serializes add and exact delete routes safely", 
 
   assert.deepEqual(requests.map(({ url, method }) => [url.pathname, method]), [
     ["/api/collections/books/shards/shard%201/replicas", "POST"],
-    ["/api/collections/books/shards/replicas", "POST"],
+    ["/api/collections/books/replicas", "POST"],
     ["/api/collections/books/shards/shard%201/replicas/core_node%202", "DELETE"]
   ]);
   assert.deepEqual(JSON.parse(requests[0]!.body), {
