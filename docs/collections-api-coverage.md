@@ -76,3 +76,8 @@ The public `CollectionAdminResponse<A>` conditional type maps each action litera
 5. **Response contract boundaries:** `SolrCollectionAdminResponse`, `SolrCollectionReplicaResponse`, and `SolrCollectionRoleResponse` are intentionally extensible envelopes; they do not claim undocumented action-specific payload fields. `SolrCollectionListResponse` types the stable `collections` list. These contracts describe the client-side JSON shape, not blanket runtime certification for every action or Solr version.
 
 FORCELEADER is serialization/type-covered and now has a dedicated manual-only stale-replica fault-injection harness. It deliberately remains runtime-unverified until the new `enable_forceleader_fault_injection` workflow input is manually dispatched and passes for each pinned Solr version. The SolrCloud integration jobs exercise only the rows marked with integration evidence. The presence of a pinned Solr image or a generic transport method is not evidence that every action in the union works on that server version.
+
+
+## V2 Collections rename
+
+`client.v2.collections.rename(collection, { to })` sends `POST /api/collections/{collection}/rename`. Solr creates a standard alias to the existing physical collection; it does not rename the underlying collection. The route is documented from Solr 9.2. Unit, consumer type, isolated SolrCloud, and BasicAuth fixtures are present; runtime evidence is pending CI on pinned Solr 9.11.0 and 10.1.0. Solr 8.11.4 is not claimed.

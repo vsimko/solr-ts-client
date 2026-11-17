@@ -1430,6 +1430,30 @@
       "notes": "Read-only per-collection status with narrowly typed common flags and an extensible response. The V2 CollectionStatus route was introduced in Solr 9.3, so pinned Solr 8.11.4 is explicitly not claimed/skipped; runtime tests pass on pinned 9.11.0 and 10.1.0 in CI run #43008748363. This is not full parity with every V1 COLSTATUS detail/size-analysis option."
     },
     {
+      "id": "v2.collections.rename",
+      "area": "Solr V2 Collections",
+      "clientMethod": "v2.collections.rename",
+      "httpMethod": "POST",
+      "path": "/api/collections/{collection}/rename",
+      "methodImplemented": true,
+      "typeCoverage": "complete",
+      "unitTests": "present",
+      "integrationTests": "not-run",
+      "versions": {
+        "8": "unverified",
+        "9": "unverified",
+        "10": "unverified"
+      },
+      "documentation": "docs/solr-v2-api-strategy.md",
+      "testFiles": [
+        "test/v2-collections.test.ts",
+        "test/v2-types.ts",
+        "test/integration/solr-v2-collections.test.ts",
+        "test/integration/solr-v2-security.test.ts"
+      ],
+      "notes": "V2 Collections RENAME accepts { to } and creates a standard alias to the same physical collection; it does not rename the underlying collection. Documented from Solr 9.2. Solr 8.11.4 is not claimed; runtime evidence is pending CI on pinned Solr 9.11.0 and 10.1.0."
+    },
+    {
       "area": "Core Admin V2",
       "methodImplemented": true,
       "typeCoverage": "complete",
