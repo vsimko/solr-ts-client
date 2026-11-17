@@ -187,9 +187,12 @@ export class SolrV2CollectionsClient {
     const body: Record<string, unknown> = {};
     if (route !== undefined) body.route = route;
     for (const key of ["node", "nodeSet", "instanceDir", "dataDir", "type", "nrtReplicas",
-      "tlogReplicas", "pullReplicas", "waitForFinalState"] as const) {
+      "tlogReplicas", "pullReplicas"] as const) {
       if (params[key] !== undefined) body[key] = params[key];
     }
+    const query: Record<string, string | boolean> = {};
+    if (params.waitForFinalState !== undefined) query.waitForFinalState = params.waitForFinalState;
+    if (options.async !== undefined) query.async = this.asyncId(options.async);
     const shardPath = shard === undefined ? "" : `/shards/${encodeURIComponent(shard)}`;
     return this.v2.request<SolrV2ReplicaOperationResponse>(
       `${collectionPath}${shardPath}/replicas`,
@@ -197,7 +200,7 @@ export class SolrV2CollectionsClient {
         ...requestOptions,
         method: "POST",
         body,
-        ...(options.async === undefined ? {} : { query: this.asyncQuery(options.async) })
+        ...(Object.keys(query).length === 0 ? {} : { query })
       }
     );
   }
