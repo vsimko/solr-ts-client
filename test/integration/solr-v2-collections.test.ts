@@ -88,17 +88,37 @@ cloudIntegrationTest("V2 replica add and exact delete update isolated collection
   let addedReplica: string | undefined;
   try {
     await client.v2.collections.addReplica(collection, { shard, waitForFinalState: true });
-    const afterAdd = await client.v2.collections.status(collection);
-    const afterShard = (afterAdd.shards as Record<string, { replicas?: Record<string, unknown> }>)[shard]!;
-    const afterReplicas = Object.keys(afterShard.replicas ?? {});
-    addedReplica = afterReplicas.find(name => !beforeReplicas.includes(name));
+    let afterReplicas: string[] = [];
+    for (let attempt = 0; attempt < 60; attempt++) {
+      const afterAdd = await client.v2.collections.status(collection);
+      const afterShard = (afterAdd.shards as Record<string, {
+        replicas?: Record<string, { state?: string }>
+      }>)[shard]!;
+      const replicas = afterShard.replicas ?? {};
+      afterReplicas = Object.keys(replicas);
+      addedReplica = afterReplicas.find(name => !beforeReplicas.includes(name));
+      if (addedReplica && replicas[addedReplica]?.state === "active") break;
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
     assert.ok(addedReplica, "ADDREPLICA must add one distinct replica to the requested shard");
+    const activeStatus = await client.v2.collections.status(collection);
+    const activeShard = (activeStatus.shards as Record<string, {
+      replicas?: Record<string, { state?: string }>
+    }>)[shard]!;
+    assert.equal(activeShard.replicas?.[addedReplica]?.state, "active",
+      "ADDREPLICA must wait until the new replica is active");
     assert.equal(afterReplicas.length, beforeReplicas.length + 1);
 
     await client.v2.collections.deleteReplica(collection, shard, addedReplica);
+    for (let attempt = 0; attempt < 60; attempt++) {
+      const afterDelete = await client.v2.collections.status(collection);
+      const finalShard = (afterDelete.shards as Record<string, { replicas?: Record<string, unknown> }>)[shard]!;
+      if (!Object.hasOwn(finalShard.replicas ?? {}, addedReplica)) break;
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
     addedReplica = undefined;
-    const afterDelete = await client.v2.collections.status(collection);
-    const finalShard = (afterDelete.shards as Record<string, { replicas?: Record<string, unknown> }>)[shard]!;
+    const finalStatus = await client.v2.collections.status(collection);
+    const finalShard = (finalStatus.shards as Record<string, { replicas?: Record<string, unknown> }>)[shard]!;
     assert.equal(Object.keys(finalShard.replicas ?? {}).length, beforeReplicas.length,
       "DELETEREPLICA must remove only the named replica");
   } finally {
