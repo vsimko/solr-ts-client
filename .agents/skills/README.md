@@ -11,6 +11,7 @@ Task-specific procedures for AI agents working in this repository. Read the matc
 | [documentation](documentation/SKILL.md) | Updating guides, references, coverage, roadmap, and website source data | [Documentation policy](../../docs/DOCUMENTATION.md), [documentation index](../../docs/index.md), [architecture index](../../docs/architecture/README.md) |
 | [release-management](release-management/SKILL.md) | Preparing versions, npm packages, prereleases, and publication | [Release process](../../docs/release-process.md), [release notes](../../docs/release-notes-v4.0.0.md) |
 | [github-workflow](github-workflow/SKILL.md) | Managing issues, branches, pull requests, and repository work | [Development workflow](../../README.md#development), [roadmap](../../docs/roadmap.md), [agent instructions](../../AGENTS.md) |
+| [github-actions-workflow-maintenance](github-actions-workflow-maintenance/SKILL.md) | Designing/reviewing GitHub Actions workflows and requiring safe dependency caching | [GitHub Actions workflows](../../.github/workflows/), [agent instructions](../../AGENTS.md) |
 
 ## How to use skills
 
