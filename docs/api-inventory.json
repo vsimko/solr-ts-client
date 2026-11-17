@@ -1351,11 +1351,11 @@
         "test/integration/solrcloud-backup-restore.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Public V2 collection operation restore; covered by the collection API unit and type tests. Runtime behavior remains version-specific and is not certified by this inventory entry.",
-      "id": "v2.collections.restore",
-      "clientMethod": "v2.collections.restore",
+      "notes": "Restores a backup point into an existing or new collection using the redesigned V2 backup API. Restore replaces target index contents; unit/type coverage and isolated SolrCloud verification are tracked separately.",
+      "id": "v2.backups.restore",
+      "clientMethod": "v2.backups.restore",
       "httpMethod": "POST",
-      "path": "/api/collections/{collection}/backups/{backup}/versions"
+      "path": "/api/backups/{backup}/restore"
     },
     {
       "area": "Solr V2 Collection Backups",
@@ -1375,11 +1375,11 @@
         "test/integration/solrcloud-backup-restore.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Public V2 collection operation setProperties; covered by the collection API unit and type tests. Runtime behavior remains version-specific and is not certified by this inventory entry.",
-      "id": "v2.collections.setProperties",
-      "clientMethod": "v2.collections.setProperties",
-      "httpMethod": "POST",
-      "path": "/api/collections/{collection}/backups/{backup}/versions"
+      "notes": "Deletes one incremental backup point by ID from the specified repository location. Destructive backup metadata/files removal; unit/type coverage and cleanup behavior are tracked separately.",
+      "id": "v2.backups.delete",
+      "clientMethod": "v2.backups.delete",
+      "httpMethod": "DELETE",
+      "path": "/api/backups/{backup}/versions/{backupId}"
     },
     {
       "id": "v2.collections.setProperty",
@@ -1593,6 +1593,30 @@
         "test/v2-types.ts"
       ],
       "notes": "Low-level raw-response escape hatch only. The caller owns operation-specific request/response contracts. No operation-specific runtime compatibility is claimed."
+    },
+    {
+      "area": "Solr V2 Collection Backups",
+      "methodImplemented": true,
+      "typeCoverage": "complete",
+      "unitTests": "present",
+      "integrationTests": "not-run",
+      "versions": {
+        "8": "unverified",
+        "9": "unverified",
+        "10": "unverified"
+      },
+      "documentation": "docs/solr-v2-api-strategy.md",
+      "testFiles": [
+        "test/v2-collections.test.ts",
+        "test/v2-types.ts",
+        "test/integration/solrcloud-backup-restore.test.ts",
+        "test/integration/solr-v2-security.test.ts"
+      ],
+      "notes": "Lists incremental backup points stored at a repository location. Requires a non-empty location query parameter; unit/type coverage and SolrCloud runtime evidence are tracked separately.",
+      "id": "v2.backups.list",
+      "clientMethod": "v2.backups.list",
+      "httpMethod": "GET",
+      "path": "/api/backups/{backup}/versions"
     }
   ]
 }
