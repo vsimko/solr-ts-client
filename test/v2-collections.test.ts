@@ -301,6 +301,7 @@ test("V2 replica administration serializes add and exact delete routes safely", 
 
 test("V2 replica administration validates required selectors and path segments", () => {
   const client = createSolrClient({ fetch: async () => { throw new Error("fetch must not run"); } });
+  // @ts-expect-error Intentionally exercise runtime validation for an invalid public API call.
   assert.throws(() => client.v2.collections.addReplica("books", {}), /shard or route/);
   assert.throws(() => client.v2.collections.addReplica("books", { shard: "s", route: "r" }), /shard or route, not both/);
   assert.throws(() => client.v2.collections.addReplica("books", { shard: "../admin" }), /shard name/);
