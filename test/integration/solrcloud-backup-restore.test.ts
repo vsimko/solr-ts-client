@@ -109,8 +109,6 @@ cloudIntegrationTest(
     const targetClient = clientForCollection(target);
     const id = `v2_backup_doc_${randomUUID().replaceAll("-", "")}`;
     const backupName = `v2_backup_${randomUUID().replaceAll("-", "")}`;
-    const backupRequest = `v2_backup_req_${randomUUID().replaceAll("-", "")}`;
-    const restoreRequest = `v2_restore_req_${randomUUID().replaceAll("-", "")}`;
     let backupId: number | undefined;
 
     try {
@@ -119,13 +117,11 @@ cloudIntegrationTest(
 
       const backup = await client.v2.collections.backup(source, backupName, {
         location,
-        async: backupRequest,
         backupConfigset: true,
         incremental: true,
         backupStrategy: "copy-files"
       });
       assert.ok(backup.response || backup.requestid, JSON.stringify(backup));
-      await waitForCollectionRequest(client, backupRequest, true);
 
       const listed = await client.v2.backups.list(backupName, { location });
       const backupPoint = listed.backups?.[0];
@@ -136,10 +132,9 @@ cloudIntegrationTest(
       const restore = await client.v2.backups.restore(
         backupName,
         { collection: target, location, backupId },
-        { async: restoreRequest }
+        {}
       );
       assert.ok(restore.response || restore.requestid, JSON.stringify(restore));
-      await waitForCollectionRequest(client, restoreRequest, true);
 
       const restored = await targetClient.query({ query: `id:${id}`, limit: 1 }) as {
         response?: { numFound?: number; docs?: readonly { title?: string | readonly string[] }[] };
@@ -165,16 +160,6 @@ cloudIntegrationTest(
       for (const id of backupIds) {
         try {
           await client.v2.backups.delete(backupName, id, { location });
-        } catch (error) {
-          cleanupErrors.push(error);
-        }
-      }
-      for (const requestid of [backupRequest, restoreRequest]) {
-        try {
-          await client.v2.request(
-            v2CommandStatusPath(requestid),
-            { method: "DELETE" }
-          );
         } catch (error) {
           cleanupErrors.push(error);
         }
