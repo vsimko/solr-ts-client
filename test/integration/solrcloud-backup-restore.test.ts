@@ -161,9 +161,9 @@ cloudIntegrationTest(
       for (const requestid of [backupRequest, restoreRequest]) {
         try {
           await client.v2.request(
-          `/api/cluster/command-status/${encodeURIComponent(requestid)}`,
-          { method: "DELETE" }
-        );
+            `/api/cluster/command-status/${encodeURIComponent(requestid)}`,
+            { method: "DELETE" }
+          );
         } catch (error) {
           cleanupErrors.push(error);
         }
