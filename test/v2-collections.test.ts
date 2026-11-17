@@ -290,8 +290,9 @@ test("V2 replica administration serializes add and exact delete routes safely", 
     ["/api/collections/books/shards/shard%201/replicas/core_node%202", "DELETE"]
   ]);
   assert.deepEqual(JSON.parse(requests[0]!.body), {
-    nodeSet: ["node-a", "node-b"], type: "tlog", waitForFinalState: true
+    nodeSet: ["node-a", "node-b"], type: "tlog"
   });
+  assert.equal(requests[0]!.url.searchParams.get("waitForFinalState"), "true");
   assert.equal(requests[0]!.url.searchParams.get("async"), "add-1");
   assert.deepEqual(JSON.parse(requests[1]!.body), { route: "tenant!42", node: "node-a" });
   assert.deepEqual(Object.fromEntries(requests[2]!.url.searchParams), {
