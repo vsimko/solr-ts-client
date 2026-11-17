@@ -25,6 +25,21 @@ cloudIntegrationTest("V2 Collections status reads isolated collection state", as
   ? undefined
   : "The V2 per-collection status route is available from Solr 9.3; the pinned 8.11 line is not claimed");
 
+cloudIntegrationTest("V2 Collections rename creates an alias without renaming the physical collection", async ({client,createCollection}) => {
+  const collection=await createCollection("v2_rename");
+  const newAlias=`${collection}_renamed`;
+  try {
+    await client.v2.collections.rename(collection,{to:newAlias});
+    const aliases=await client.v2.aliases.list();
+    assert.equal(aliases.aliases?.[newAlias],collection);
+    const collections=await client.v2.collections.list();
+    assert.ok(collections.collections?.includes(collection));
+  } finally {
+    const aliases=await client.v2.aliases.list();
+    if(aliases.aliases?.[newAlias]===collection) await client.collections("DELETEALIAS",{name:newAlias});
+  }
+}, false, false, ["9.11.0","10.1.0"].includes(process.env.SOLR_VERSION??"") ? undefined : "RENAME is documented from Solr 9.2; Solr 8.11.4 is not claimed");
+
 cloudIntegrationTest("V2 cluster status reports the isolated collection", async ({
   client,
   createCollection
