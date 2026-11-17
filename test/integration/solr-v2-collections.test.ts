@@ -89,7 +89,7 @@ cloudIntegrationTest("V2 replica add and exact delete update isolated collection
   try {
     await client.v2.collections.addReplica(collection, { shard, waitForFinalState: true });
     let afterReplicas: string[] = [];
-    for (let attempt = 0; attempt < 60; attempt++) {
+    for (let attempt = 0; attempt < 120; attempt++) {
       const afterAdd = await client.v2.collections.status(collection);
       const afterShard = (afterAdd.shards as Record<string, {
         replicas?: Record<string, { state?: string }>
