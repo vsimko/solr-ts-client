@@ -134,7 +134,7 @@ cloudIntegrationTest(
         { collection: target, location, backupId },
         {}
       );
-      assert.ok(restore.response || restore.requestid, JSON.stringify(restore));
+      assert.equal(restore.responseHeader?.status, 0, JSON.stringify(restore));
 
       const restored = await targetClient.query({ query: `id:${id}`, limit: 1 }) as {
         response?: { numFound?: number; docs?: readonly { title?: string | readonly string[] }[] };
