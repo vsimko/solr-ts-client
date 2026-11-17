@@ -13,6 +13,7 @@ Read the matching skill before performing a task. Skills define procedures; link
 - Guides, API reference, coverage, or website documentation: [`documentation`](.agents/skills/documentation/SKILL.md) and [documentation policy](docs/DOCUMENTATION.md).
 - Versioning, package contents, prereleases, or npm publication: [`release-management`](.agents/skills/release-management/SKILL.md) and [release process](docs/release-process.md).
 - Issues, branches, pull requests, or repository coordination: [`github-workflow`](.agents/skills/github-workflow/SKILL.md).
+- GitHub Actions workflow design, dependency caching, CI triggers, permissions, artifacts, or failures: [`github-actions-workflow-maintenance`](.agents/skills/github-actions-workflow-maintenance/SKILL.md).
 
 If a task spans multiple areas, read all matching skills. Do not treat a skill as a replacement for the linked source-of-truth documents.
 
