@@ -214,7 +214,7 @@ export class SolrV2CollectionsClient {
     options: SolrV2DeleteReplicaOptions = {},
     requestOptions: RequestControlOptions = {}
   ): Promise<SolrV2ReplicaOperationResponse> {
-    const path = `${this.collectionPath(collection)}/shards/${this.validatePathSegment(shard, "shard")}/replicas/${this.validatePathSegment(replica, "replica")}`;
+    const path: `/api/${string}` = `${this.collectionPath(collection)}/shards/${this.validatePathSegment(shard, "shard")}/replicas/${this.validatePathSegment(replica, "replica")}`;
     const query: Record<string, string | boolean> = {
       deleteInstanceDir: options.deleteInstanceDir ?? false,
       deleteDataDir: options.deleteDataDir ?? false,
@@ -260,7 +260,7 @@ export class SolrV2CollectionsClient {
     params: SolrV2CollectionBackupParams,
     requestOptions: RequestControlOptions = {}
   ): Promise<SolrV2BackupOperationResponse> {
-    const path = `${this.collectionPath(collection)}/backups/${this.validatePathSegment(backupName, "backup")}/versions`;
+    const path: `/api/${string}` = `${this.collectionPath(collection)}/backups/${this.validatePathSegment(backupName, "backup")}/versions`;
     if (typeof params.location !== "string" || params.location.trim().length === 0) {
       throw new TypeError("Solr V2 collection backup requires a non-empty location");
     }
