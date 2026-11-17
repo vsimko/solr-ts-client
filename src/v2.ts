@@ -1,12 +1,12 @@
 import { SolrHttpError } from "./errors.js";
 import type { SolrTransport } from "./transport.js";
-import type { RequestControlOptions, RequestOptions, SolrV2ClusterStatusResponse, SolrV2CollectionListResponse, SolrV2CollectionStatusOptions, SolrV2CollectionStatusResponse, SolrV2CollectionCreateParams, SolrV2CollectionDeleteOptions, SolrV2CollectionOperationResponse, SolrV2AliasListResponse, SolrV2AliasStatusResponse, SolrV2AliasCreateParams, SolrV2AliasMutationOptions, SolrV2AliasPropertyValue, SolrV2AliasOperationResponse, SolrV2AliasPropertiesResponse, SolrV2AliasPropertyResponse, SolrV2AddReplicaParams, SolrV2ReplicaMutationOptions, SolrV2DeleteReplicaOptions, SolrV2ReplicaOperationResponse, SolrV2CoreOperationResponse, SolrV2CoreRenameParams, SolrV2CoreStatusOptions, SolrV2CoreStatusResponse, SolrV2CoreUnloadParams } from "./types.js";
+import type { RequestControlOptions, RequestOptions, SolrV2ClusterStatusResponse, SolrV2CollectionListResponse, SolrV2CollectionStatusOptions, SolrV2CollectionStatusResponse, SolrV2CollectionCreateParams, SolrV2CollectionDeleteOptions, SolrV2CollectionModifyParams, SolrV2CollectionOperationResponse, SolrV2CollectionPropertyValue, SolrV2CollectionPropertiesResponse, SolrV2CollectionPropertyResponse, SolrV2AliasListResponse, SolrV2AliasStatusResponse, SolrV2AliasCreateParams, SolrV2AliasMutationOptions, SolrV2AliasPropertyValue, SolrV2AliasOperationResponse, SolrV2AliasPropertiesResponse, SolrV2AliasPropertyResponse, SolrV2AddReplicaParams, SolrV2ReplicaMutationOptions, SolrV2DeleteReplicaOptions, SolrV2ReplicaOperationResponse, SolrV2CollectionBackupParams, SolrV2BackupListOptions, SolrV2BackupDeleteOptions, SolrV2BackupRestoreParams, SolrV2BackupOperationResponse, SolrV2BackupListResponse, SolrV2BackupDeleteResponse, SolrV2CoreOperationResponse, SolrV2CoreRenameParams, SolrV2CoreStatusOptions, SolrV2CoreStatusResponse, SolrV2CoreUnloadParams } from "./types.js";
 
 /**
  * Explicit Solr V2 API namespace sharing the configured V1 transport.
  *
  * Exposes a generic JSON/raw request escape hatch and operation-specific typed
- * typed Core Admin, Collections, and cluster discovery methods. V1 methods never fall back to V2 routes.
+ * Core Admin, Collections, alias, and cluster operations. V1 methods never fall back to V2 routes.
  */
 export class SolrV2Client {
   private readonly apiBaseUrl: string;
@@ -14,13 +14,16 @@ export class SolrV2Client {
   /** Typed Core Admin V2 operations. These target standalone/user-managed cores, not SolrCloud collections. */
   readonly coreAdmin: SolrV2CoreAdminClient;
 
-  /** Read-only SolrCloud Collections V2 operations. */
+  /** SolrCloud Collections V2 discovery, lifecycle, metadata, replica, and backup operations. */
   readonly collections: SolrV2CollectionsClient;
 
   /** Read-only cluster-level V2 discovery operations. */
   readonly cluster: SolrV2ClusterClient;
 
-  /** Read-only SolrCloud alias discovery operations (Solr 9.3+). */
+  /** SolrCloud collection backup and restore operations (Solr 9.3+). */
+  readonly backups: SolrV2BackupsClient;
+
+  /** SolrCloud alias discovery and mutation operations (Solr 9.3+). */
   readonly aliases: SolrV2AliasesClient;
 
   constructor(private readonly transport: SolrTransport, baseUrl = "http://localhost:8983/") {
@@ -35,6 +38,7 @@ export class SolrV2Client {
     this.collections = new SolrV2CollectionsClient(this);
     this.cluster = new SolrV2ClusterClient(this);
     this.aliases = new SolrV2AliasesClient(this);
+    this.backups = new SolrV2BackupsClient(this);
   }
 
   /**
@@ -74,7 +78,8 @@ export class SolrV2Client {
 
 
 /**
- * Read-only SolrCloud Collections V2 discovery operations.
+ * SolrCloud Collections V2 operations, including discovery, lifecycle,
+ * metadata properties, replica administration, and collection backups.
  *
  * Collection listing and per-collection status are documented by the official
  * Solr V2 Collections API. The status response is intentionally open because
@@ -182,9 +187,12 @@ export class SolrV2CollectionsClient {
     const body: Record<string, unknown> = {};
     if (route !== undefined) body.route = route;
     for (const key of ["node", "nodeSet", "instanceDir", "dataDir", "type", "nrtReplicas",
-      "tlogReplicas", "pullReplicas", "waitForFinalState"] as const) {
+      "tlogReplicas", "pullReplicas"] as const) {
       if (params[key] !== undefined) body[key] = params[key];
     }
+    const query: Record<string, string | boolean> = {};
+    if (params.waitForFinalState !== undefined) query.waitForFinalState = params.waitForFinalState;
+    if (options.async !== undefined) query.async = this.asyncId(options.async);
     const shardPath = shard === undefined ? "" : `/shards/${encodeURIComponent(shard)}`;
     return this.v2.request<SolrV2ReplicaOperationResponse>(
       `${collectionPath}${shardPath}/replicas`,
@@ -192,7 +200,7 @@ export class SolrV2CollectionsClient {
         ...requestOptions,
         method: "POST",
         body,
-        ...(options.async === undefined ? {} : { query: this.asyncQuery(options.async) })
+        ...(Object.keys(query).length === 0 ? {} : { query })
       }
     );
   }
@@ -209,7 +217,7 @@ export class SolrV2CollectionsClient {
     options: SolrV2DeleteReplicaOptions = {},
     requestOptions: RequestControlOptions = {}
   ): Promise<SolrV2ReplicaOperationResponse> {
-    const path = `${this.collectionPath(collection)}/shards/${this.validatePathSegment(shard, "shard")}/replicas/${this.validatePathSegment(replica, "replica")}`;
+    const path: `/api/${string}` = `${this.collectionPath(collection)}/shards/${this.validatePathSegment(shard, "shard")}/replicas/${this.validatePathSegment(replica, "replica")}`;
     const query: Record<string, string | boolean> = {
       deleteInstanceDir: options.deleteInstanceDir ?? false,
       deleteDataDir: options.deleteDataDir ?? false,
@@ -243,6 +251,136 @@ export class SolrV2CollectionsClient {
       throw new TypeError("Solr V2 replica async request id must be a non-empty string");
     }
     return asyncId;
+  }
+
+  /**
+   * Create an incremental backup of one collection (Solr 9.3+).
+   * The location must be accessible at the same path by all SolrCloud nodes.
+   */
+  backup(
+    collection: string,
+    backupName: string,
+    params: SolrV2CollectionBackupParams,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2BackupOperationResponse> {
+    const path: `/api/${string}` = `${this.collectionPath(collection)}/backups/${this.validatePathSegment(backupName, "backup")}/versions`;
+    if (typeof params.location !== "string" || params.location.trim().length === 0) {
+      throw new TypeError("Solr V2 collection backup requires a non-empty location");
+    }
+    if (params.repository !== undefined && params.repository.trim().length === 0) {
+      throw new TypeError("Solr V2 collection backup repository must be non-empty");
+    }
+    if (params.async !== undefined) this.asyncId(params.async);
+    if (params.maxNumBackupPoints !== undefined &&
+      (!Number.isInteger(params.maxNumBackupPoints) || params.maxNumBackupPoints < 1)) {
+      throw new TypeError("Solr V2 maxNumBackupPoints must be a positive integer");
+    }
+    const { async: asyncId, ...body } = params;
+    return this.v2.request<SolrV2BackupOperationResponse>(path, {
+      ...requestOptions,
+      method: "POST",
+      body,
+      ...(asyncId === undefined ? {} : { query: { async: this.asyncId(asyncId) } })
+    });
+  }
+
+  /**
+   * Modify collection attributes using the post-Solr-9.3 V2 command envelope.
+   * This updates collection metadata; changing replicationFactor does not
+   * create or remove replicas. Setting readOnly can interrupt in-flight updates.
+   */
+  modify(
+    collection: string,
+    params: SolrV2CollectionModifyParams,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2CollectionOperationResponse> {
+    const path = this.collectionPath(collection);
+    if (!params || typeof params !== "object") {
+      throw new TypeError("Solr V2 Collections modify requires an attributes object");
+    }
+    const { async: asyncId, ...attributes } = params;
+    if (Object.keys(attributes).length === 0) {
+      throw new TypeError("Solr V2 Collections modify requires at least one collection attribute");
+    }
+    if (attributes.replicationFactor !== undefined &&
+      (!Number.isSafeInteger(attributes.replicationFactor) || attributes.replicationFactor < 1)) {
+      throw new TypeError("Solr V2 Collections modify replicationFactor must be a positive safe integer");
+    }
+    if (attributes["collection.configName"] !== undefined &&
+      (typeof attributes["collection.configName"] !== "string" || attributes["collection.configName"].trim().length === 0)) {
+      throw new TypeError("Solr V2 Collections modify collection.configName must be non-empty");
+    }
+    if (attributes.readOnly !== undefined && typeof attributes.readOnly !== "boolean") {
+      throw new TypeError("Solr V2 Collections modify readOnly must be a boolean");
+    }
+    if (asyncId !== undefined && (typeof asyncId !== "string" || asyncId.trim().length === 0 || asyncId.includes("/"))) {
+      throw new TypeError("Solr V2 Collections modify async request id must be non-empty and must not contain '/'");
+    }
+    return this.v2.request<SolrV2CollectionOperationResponse>(path, {
+      ...requestOptions,
+      method: "POST",
+      body: { modify: params }
+    });
+  }
+
+  /** Read all custom properties on a collection (documented on Solr 9.11+). */
+  getProperties(
+    collection: string,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2CollectionPropertiesResponse> {
+    return this.v2.request<SolrV2CollectionPropertiesResponse>(`${this.collectionPath(collection)}/properties`, {
+      ...requestOptions,
+      method: "GET"
+    });
+  }
+
+  /** Read one custom property on a collection (documented on Solr 9.11+). */
+  getProperty(
+    collection: string,
+    property: string,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2CollectionPropertyResponse> {
+    return this.v2.request<SolrV2CollectionPropertyResponse>(this.propertyPath(collection, property), {
+      ...requestOptions,
+      method: "GET"
+    });
+  }
+
+  /** Create or update one custom collection property (documented from Solr 9.3). */
+  setProperty(
+    collection: string,
+    property: string,
+    value: SolrV2CollectionPropertyValue,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2CollectionOperationResponse> {
+    if (typeof value !== "string") {
+      throw new TypeError("Solr V2 collection property value must be a string");
+    }
+    return this.v2.request<SolrV2CollectionOperationResponse>(this.propertyPath(collection, property), {
+      ...requestOptions,
+      method: "PUT",
+      body: { value }
+    });
+  }
+
+  /** Delete one custom collection property (documented from Solr 9.3). */
+  deleteProperty(
+    collection: string,
+    property: string,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2CollectionOperationResponse> {
+    return this.v2.request<SolrV2CollectionOperationResponse>(this.propertyPath(collection, property), {
+      ...requestOptions,
+      method: "DELETE"
+    });
+  }
+
+  private propertyPath(collection: string, property: string): `/api/collections/${string}/properties/${string}` {
+    if (typeof property !== "string" || property.trim().length === 0 ||
+      property === "." || property === ".." || property.includes("/") || property.includes("\\")) {
+      throw new TypeError("Solr V2 Collections requires a non-empty property name without path separators");
+    }
+    return `${this.collectionPath(collection)}/properties/${encodeURIComponent(property)}`;
   }
 
   /** Reload a collection using the REST-style V2 route (Solr 9.3+). */
@@ -288,7 +426,106 @@ export class SolrV2CollectionsClient {
 }
 
 /**
- * Read-only SolrCloud alias discovery operations.
+ * SolrCloud collection backup operations using the REST-style V2 routes.
+ * The routes were redesigned in Solr 9.3; no legacy Solr 8 command-envelope
+ * translation or V1 fallback is performed.
+ */
+export class SolrV2BackupsClient {
+  constructor(private readonly v2: SolrV2Client) {}
+
+  /** List incremental backup points stored at a repository location. */
+  list(
+    backupName: string,
+    options: SolrV2BackupListOptions,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2BackupListResponse> {
+    const query = this.locationQuery(options);
+    return this.v2.request<SolrV2BackupListResponse>(
+      `/api/backups/${this.pathSegment(backupName, "backup")}/versions`,
+      { ...requestOptions, method: "GET", query }
+    );
+  }
+
+  /** Delete one backup point by ID. This permanently removes backup metadata/files. */
+  delete(
+    backupName: string,
+    backupId: number,
+    options: SolrV2BackupDeleteOptions,
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2BackupDeleteResponse> {
+    if (!Number.isSafeInteger(backupId) || backupId < 0) {
+      throw new TypeError("Solr V2 backupId must be a non-negative safe integer");
+    }
+    const query = this.locationQuery(options);
+    return this.v2.request<SolrV2BackupDeleteResponse>(
+      `/api/backups/${this.pathSegment(backupName, "backup")}/versions/${backupId}`,
+      { ...requestOptions, method: "DELETE", query }
+    );
+  }
+
+  /**
+   * Restore a backup point into an existing or new collection. Restore replaces
+   * the target collection's index contents; use a disposable target when testing.
+   */
+  restore(
+    backupName: string,
+    params: SolrV2BackupRestoreParams,
+    options: { async?: string } = {},
+    requestOptions: RequestControlOptions = {}
+  ): Promise<SolrV2BackupOperationResponse> {
+    this.pathSegment(params.collection, "collection");
+    if (params.location !== undefined && params.location.trim().length === 0) {
+      throw new TypeError("Solr V2 backup restore location must be non-empty");
+    }
+    if (params.repository !== undefined && params.repository.trim().length === 0) {
+      throw new TypeError("Solr V2 backup restore repository must be non-empty");
+    }
+    if (params.backupId !== undefined && (!Number.isSafeInteger(params.backupId) || params.backupId < 0)) {
+      throw new TypeError("Solr V2 backupId must be a non-negative safe integer");
+    }
+    const { backupId, ...body } = params;
+    const query: Record<string, string | number> = {};
+    if (backupId !== undefined) query.backupId = backupId;
+    if (options.async !== undefined) query.async = this.asyncId(options.async);
+    return this.v2.request<SolrV2BackupOperationResponse>(
+      `/api/backups/${this.pathSegment(backupName, "backup")}/restore`,
+      { ...requestOptions, method: "POST", body, ...(Object.keys(query).length ? { query } : {}) }
+    );
+  }
+
+  private locationQuery(options: SolrV2BackupListOptions): Record<string, string> {
+    if (typeof options.location !== "string" || options.location.trim().length === 0) {
+      throw new TypeError("Solr V2 backup operation requires a non-empty location");
+    }
+    const query: Record<string, string> = { location: options.location };
+    if (options.repository !== undefined) {
+      if (options.repository.trim().length === 0) {
+        throw new TypeError("Solr V2 backup repository must be non-empty");
+      }
+      query.repository = options.repository;
+    }
+    if (options.async !== undefined) query.async = this.asyncId(options.async);
+    return query;
+  }
+
+  private pathSegment(value: string, label: string): string {
+    if (typeof value !== "string" || value.trim().length === 0 || value === "." || value === ".." ||
+      value.includes("/") || value.includes("\\")) {
+      throw new TypeError(`Solr V2 backup operation requires a non-empty ${label} name without path separators`);
+    }
+    return encodeURIComponent(value);
+  }
+
+  private asyncId(value: string): string {
+    if (typeof value !== "string" || value.trim().length === 0) {
+      throw new TypeError("Solr V2 backup async request id must be non-empty");
+    }
+    return value;
+  }
+}
+
+/**
+ * SolrCloud alias discovery and mutation operations.
  * GET /api/aliases and GET /api/aliases/{alias} are documented in the Solr 9.2+ reference guides.
  * The Solr 8.11 line is intentionally not claimed.
  */
