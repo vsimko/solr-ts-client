@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-14T21:01:52.000Z",
+  "generatedAt": "2026-11-17T21:03:11.000Z",
   "package": {
     "name": "solr-ts-client",
     "repository": "https://github.com/vsimko/solr-ts-client",
@@ -12,84 +12,84 @@
       "id": "package",
       "kind": "repository",
       "url": "https://github.com/vsimko/solr-ts-client/blob/master/package.json",
-      "retrievedAt": "2026-11-14T21:01:52.000Z",
+      "retrievedAt": "2026-11-17T21:03:11.000Z",
       "status": "available"
     },
     {
       "id": "api-inventory",
       "kind": "repository",
       "url": "https://github.com/vsimko/solr-ts-client/blob/master/docs/api-inventory.json",
-      "retrievedAt": "2026-11-14T21:01:52.000Z",
+      "retrievedAt": "2026-11-17T21:03:11.000Z",
       "status": "available"
     },
     {
       "id": "docs-index",
       "kind": "repository",
       "url": "https://github.com/vsimko/solr-ts-client/blob/master/docs/index.md",
-      "retrievedAt": "2026-11-14T21:01:52.000Z",
+      "retrievedAt": "2026-11-17T21:03:11.000Z",
       "status": "available"
     },
     {
       "id": "roadmap",
       "kind": "repository",
       "url": "https://github.com/vsimko/solr-ts-client/blob/master/docs/roadmap.md",
-      "retrievedAt": "2026-11-14T21:01:52.000Z",
+      "retrievedAt": "2026-11-17T21:03:11.000Z",
       "status": "available"
     },
     {
       "id": "changelog",
       "kind": "repository",
       "url": "https://github.com/vsimko/solr-ts-client/blob/master/CHANGELOG.md",
-      "retrievedAt": "2026-11-14T21:01:52.000Z",
+      "retrievedAt": "2026-11-17T21:03:11.000Z",
       "status": "available"
     },
     {
       "id": "ci-workflow",
       "kind": "repository",
       "url": "https://github.com/vsimko/solr-ts-client/blob/master/.github/workflows/ci.yml",
-      "retrievedAt": "2026-11-14T21:01:52.000Z",
+      "retrievedAt": "2026-11-17T21:03:11.000Z",
       "status": "available"
     },
     {
       "id": "github-actions",
       "kind": "github",
       "url": "https://api.github.com/repos/vsimko/solr-ts-client/actions/runs?per_page=20",
-      "retrievedAt": "2026-11-14T21:01:52.000Z",
+      "retrievedAt": "2026-11-17T21:03:11.000Z",
       "status": "available"
     },
     {
       "id": "github-issues",
       "kind": "github",
       "url": "https://api.github.com/repos/vsimko/solr-ts-client/issues?state=all&per_page=100",
-      "retrievedAt": "2026-11-14T21:01:52.000Z",
+      "retrievedAt": "2026-11-17T21:03:11.000Z",
       "status": "available"
     },
     {
       "id": "npm-registry",
       "kind": "npm",
       "url": "https://registry.npmjs.org/solr-ts-client",
-      "retrievedAt": "2026-11-14T21:01:52.000Z",
+      "retrievedAt": "2026-11-17T21:03:11.000Z",
       "status": "available"
     },
     {
       "id": "npm-downloads",
       "kind": "npm",
-      "url": "https://api.npmjs.org/downloads/point/2026-11-08:2026-11-14/solr-ts-client",
-      "retrievedAt": "2026-11-14T21:01:52.000Z",
+      "url": "https://api.npmjs.org/downloads/point/2026-11-11:2026-11-17/solr-ts-client",
+      "retrievedAt": "2026-11-17T21:03:11.000Z",
       "status": "available"
     },
     {
       "id": "github-releases",
       "kind": "github",
       "url": "https://api.github.com/repos/vsimko/solr-ts-client/releases?per_page=50",
-      "retrievedAt": "2026-11-14T21:01:52.000Z",
+      "retrievedAt": "2026-11-17T21:03:11.000Z",
       "status": "available"
     },
     {
       "id": "github-tags",
       "kind": "github",
       "url": "https://api.github.com/repos/vsimko/solr-ts-client/tags?per_page=50",
-      "retrievedAt": "2026-11-14T21:01:52.000Z",
+      "retrievedAt": "2026-11-17T21:03:11.000Z",
       "status": "available"
     }
   ],
@@ -98,83 +98,8 @@
     "sourceIds": [
       "api-inventory"
     ],
-    "observedAt": "2026-11-14T21:01:52.000Z",
+    "observedAt": "2026-11-17T21:03:11.000Z",
     "records": [
-      {
-        "id": "update.add",
-        "operationId": "update.add",
-        "area": "Update",
-        "method": "add",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "partial",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/0",
-          "description": "Document add is exercised in the CRUD smoke test on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images. Named SolrUpdateOptions now expose overwrite, commitWithin, and SolrCloud _route_ serialization; request parameter serialization and invalid values are covered by unit tests. SolrCloud integration tests verify add/update route behavior on an implicit-router collection using shard-scoped query read-back, and verify commitWithin search visibility without a manual commit on the pinned _default configset, across Solr 8.11.4/9.11.0/10.1.0. The commitWithin test asserts bounded eventual visibility only; hard/soft commit behavior remains controlled by server configuration. Field-specific SolrAtomicUpdateOperation and SolrAtomicUpdateDocument types plus atomicUpdate() support set, add, add-distinct, remove, removeregex, and numeric inc. Unit, consumer type, and pinned Solr 8.11.4/9.11.0/10.1.0 integration tests cover atomic updates. Single JSON documents use /update/json/docs; arrays use /update. Both forms are integration-tested on pinned Solr 8.11.4/9.11.0/10.1.0. commitWithin is a scheduling hint whose hard/soft behavior is controlled by Solr's commitWithin configuration; the client does not force either commit type. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0. Unit tests assert the single-document, document-array, and command-map JSON endpoint selection, typed response header, and HTTP error propagation. Unit tests assert single-document, document-array, and command-map endpoint selection, typed response headers, and HTTP error propagation.  Nested parent/child/grandchild JSON document indexing and exact Unicode/multi-valued field read-back are covered by test/integration/solr-document-fidelity.test.ts and passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 in CI run #42392182590. Nested documents must be sent using the array form add([document]) so the request uses /update; Solr's /update/json/docs convenience path flattens complex JSON by default. See docs/update.md and ADR 0003. Nested parent/child/grandchild document round-trip and Unicode/multi-valued field round-trip passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 in CI run #42392182590."
-        },
-        "documentation": "docs/update.md",
-        "testFiles": [
-          "test/client.test.ts",
-          "test/config.test.ts",
-          "test/integration/solr-smoke.test.ts",
-          "test/cancellation.types.ts",
-          "test/integration/solr-update.test.ts",
-          "test/validation.test.ts",
-          "test/modules.test.ts",
-          "test/integration/solr-update-cloud.test.ts",
-          "test/integration/solr-document-fidelity.test.ts"
-        ]
-      },
-      {
-        "id": "update.atomicUpdate",
-        "operationId": "update.atomicUpdate",
-        "area": "Update",
-        "method": "atomicUpdate",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "partial",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/1",
-          "description": "Field-specific atomic update modifiers are covered by unit/type assertions and integration tests on Solr 8.11.4, 9.11.0, and 10.1.0."
-        },
-        "documentation": "docs/update.md",
-        "testFiles": [
-          "test/client.test.ts",
-          "test/integration/solr-update.test.ts"
-        ]
-      },
       {
         "id": "admin.collections",
         "operationId": "admin.collections",
@@ -200,7 +125,7 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/2",
+          "pointer": "/entries/0",
           "description": "SolrCloud CREATE/LIST/DELETE, alias lifecycle, implicit-router shard lifecycle, named ADDREPLICA/DELETEREPLICA lifecycle, replica property add/delete and BALANCESHARDUNIQUE responses, plus multi-node MOVEREPLICA and REBALANCELEADERS leader reassignment are tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images (CI #177, #192, #209, and PR #142 CI #224). MOVEREPLICA verifies the named replica becomes active on a different live node. REBALANCELEADERS assigns preferredLeader to an active non-leader and verifies it becomes shard leader. Distinct snapshot operations and some cluster-state response details remain unverified. The BACKUP/LISTBACKUP/RESTORE/DELETEBACKUP and async status flow described below is integration-tested; this does not certify every snapshot action or response field. Additional operation evidence: Typed SolrCloud collection backup/restore actions and asynchronous REQUESTSTATUS/DELETESTATUS tracking. Full backup, list, restore, query read-back, and delete cycle is integration-tested on Solr 8.11.4, 9.11.0, and 10.1.0 with a shared local filesystem volume mounted on both SolrCloud nodes. S3 and other external repositories are not certified. LISTALIASES defaults to SolrCollectionAliasesResponse; CREATEALIAS/DELETEALIAS default to SolrCollectionAliasResponse; CLUSTERSTATUS defaults to SolrClusterStatusResponse with extensible collection/shard/replica models. Filtered cluster status and unobserved version-specific fields remain optional/open. CREATESHARD/DELETESHARD now default to SolrCollectionShardOperationResponse and remain integration-tested on all pinned versions. SPLITSHARD has a typed V1 split.key contract (shard or routing-key mode). MIGRATE uses V1 collection/split.key/target.collection/forward.timeout/async parameters and the same response envelope. Both now have opt-in asynchronous integration checks that require SOLR_DESTRUCTIVE_OPT_IN=true, a loopback endpoint, SOLR_CLOUD=true, SOLR_MULTINODE=true, and disposable collections; the manual workflow provisions its own two-node cluster. The tests verify child-shard state and document read-back after split, and target document read-back after migration. The opt-in workflow has not yet been executed, so both operations remain runtime-unverified. Abort, partial-failure recovery, and concurrent-write behavior are not certified. RELOAD now has exact action-specific serialization and isolated collection integration coverage on pinned Solr 8.11.4/9.11.0/10.1.0. MODIFYCOLLECTION, ADDROLE, and REMOVEROLE now have dedicated serialization and consumer type fixtures; MODIFYCOLLECTION remains runtime-unverified because it mutates collection policy, while role actions remain runtime-unverified because they mutate cluster-wide node role assignments. Named response contracts now cover every action literal: LIST uses SolrCollectionListResponse; CREATE/DELETE/RELOAD/MODIFYCOLLECTION use SolrCollectionAdminResponse; replica lifecycle, movement, balancing, and property actions use SolrCollectionReplicaResponse; ADDROLE/REMOVEROLE use SolrCollectionRoleResponse. CollectionAdminResponse<A> selects the default contract from the action literal while explicit caller generics remain supported. These are extensible response envelopes, not a claim that all action-specific payload fields or all actions are runtime-certified. FORCELEADER is now a separate typed V1 action with exact query serialization and consumer type coverage; its per-version runtime status is recorded independently as unverified until stale-replica fault injection is completed."
         },
         "documentation": "docs/administration.md",
@@ -215,10 +140,79 @@
         ]
       },
       {
-        "id": "update.commit",
-        "operationId": "update.commit",
-        "area": "Update",
-        "method": "commit",
+        "id": "admin.collections.forceleader",
+        "operationId": "admin.collections.forceleader",
+        "area": "Collections",
+        "method": "collections",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/1",
+          "description": "V1 expert-level shard leader recovery action. Exact collection/shard query serialization and ForceLeaderParams/SolrCollectionShardOperationResponse inference are unit/type-tested. A dedicated manual-only test creates a two-replica collection, commits a baseline, stops the follower during acknowledged writes, stops the old leader, promotes the stale replica, and verifies the data-loss boundary. It validates workflow-owned container labels, Solr image tags, dedicated Docker network, and loopback-only host ports; an independent ZooKeeper container remains running. The workflow has not yet been manually dispatched, so integrationTests remains not-run and all pinned versions remain unverified."
+        },
+        "documentation": "docs/administration.md",
+        "testFiles": [
+          "test/admin.test.ts",
+          "test/collections-types.ts",
+          "test/integration/solrcloud-forceleader-optin.test.ts"
+        ]
+      },
+      {
+        "id": "admin.core",
+        "operationId": "admin.core",
+        "area": "Core Admin",
+        "method": "coreAdmin",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "partial",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/2",
+          "description": "STATUS has exported CoreAdminStatusResponse with typed per-core paths/config metadata, optional index statistics, initialization failures, and extensible unknown fields. Non-STATUS actions default to exported CoreAdminCommandResponse (responseHeader plus extensible fields); callers can supply a more specific generic. Unit and consumer type fixtures cover minimal/detailed STATUS payloads and non-STATUS response inference. Isolated CREATE, STATUS, and RELOAD pass with unique disposable cores on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images; fixture cleanup UNLOADs them (CI #145). RENAME, SWAP, MERGEINDEXES, SPLIT, REQUESTSTATUS, and REQUESTRECOVERY are not runtime-certified."
+        },
+        "documentation": "docs/administration.md",
+        "testFiles": [
+          "test/admin.test.ts",
+          "test/integration/solr-core-lifecycle.test.ts"
+        ]
+      },
+      {
+        "id": "admin.ping",
+        "operationId": "admin.ping",
+        "area": "Core Admin",
+        "method": "ping",
         "status": "verified",
         "versions": [
           "8",
@@ -240,15 +234,13 @@
           ],
           "path": "docs/api-inventory.json",
           "pointer": "/entries/3",
-          "description": "Hard commit with waitSearcher is exercised by the CRUD and update integration tests on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images. Command-body serialization is covered by explicit unit tests. SolrCommitOptions expose waitSearcher, softCommit, expungeDeletes (hard-commit only), and openSearcher (request parameter); integration tests cover openSearcher=false and expungeDeletes on Solr 8.11.4/9.11.0/10.1.0. Legacy CommitOptions.maxSegments is deprecated and rejected. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0."
+          "description": "Ping response status OK is asserted on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images (CI #145)."
         },
-        "documentation": "docs/update.md",
+        "documentation": "docs/administration.md",
         "testFiles": [
-          "test/client.test.ts",
-          "test/integration/solr-smoke.test.ts",
-          "test/integration/solr-update.test.ts",
-          "test/cancellation.types.ts",
-          "test/validation.test.ts"
+          "test/admin.test.ts",
+          "test/cancellation.test.ts",
+          "test/integration/solr-core-lifecycle.test.ts"
         ]
       },
       {
@@ -288,10 +280,10 @@
         ]
       },
       {
-        "id": "admin.core",
-        "operationId": "admin.core",
-        "area": "Core Admin",
-        "method": "coreAdmin",
+        "id": "config.get",
+        "operationId": "config.get",
+        "area": "Config",
+        "method": "getConfig",
         "status": "verified",
         "versions": [
           "8",
@@ -313,19 +305,19 @@
           ],
           "path": "docs/api-inventory.json",
           "pointer": "/entries/5",
-          "description": "STATUS has exported CoreAdminStatusResponse with typed per-core paths/config metadata, optional index statistics, initialization failures, and extensible unknown fields. Non-STATUS actions default to exported CoreAdminCommandResponse (responseHeader plus extensible fields); callers can supply a more specific generic. Unit and consumer type fixtures cover minimal/detailed STATUS payloads and non-STATUS response inference. Isolated CREATE, STATUS, and RELOAD pass with unique disposable cores on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images; fixture cleanup UNLOADs them (CI #145). RENAME, SWAP, MERGEINDEXES, SPLIT, REQUESTSTATUS, and REQUESTRECOVERY are not runtime-certified."
+          "description": "GET /config reads back an isolated request handler after add and update, and confirms its removal after delete on pinned Solr 8.11.4, 9.11.0, and 10.1.0. The effective configuration response is asserted, not merely the HTTP status."
         },
-        "documentation": "docs/administration.md",
+        "documentation": "docs/config.md",
         "testFiles": [
-          "test/admin.test.ts",
-          "test/integration/solr-core-lifecycle.test.ts"
+          "test/integration/solr-config-components.test.ts",
+          "test/integration/solr-config-operations.test.ts"
         ]
       },
       {
-        "id": "update.delete",
-        "operationId": "update.delete",
-        "area": "Update",
-        "method": "delete",
+        "id": "config.getOverlay",
+        "operationId": "config.getOverlay",
+        "area": "Config",
+        "method": "getConfigOverlay",
         "status": "verified",
         "versions": [
           "8",
@@ -347,16 +339,11 @@
           ],
           "path": "docs/api-inventory.json",
           "pointer": "/entries/6",
-          "description": "Document deletion by ID is exercised in the CRUD smoke test on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images. Delete-by-ID and delete-by-query serialization are covered by unit tests; SolrDeleteOptions expose route and commitWithin, with runtime verification of these request options remaining unverified on Solr 8/9/10. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0. Delete-by-query is integration-tested with persisted-state assertions: all matching documents are removed while a non-matching document remains on Solr 8.11.4, 9.11.0, and 10.1.0. "
+          "description": "GET /config/overlay reads back Config API property mutations and verifies unset cleanup on pinned Solr 8.11.4, 9.11.0, and 10.1.0. This is persisted overlay state, distinct from effective GET /config."
         },
-        "documentation": "docs/update.md",
+        "documentation": "docs/config.md",
         "testFiles": [
-          "test/modules.test.ts",
-          "test/integration/solr-smoke.test.ts",
-          "test/client.test.ts",
-          "test/cancellation.types.ts",
-          "test/integration/solr-update.test.ts",
-          "test/validation.test.ts"
+          "test/integration/solr-config-operations.test.ts"
         ]
       },
       {
@@ -398,10 +385,10 @@
         ]
       },
       {
-        "id": "config.get",
-        "operationId": "config.get",
-        "area": "Config",
-        "method": "getConfig",
+        "id": "export.stream",
+        "operationId": "export.stream",
+        "area": "Export",
+        "method": "exportStream",
         "status": "verified",
         "versions": [
           "8",
@@ -414,7 +401,7 @@
           "10": "tested"
         },
         "implementation": "implemented",
-        "typeCoverage": "partial",
+        "typeCoverage": "complete",
         "unitTests": "present",
         "integrationTests": "tested",
         "evidence": {
@@ -423,45 +410,12 @@
           ],
           "path": "docs/api-inventory.json",
           "pointer": "/entries/8",
-          "description": "GET /config reads back an isolated request handler after add and update, and confirms its removal after delete on pinned Solr 8.11.4, 9.11.0, and 10.1.0. The effective configuration response is asserted, not merely the HTTP status."
+          "description": "Returns the Export response body as a backpressure-aware ReadableStream of bytes. It delegates to export(), preserving the same request parameters and server compatibility."
         },
-        "documentation": "docs/config.md",
+        "documentation": "docs/export.md",
         "testFiles": [
-          "test/integration/solr-config-components.test.ts",
-          "test/integration/solr-config-operations.test.ts"
-        ]
-      },
-      {
-        "id": "config.getOverlay",
-        "operationId": "config.getOverlay",
-        "area": "Config",
-        "method": "getConfigOverlay",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "partial",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/9",
-          "description": "GET /config/overlay reads back Config API property mutations and verifies unset cleanup on pinned Solr 8.11.4, 9.11.0, and 10.1.0. This is persisted overlay state, distinct from effective GET /config."
-        },
-        "documentation": "docs/config.md",
-        "testFiles": [
-          "test/integration/solr-config-operations.test.ts"
+          "test/export.test.ts",
+          "test/integration/solr-export.test.ts"
         ]
       },
       {
@@ -489,166 +443,13 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/10",
+          "pointer": "/entries/9",
           "description": "JVM response-format coverage remains distinct: observed JSON registry on Solr 8/9 and Prometheus exposition on Solr 10.1. A node group check asserts non-empty JSON registry data on Solr 8/9 and Prometheus samples on Solr 10.1. Registry, prefix, and regex filters are asserted against JSON responses on Solr 8/9; Solr 10.1 supports Prometheus/OpenMetrics rather than the JSON writer. Exported SolrMetricsJsonResponse, SolrMetricsRegistry, and SolrMetricValue model stable envelope/value shapes while leaving registry and metric names open for plugins and future Solr versions."
         },
         "documentation": "docs/administration.md",
         "testFiles": [
           "test/modules.test.ts",
           "test/integration/solr-system-metrics.test.ts"
-        ]
-      },
-      {
-        "id": "update.optimize",
-        "operationId": "update.optimize",
-        "area": "Update",
-        "method": "optimize",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "partial",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/11",
-          "description": "Optimize followed by query asserting committed documents remain available passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images. SolrOptimizeOptions expose maxSegments and waitSearcher with unit and consumer type coverage; the existing optimize behavior remains integration-tested on all pinned versions. SolrOptimizeOptions expose maxSegments, waitSearcher, and openSearcher; maxSegments is optimize-only and defaults to Solr's unlimited target. The integration test exercises maxSegments on all pinned versions. openSearcher is request-parameter serialized; its optimize-specific runtime effect remains unverified. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0."
-        },
-        "documentation": "docs/update.md",
-        "testFiles": [
-          "test/client.test.ts",
-          "test/integration/solr-optimize.test.ts",
-          "test/cancellation.types.ts",
-          "test/integration/solr-update.test.ts",
-          "test/validation.test.ts"
-        ]
-      },
-      {
-        "id": "admin.ping",
-        "operationId": "admin.ping",
-        "area": "Core Admin",
-        "method": "ping",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "partial",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/12",
-          "description": "Ping response status OK is asserted on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images (CI #145)."
-        },
-        "documentation": "docs/administration.md",
-        "testFiles": [
-          "test/admin.test.ts",
-          "test/cancellation.test.ts",
-          "test/integration/solr-core-lifecycle.test.ts"
-        ]
-      },
-      {
-        "id": "query.select",
-        "operationId": "query.select",
-        "area": "Query",
-        "method": "query",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "partial",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/13",
-          "description": "Generic SolrResponse<TDocument> and SolrQueryResponse<TDocument, TJsonFacet> types expose document metadata, classic facet counts, caller-shaped JSON facets, highlighting, grouping, stats, and debug sections. Consumer compile tests verify document inference and response-section property types. Basic query serialization and document retrieval plus cursorMark multi-page traversal are tested on the pinned Solr 8.11.4, 9.11.0, and 10.1.0 images; typed declarations do not certify every optional response section at runtime. Typed classic Facet Component options cover field facets and per-field limit/offset/sort/mincount/missing/prefix/method overrides, query facets, and numeric/date range facets with include/other/hardend and filter/dv methods. Solr date bucketing uses range facets; legacy facet.date parameters were removed in Solr 6. Integration coverage asserts field/query counts and numeric/date range response sections on pinned Solr 8.11.4, 9.11.0, and 10.1.0. Typed highlighting options cover field selection, highlighter method, snippet/fragment sizing, field matching, alternate fields, phrase and multi-term highlighting, encoders/tags, and per-field overrides. Unit and consumer type tests cover parameter serialization and invalid values; integration tests verify returned snippets on pinned Solr 8.11.4, 9.11.0, and 10.1.0. Typed Result Grouping options cover group.field, group.func, group.query, per-group limit/offset/sort, group format/main/ngroups/truncate/facet/cache settings; typed grouped response models expose matches, group counts, and per-group document lists. Typed collapse and expand options serialize the Collapsing Query Parser filter and Expand component parameters, with expanded document maps in the response. Standalone integration tests verify field grouping, group sorting, collapse selection, and expansion on Solr 8.11.4, 9.11.0, and 10.1.0. Function grouping and collapse remain subject to Solr's documented distributed/shard-local limitations. Typed Stats Component options support repeated fields, per-field local statistic selection, percentiles, cardinality, tag/key/excludeTags, global stats facets, and calcDistinct. SolrFieldStats response models include nested facet breakdowns, percentiles, and cardinality. Unit and consumer type tests cover encoding and response properties; integration tests verify numeric aggregates, distinct values/counts, cardinality, and category breakdowns on Solr 8.11.4, 9.11.0, and 10.1.0. Typed MoreLikeThis Search Component options cover field selection, result count, term/document-frequency thresholds, word/token/query-term limits, boosting, query fields, and interesting terms. Unit and consumer type tests cover serialization and response typing; integration tests verify similar-document results on pinned Solr 8.11.4, 9.11.0, and 10.1.0. Geospatial geofilt/bbox filters and geodist sorting are integration-tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0 using an isolated LatLonPointSpatialField and deterministic nearby/far points; assertions verify inclusion/exclusion and nearest-to-farthest ordering. SpellCheck is an optional server-side component; the client only serializes request options and types its response, and never mutates dictionary or request-handler configuration. The configured default-handler SpellCheck integration test verifies indexed suggestions, frequencies, and a corrected collation; it passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 in CI run #42392182590. Long query parameter preservation on the current GET contract (no automatic GET-to-POST switching) is unit-tested in test/transport-serialization.test.ts. Nested-document child-transformer and Unicode read-back assertions in test/integration/solr-document-fidelity.test.ts passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 in CI run #42392182590; long query preservation is covered by transport unit tests. No automatic GET-to-POST fallback is implemented. Suggester is modelled as an optional query component because it is attached to a deployment-configured SearchHandler; typed dictionary/query/count/context/build/reload parameters and dictionary/query-keyed responses are covered by unit and consumer type tests. The disposable configured-handler Suggester integration test verifies indexed terms and finite weights; it passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 in CI run #42392182590."
-        },
-        "documentation": "docs/query.md",
-        "testFiles": [
-          "test/client.test.ts",
-          "test/query-types.ts",
-          "test/modules.test.ts",
-          "test/integration/solr-smoke.test.ts",
-          "test/integration/solr-cursor.test.ts",
-          "test/query.test.ts",
-          "test/integration/solr-morelikethis.test.ts",
-          "test/integration/solr-spatial.test.ts",
-          "test/spellcheck-doc-examples.ts",
-          "test/integration/solr-spellcheck.test.ts",
-          "test/integration/solr-document-fidelity.test.ts",
-          "test/transport-serialization.test.ts",
-          "test/suggester-doc-examples.ts",
-          "test/integration/solr-suggester.test.ts"
-        ]
-      },
-      {
-        "id": "query.realtimeGet",
-        "operationId": "query.realtimeGet",
-        "area": "RealTime Get",
-        "method": "get",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/14",
-          "description": "Typed single-ID and multi-ID requests use distinct generic response shapes. The API supports field selection, repeated filter queries, custom Solr parameters, and shared request controls. Unit tests cover URL/query serialization, cancellation propagation, reserved-parameter protection, and invalid ID/filter/field values; consumer type fixtures cover valid and invalid request forms. The integration test in test/integration/solr-get.test.ts verifies uncommitted single- and multi-ID read-after-write behavior before the searcher view is updated, including field selection, on pinned Solr 8.11.4, 9.11.0, and 10.1.0. All three versions passed in CI run #42392182590."
-        },
-        "documentation": "docs/realtime-get.md",
-        "testFiles": [
-          "test/client.test.ts",
-          "test/get-doc-examples.ts",
-          "test/integration/solr-get.test.ts"
         ]
       },
       {
@@ -676,7 +477,7 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/15",
+          "pointer": "/entries/10",
           "description": "JSON Request API query body now has a typed SolrJsonQueryRequest model and recursive JSON Facet API terms/query/range definitions, nested metrics, and domain transformations. SolrJsonQueryResponse<TDocument, TJsonFacet> exposes caller-typed facet results. Unit and consumer type tests cover nested serialization and invalid discriminators; integration tests verify terms/query/range facets, nested metrics, and excludeTags domain behavior on pinned Solr 8.11.4, 9.11.0, and 10.1.0. Other JSON Request API options remain available through params or the legacy custom-body overload."
         },
         "documentation": "docs/query.md",
@@ -686,10 +487,45 @@
         ]
       },
       {
-        "id": "replication.handler",
-        "operationId": "replication.handler",
-        "area": "Replication",
-        "method": "replication",
+        "id": "query.realtimeGet",
+        "operationId": "query.realtimeGet",
+        "area": "RealTime Get",
+        "method": "get",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/11",
+          "description": "Typed single-ID and multi-ID requests use distinct generic response shapes. The API supports field selection, repeated filter queries, custom Solr parameters, and shared request controls. Unit tests cover URL/query serialization, cancellation propagation, reserved-parameter protection, and invalid ID/filter/field values; consumer type fixtures cover valid and invalid request forms. The integration test in test/integration/solr-get.test.ts verifies uncommitted single- and multi-ID read-after-write behavior before the searcher view is updated, including field selection, on pinned Solr 8.11.4, 9.11.0, and 10.1.0. All three versions passed in CI run #42392182590."
+        },
+        "documentation": "docs/realtime-get.md",
+        "testFiles": [
+          "test/client.test.ts",
+          "test/get-doc-examples.ts",
+          "test/integration/solr-get.test.ts"
+        ]
+      },
+      {
+        "id": "query.select",
+        "operationId": "query.select",
+        "area": "Query",
+        "method": "query",
         "status": "verified",
         "versions": [
           "8",
@@ -710,18 +546,25 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/16",
-          "description": "Typed V1 ReplicationHandler commands for enablereplication, disablereplication, indexversion, fetchindex, abortfetch, snappull, abort, enablepoll, disablepoll, details, filelist, backup, restore, restorestatus, and deletebackup; replicationFile() returns raw filecontent streams. Live integration coverage on Solr 8.11.4, 9.11.0, and 10.1.0 covers indexversion, details, filelist, filecontent, leader enable/disable, and a disposable two-core leader/follower fetch using fetchindex with follower query read-back passed the full standalone/security matrix on Solr 8.11.4, 9.11.0, and 10.1.0 (CI #640). A bounded disposable-core in-progress abort test passes on Solr 9.11.0 and 10.1.0. Solr 8.11.4 is explicitly deferred: repeated CI runs did not expose details.follower.isReplicating=true during a throttled transfer, so the test is skipped for that version and live abort remains unverified there. enablepoll/disablepoll retain unit serialization coverage only. Core-level backup, restore, restorestatus, and deletebackup are integration-tested on all three pinned versions. Filelist uses the generation returned by newer Solr indexversion responses and falls back to the legacy indexversion parameter when that field is absent. Additional operation evidence: Core-level ReplicationHandler backup, restore, restorestatus, and deletebackup are typed. Backup defaults to the core dataDir; restore status is polled with restorestatus. Full backup/restore/read-back/delete cycle is integration-tested on Solr 8.11.4, 9.11.0, and 10.1.0. Custom filesystem locations must be permitted by server allowPaths."
+          "pointer": "/entries/12",
+          "description": "Generic SolrResponse<TDocument> and SolrQueryResponse<TDocument, TJsonFacet> types expose document metadata, classic facet counts, caller-shaped JSON facets, highlighting, grouping, stats, and debug sections. Consumer compile tests verify document inference and response-section property types. Basic query serialization and document retrieval plus cursorMark multi-page traversal are tested on the pinned Solr 8.11.4, 9.11.0, and 10.1.0 images; typed declarations do not certify every optional response section at runtime. Typed classic Facet Component options cover field facets and per-field limit/offset/sort/mincount/missing/prefix/method overrides, query facets, and numeric/date range facets with include/other/hardend and filter/dv methods. Solr date bucketing uses range facets; legacy facet.date parameters were removed in Solr 6. Integration coverage asserts field/query counts and numeric/date range response sections on pinned Solr 8.11.4, 9.11.0, and 10.1.0. Typed highlighting options cover field selection, highlighter method, snippet/fragment sizing, field matching, alternate fields, phrase and multi-term highlighting, encoders/tags, and per-field overrides. Unit and consumer type tests cover parameter serialization and invalid values; integration tests verify returned snippets on pinned Solr 8.11.4, 9.11.0, and 10.1.0. Typed Result Grouping options cover group.field, group.func, group.query, per-group limit/offset/sort, group format/main/ngroups/truncate/facet/cache settings; typed grouped response models expose matches, group counts, and per-group document lists. Typed collapse and expand options serialize the Collapsing Query Parser filter and Expand component parameters, with expanded document maps in the response. Standalone integration tests verify field grouping, group sorting, collapse selection, and expansion on Solr 8.11.4, 9.11.0, and 10.1.0. Function grouping and collapse remain subject to Solr's documented distributed/shard-local limitations. Typed Stats Component options support repeated fields, per-field local statistic selection, percentiles, cardinality, tag/key/excludeTags, global stats facets, and calcDistinct. SolrFieldStats response models include nested facet breakdowns, percentiles, and cardinality. Unit and consumer type tests cover encoding and response properties; integration tests verify numeric aggregates, distinct values/counts, cardinality, and category breakdowns on Solr 8.11.4, 9.11.0, and 10.1.0. Typed MoreLikeThis Search Component options cover field selection, result count, term/document-frequency thresholds, word/token/query-term limits, boosting, query fields, and interesting terms. Unit and consumer type tests cover serialization and response typing; integration tests verify similar-document results on pinned Solr 8.11.4, 9.11.0, and 10.1.0. Geospatial geofilt/bbox filters and geodist sorting are integration-tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0 using an isolated LatLonPointSpatialField and deterministic nearby/far points; assertions verify inclusion/exclusion and nearest-to-farthest ordering. SpellCheck is an optional server-side component; the client only serializes request options and types its response, and never mutates dictionary or request-handler configuration. The configured default-handler SpellCheck integration test verifies indexed suggestions, frequencies, and a corrected collation; it passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 in CI run #42392182590. Long query parameter preservation on the current GET contract (no automatic GET-to-POST switching) is unit-tested in test/transport-serialization.test.ts. Nested-document child-transformer and Unicode read-back assertions in test/integration/solr-document-fidelity.test.ts passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 in CI run #42392182590; long query preservation is covered by transport unit tests. No automatic GET-to-POST fallback is implemented. Suggester is modelled as an optional query component because it is attached to a deployment-configured SearchHandler; typed dictionary/query/count/context/build/reload parameters and dictionary/query-keyed responses are covered by unit and consumer type tests. The disposable configured-handler Suggester integration test verifies indexed terms and finite weights; it passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 in CI run #42392182590."
         },
-        "documentation": "docs/replication.md",
+        "documentation": "docs/query.md",
         "testFiles": [
-          "test/replication.test.ts",
-          "test/replication-api-types.ts",
-          "test/integration/solr-replication.test.ts",
-          "test/integration/solr-replication-lifecycle.test.ts",
-          "test/backup-restore.test.ts",
-          "test/backup-restore-api-types.ts",
-          "test/integration/solr-core-backup-restore.test.ts"
+          "test/client.test.ts",
+          "test/query-types.ts",
+          "test/modules.test.ts",
+          "test/integration/solr-smoke.test.ts",
+          "test/integration/solr-cursor.test.ts",
+          "test/query.test.ts",
+          "test/integration/solr-morelikethis.test.ts",
+          "test/integration/solr-spatial.test.ts",
+          "test/spellcheck-doc-examples.ts",
+          "test/integration/solr-spellcheck.test.ts",
+          "test/integration/solr-document-fidelity.test.ts",
+          "test/transport-serialization.test.ts",
+          "test/suggester-doc-examples.ts",
+          "test/integration/solr-suggester.test.ts"
         ]
       },
       {
@@ -749,13 +592,293 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/17",
+          "pointer": "/entries/13",
           "description": "Returns raw replication file content as a Response stream; integration coverage requests a listed leader index file and verifies a successful non-empty binary response on pinned Solr 8.11.4, 9.11.0, and 10.1.0."
         },
         "documentation": "docs/replication.md",
         "testFiles": [
           "test/replication.test.ts",
           "test/integration/solr-replication.test.ts"
+        ]
+      },
+      {
+        "id": "replication.handler",
+        "operationId": "replication.handler",
+        "area": "Replication",
+        "method": "replication",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "partial",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/14",
+          "description": "Typed V1 ReplicationHandler commands for enablereplication, disablereplication, indexversion, fetchindex, abortfetch, snappull, abort, enablepoll, disablepoll, details, filelist, backup, restore, restorestatus, and deletebackup; replicationFile() returns raw filecontent streams. Live integration coverage on Solr 8.11.4, 9.11.0, and 10.1.0 covers indexversion, details, filelist, filecontent, leader enable/disable, and a disposable two-core leader/follower fetch using fetchindex with follower query read-back passed the full standalone/security matrix on Solr 8.11.4, 9.11.0, and 10.1.0 (CI #640). A bounded disposable-core in-progress abort test passes on Solr 9.11.0 and 10.1.0. Solr 8.11.4 is explicitly deferred: repeated CI runs did not expose details.follower.isReplicating=true during a throttled transfer, so the test is skipped for that version and live abort remains unverified there. enablepoll/disablepoll retain unit serialization coverage only. Core-level backup, restore, restorestatus, and deletebackup are integration-tested on all three pinned versions. Filelist uses the generation returned by newer Solr indexversion responses and falls back to the legacy indexversion parameter when that field is absent. Additional operation evidence: Core-level ReplicationHandler backup, restore, restorestatus, and deletebackup are typed. Backup defaults to the core dataDir; restore status is polled with restorestatus. Full backup/restore/read-back/delete cycle is integration-tested on Solr 8.11.4, 9.11.0, and 10.1.0. Custom filesystem locations must be permitted by server allowPaths."
+        },
+        "documentation": "docs/replication.md",
+        "testFiles": [
+          "test/replication.test.ts",
+          "test/replication-api-types.ts",
+          "test/integration/solr-replication.test.ts",
+          "test/integration/solr-replication-lifecycle.test.ts",
+          "test/backup-restore.test.ts",
+          "test/backup-restore-api-types.ts",
+          "test/integration/solr-core-backup-restore.test.ts"
+        ]
+      },
+      {
+        "id": "schema.api",
+        "operationId": "schema.api",
+        "area": "Schema",
+        "method": "schema",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "partial",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/15",
+          "description": "Field, field-type, dynamic-field add/replace/delete and copy-field add/delete commands are unit-tested for exact serialization and integration-tested with responseHeader.status plus schema read-back on pinned Solr 8.11.4, 9.11.0, and 10.1.0. Copy-field replacement is implemented by delete+add because Solr has no native replace-copy-field command. Integration tests verify full schema metadata, name, version, uniqueKey, and similarity response envelopes on all pinned versions. Similarity plugin mutation remains runtime-unverified. The public client implements V1 Schema API routes; Solr 10 V2 routes are not included."
+        },
+        "documentation": "docs/schema.md",
+        "testFiles": [
+          "test/modules.test.ts",
+          "test/admin-api-types.ts",
+          "test/integration/solr-schema.test.ts"
+        ]
+      },
+      {
+        "id": "security.api",
+        "operationId": "security.api",
+        "area": "Security",
+        "method": "security",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "partial",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/16",
+          "description": "Authentication overloads default to SolrAuthenticationResponse and accept SolrAuthenticationCommand for BasicAuthPlugin set-user, delete-user, and set-property operations, including documented MultiAuthPlugin Basic scheme wrappers for set-user/set-property. BasicAuth configuration exposes hashed credential strings; these must not be logged or treated as plaintext. Authorization has separate SolrAuthorizationResponse/SolrAuthorizationCommand types for RuleBasedAuthorizationPlugin. Custom plugin schemas remain open/unsupported beyond the explicit extension points. Unit serialization and compile-time fixtures cover auth command shapes; existing authenticated read and set-property/read-back integration tests pass on pinned Solr 8.11.4, 9.11.0, and 10.1.0. User create/delete mutations are not performed against shared integration security state. Authorization command inputs now validate the stable built-in RuleBasedAuthorizationPlugin fields and use an explicit customOptions escape hatch for plugin extensions; separate permission response models retain unknown server/plugin fields. Plugin-specific authorization schemas remain outside the closed type contract."
+        },
+        "documentation": "docs/administration.md",
+        "testFiles": [
+          "test/modules.test.ts",
+          "test/integration/solr-security.test.ts"
+        ]
+      },
+      {
+        "id": "streaming.api",
+        "operationId": "streaming.api",
+        "area": "Streaming",
+        "method": "stream",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/17",
+          "description": "Default SolrStreamingExpressionResponse models the JSON result-set envelope and extensible tuple fields; SolrStreamingExpressionErrorTuple describes in-band EXCEPTION tuples. Callers can supply a response or tuple-specific generic shape. Unknown envelope and tuple fields remain accessible. HTTP-level Solr errors continue through the shared typed transport. SolrCloud search is integration-tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0. Unit tests cover response parsing, in-band error tuples, cancellation during body consumption, and cleanup after body-stream errors. This API parses the complete JSON response and is not an incremental tuple-stream parser."
+        },
+        "documentation": "docs/streaming.md",
+        "testFiles": [
+          "test/modules.test.ts",
+          "test/streaming.test.ts",
+          "test/streaming-api-types.ts",
+          "test/integration/solr-streaming.test.ts"
+        ]
+      },
+      {
+        "id": "system.info",
+        "operationId": "system.info",
+        "area": "System",
+        "method": "systemInfo",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "partial",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/18",
+          "description": "System info metadata response passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images."
+        },
+        "documentation": "docs/administration.md",
+        "testFiles": [
+          "test/modules.test.ts",
+          "test/integration/solr-system-metrics.test.ts"
+        ]
+      },
+      {
+        "id": "system.logging",
+        "operationId": "system.logging",
+        "area": "System",
+        "method": "systemLogging",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/19",
+          "description": "Read-only logger configuration and level information. This client method does not mutate logger levels; integration tests verify a representative response on pinned Solr 8.11.4, 9.11.0, and 10.1.0."
+        },
+        "documentation": "docs/administration.md",
+        "testFiles": [
+          "test/admin.test.ts",
+          "test/admin-api-types.ts"
+        ]
+      },
+      {
+        "id": "system.properties",
+        "operationId": "system.properties",
+        "area": "System",
+        "method": "systemProperties",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/20",
+          "description": "Read-only JVM and process properties. Response is intentionally extensible because available properties vary by runtime and deployment; integration tests verify a representative response on pinned Solr 8.11.4, 9.11.0, and 10.1.0."
+        },
+        "documentation": "docs/administration.md",
+        "testFiles": [
+          "test/admin.test.ts",
+          "test/admin-api-types.ts"
+        ]
+      },
+      {
+        "id": "system.threads",
+        "operationId": "system.threads",
+        "area": "System",
+        "method": "systemThreads",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/21",
+          "description": "Read-only JVM thread diagnostics. Thread detail and response payload vary by JVM; integration tests verify a representative response on pinned Solr 8.11.4, 9.11.0, and 10.1.0."
+        },
+        "documentation": "docs/administration.md",
+        "testFiles": [
+          "test/admin.test.ts",
+          "test/admin-api-types.ts"
         ]
       },
       {
@@ -783,7 +906,7 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/18",
+          "pointer": "/entries/22",
           "description": "Generic escape hatch. It does not imply typed support for every Solr endpoint. Basic and Bearer Authorization header construction is unit-tested. The built-in transport does not log requests or add configured authorization values to error properties; custom Fetch logging and server-controlled response bodies still require caller-side redaction. Generic custom-handler request tests verify repeated query parameter preservation and extensible unknown JSON response fields in test/raw-request.test.ts. Generic custom-handler extensibility, repeated query parameters, and preservation of unknown plugin response fields are covered by raw-request unit tests. Optional `SolrClientConfig.jsonCodec` applies a caller-supplied parser to successful and structured error JSON payloads and a serializer to JSON request bodies. Tests cover exact BigInt round-trip above 2^53-1, normal numbers, decimals, arrays, nested objects, malformed JSON fallback, HTTP errors, and unchanged native defaults. This is client-side behavior and does not carry Solr server-version certification."
         },
         "documentation": "docs/configuration.md",
@@ -821,7 +944,7 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/19",
+          "pointer": "/entries/23",
           "description": "Generic raw-response escape hatch using the shared Solr transport. Supports typed methods, query parameters, headers, request bodies, cancellation, timeouts, retry policy, configured validation, and standard Solr error classes. Relative paths and same-origin absolute URLs are supported; cross-origin absolute URLs, embedded credentials, and fragments are rejected before Fetch to prevent credential leakage. String bodies are passed through unchanged when callers supply an explicit Content-Type. Custom endpoint behavior is unverified on Solr 8/9/10 until endpoint-specific integration tests are added. Basic and Bearer Authorization header construction is unit-tested. The built-in transport does not log requests or add configured authorization values to error properties; custom Fetch logging and server-controlled response bodies still require caller-side redaction. When `requestRaw()` receives a non-string JSON body or an HTTP error response, it uses the configured JSON codec. Explicit string bodies and successful raw response streams bypass parsing/serialization and remain unchanged."
         },
         "documentation": "docs/raw-requests.md",
@@ -834,10 +957,10 @@
         ]
       },
       {
-        "id": "update.rollback",
-        "operationId": "update.rollback",
+        "id": "update.add",
+        "operationId": "update.add",
         "area": "Update",
-        "method": "rollback",
+        "method": "add",
         "status": "verified",
         "versions": [
           "8",
@@ -858,129 +981,27 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/20",
-          "description": "Rollback discards a pending, uncommitted document on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images (CI #145). Command-body serialization is covered by explicit unit tests. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0."
+          "pointer": "/entries/24",
+          "description": "Document add is exercised in the CRUD smoke test on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images. Named SolrUpdateOptions now expose overwrite, commitWithin, and SolrCloud _route_ serialization; request parameter serialization and invalid values are covered by unit tests. SolrCloud integration tests verify add/update route behavior on an implicit-router collection using shard-scoped query read-back, and verify commitWithin search visibility without a manual commit on the pinned _default configset, across Solr 8.11.4/9.11.0/10.1.0. The commitWithin test asserts bounded eventual visibility only; hard/soft commit behavior remains controlled by server configuration. Field-specific SolrAtomicUpdateOperation and SolrAtomicUpdateDocument types plus atomicUpdate() support set, add, add-distinct, remove, removeregex, and numeric inc. Unit, consumer type, and pinned Solr 8.11.4/9.11.0/10.1.0 integration tests cover atomic updates. Single JSON documents use /update/json/docs; arrays use /update. Both forms are integration-tested on pinned Solr 8.11.4/9.11.0/10.1.0. commitWithin is a scheduling hint whose hard/soft behavior is controlled by Solr's commitWithin configuration; the client does not force either commit type. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0. Unit tests assert the single-document, document-array, and command-map JSON endpoint selection, typed response header, and HTTP error propagation. Unit tests assert single-document, document-array, and command-map endpoint selection, typed response headers, and HTTP error propagation.  Nested parent/child/grandchild JSON document indexing and exact Unicode/multi-valued field read-back are covered by test/integration/solr-document-fidelity.test.ts and passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 in CI run #42392182590. Nested documents must be sent using the array form add([document]) so the request uses /update; Solr's /update/json/docs convenience path flattens complex JSON by default. See docs/update.md and ADR 0003. Nested parent/child/grandchild document round-trip and Unicode/multi-valued field round-trip passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 in CI run #42392182590."
         },
         "documentation": "docs/update.md",
         "testFiles": [
           "test/client.test.ts",
-          "test/integration/solr-update-lifecycle.test.ts",
+          "test/config.test.ts",
+          "test/integration/solr-smoke.test.ts",
           "test/cancellation.types.ts",
           "test/integration/solr-update.test.ts",
-          "test/validation.test.ts"
-        ]
-      },
-      {
-        "id": "schema.api",
-        "operationId": "schema.api",
-        "area": "Schema",
-        "method": "schema",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "partial",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/21",
-          "description": "Field, field-type, dynamic-field add/replace/delete and copy-field add/delete commands are unit-tested for exact serialization and integration-tested with responseHeader.status plus schema read-back on pinned Solr 8.11.4, 9.11.0, and 10.1.0. Copy-field replacement is implemented by delete+add because Solr has no native replace-copy-field command. Integration tests verify full schema metadata, name, version, uniqueKey, and similarity response envelopes on all pinned versions. Similarity plugin mutation remains runtime-unverified. The public client implements V1 Schema API routes; Solr 10 V2 routes are not included."
-        },
-        "documentation": "docs/schema.md",
-        "testFiles": [
+          "test/validation.test.ts",
           "test/modules.test.ts",
-          "test/admin-api-types.ts",
-          "test/integration/solr-schema.test.ts"
+          "test/integration/solr-update-cloud.test.ts",
+          "test/integration/solr-document-fidelity.test.ts"
         ]
       },
       {
-        "id": "security.api",
-        "operationId": "security.api",
-        "area": "Security",
-        "method": "security",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "partial",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/22",
-          "description": "Authentication overloads default to SolrAuthenticationResponse and accept SolrAuthenticationCommand for BasicAuthPlugin set-user, delete-user, and set-property operations, including documented MultiAuthPlugin Basic scheme wrappers for set-user/set-property. BasicAuth configuration exposes hashed credential strings; these must not be logged or treated as plaintext. Authorization has separate SolrAuthorizationResponse/SolrAuthorizationCommand types for RuleBasedAuthorizationPlugin. Custom plugin schemas remain open/unsupported beyond the explicit extension points. Unit serialization and compile-time fixtures cover auth command shapes; existing authenticated read and set-property/read-back integration tests pass on pinned Solr 8.11.4, 9.11.0, and 10.1.0. User create/delete mutations are not performed against shared integration security state. Authorization command inputs now validate the stable built-in RuleBasedAuthorizationPlugin fields and use an explicit customOptions escape hatch for plugin extensions; separate permission response models retain unknown server/plugin fields. Plugin-specific authorization schemas remain outside the closed type contract."
-        },
-        "documentation": "docs/administration.md",
-        "testFiles": [
-          "test/modules.test.ts",
-          "test/integration/solr-security.test.ts"
-        ]
-      },
-      {
-        "id": "update.softCommit",
-        "operationId": "update.softCommit",
+        "id": "update.addStream",
+        "operationId": "update.addStream",
         "area": "Update",
-        "method": "softCommit",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "partial",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/23",
-          "description": "A newly added document becomes searchable after softCommit on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images (CI #145). Command-body serialization is covered by explicit unit tests. SolrSoftCommitOptions expose waitSearcher/openSearcher; softCommit() now waits for searcher registration by default and is integration-tested for immediate visibility on all pinned versions. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0."
-        },
-        "documentation": "docs/update.md",
-        "testFiles": [
-          "test/client.test.ts",
-          "test/integration/solr-update-lifecycle.test.ts",
-          "test/cancellation.types.ts",
-          "test/integration/solr-update.test.ts",
-          "test/validation.test.ts"
-        ]
-      },
-      {
-        "id": "streaming.api",
-        "operationId": "streaming.api",
-        "area": "Streaming",
-        "method": "stream",
+        "method": "addStream",
         "status": "verified",
         "versions": [
           "8",
@@ -1001,56 +1022,21 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/24",
-          "description": "Default SolrStreamingExpressionResponse models the JSON result-set envelope and extensible tuple fields; SolrStreamingExpressionErrorTuple describes in-band EXCEPTION tuples. Callers can supply a response or tuple-specific generic shape. Unknown envelope and tuple fields remain accessible. HTTP-level Solr errors continue through the shared typed transport. SolrCloud search is integration-tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0. Unit tests cover response parsing, in-band error tuples, cancellation during body consumption, and cleanup after body-stream errors. This API parses the complete JSON response and is not an incremental tuple-stream parser."
-        },
-        "documentation": "docs/streaming.md",
-        "testFiles": [
-          "test/modules.test.ts",
-          "test/streaming.test.ts",
-          "test/streaming-api-types.ts",
-          "test/integration/solr-streaming.test.ts"
-        ]
-      },
-      {
-        "id": "system.info",
-        "operationId": "system.info",
-        "area": "System",
-        "method": "systemInfo",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "partial",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
           "pointer": "/entries/25",
-          "description": "System info metadata response passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images."
+          "description": "Consumes an AsyncIterable<SolrDocument> and emits a valid top-level JSON array through a Web ReadableStream with highWaterMark 1. Serializes and validates one document at a time, reuses the configured JSON codec and shared request controls, propagates producer/validation errors, HTTP failures, timeout and caller/consumer cancellation, closes the iterator, and disables retries for the non-replayable POST body. Consumer type fixtures assert default/custom response generics and reject synchronous iterables plus invalid numeric option types. Unit tests explicitly cover slow producers, a slow consumer with bounded pull-ahead, framing, empty input, per-document validation, shared auth/headers/request defaults, HTTP errors, timeout/cancellation cleanup, codec use, and no retries. A deterministic 250-document pinned Solr integration test verifies count/order read-back on Solr 8.11.4, 9.11.0, and 10.1.0. Full combined CI run #42376175065 passed 30/30 jobs across Node.js 20/22/24 and standalone, authenticated, and SolrCloud matrices; the standalone job logs confirm 250-document read-back on each pinned image. Partial ingestion is possible if the source or connection fails after the server has accepted a prefix; the operation is not atomic and does not auto-commit."
         },
-        "documentation": "docs/administration.md",
+        "documentation": "docs/update.md",
         "testFiles": [
-          "test/modules.test.ts",
-          "test/integration/solr-system-metrics.test.ts"
+          "test/add-stream.test.ts",
+          "test/streaming-add-doc-examples.ts",
+          "test/integration/solr-add-stream.test.ts"
         ]
       },
       {
-        "id": "update.update",
-        "operationId": "update.update",
+        "id": "update.atomicUpdate",
+        "operationId": "update.atomicUpdate",
         "area": "Update",
-        "method": "update",
+        "method": "atomicUpdate",
         "status": "verified",
         "versions": [
           "8",
@@ -1072,16 +1058,12 @@
           ],
           "path": "docs/api-inventory.json",
           "pointer": "/entries/26",
-          "description": "Replacing an existing document and reading back its updated field is tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images. Atomic updates are integration-tested on all three pinned versions. Typed JSON updateCommands() has its own inventory entry; its add + commit + persisted-document read-back path is integration-tested on all three pinned versions. Named SolrUpdateOptions now expose overwrite, commitWithin, and SolrCloud _route_ serialization; request parameter serialization and invalid values are covered by unit tests. SolrCloud integration tests verify add/update route behavior on an implicit-router collection using shard-scoped query read-back, and verify commitWithin search visibility without a manual commit on the pinned _default configset, across Solr 8.11.4/9.11.0/10.1.0. The commitWithin test asserts bounded eventual visibility only; hard/soft commit behavior remains controlled by server configuration. Field-specific SolrAtomicUpdateOperation and SolrAtomicUpdateDocument types plus atomicUpdate() support set, add, add-distinct, remove, removeregex, and numeric inc. Unit, consumer type, and pinned Solr 8.11.4/9.11.0/10.1.0 integration tests cover atomic updates. Single JSON documents use /update/json/docs; arrays use /update. Both forms are integration-tested on pinned Solr 8.11.4/9.11.0/10.1.0. commitWithin is a scheduling hint whose hard/soft behavior is controlled by Solr's commitWithin configuration; the client does not force either commit type. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0."
+          "description": "Field-specific atomic update modifiers are covered by unit/type assertions and integration tests on Solr 8.11.4, 9.11.0, and 10.1.0."
         },
         "documentation": "docs/update.md",
         "testFiles": [
           "test/client.test.ts",
-          "test/integration/solr-update.test.ts",
-          "test/cancellation.types.ts",
-          "test/validation.test.ts",
-          "test/modules.test.ts",
-          "test/integration/solr-update-cloud.test.ts"
+          "test/integration/solr-update.test.ts"
         ]
       },
       {
@@ -1123,10 +1105,10 @@
         ]
       },
       {
-        "id": "export.stream",
-        "operationId": "export.stream",
-        "area": "Export",
-        "method": "exportStream",
+        "id": "update.commit",
+        "operationId": "update.commit",
+        "area": "Update",
+        "method": "commit",
         "status": "verified",
         "versions": [
           "8",
@@ -1139,7 +1121,7 @@
           "10": "tested"
         },
         "implementation": "implemented",
-        "typeCoverage": "complete",
+        "typeCoverage": "partial",
         "unitTests": "present",
         "integrationTests": "tested",
         "evidence": {
@@ -1148,19 +1130,22 @@
           ],
           "path": "docs/api-inventory.json",
           "pointer": "/entries/28",
-          "description": "Returns the Export response body as a backpressure-aware ReadableStream of bytes. It delegates to export(), preserving the same request parameters and server compatibility."
+          "description": "Hard commit with waitSearcher is exercised by the CRUD and update integration tests on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images. Command-body serialization is covered by explicit unit tests. SolrCommitOptions expose waitSearcher, softCommit, expungeDeletes (hard-commit only), and openSearcher (request parameter); integration tests cover openSearcher=false and expungeDeletes on Solr 8.11.4/9.11.0/10.1.0. Legacy CommitOptions.maxSegments is deprecated and rejected. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0."
         },
-        "documentation": "docs/export.md",
+        "documentation": "docs/update.md",
         "testFiles": [
-          "test/export.test.ts",
-          "test/integration/solr-export.test.ts"
+          "test/client.test.ts",
+          "test/integration/solr-smoke.test.ts",
+          "test/integration/solr-update.test.ts",
+          "test/cancellation.types.ts",
+          "test/validation.test.ts"
         ]
       },
       {
-        "id": "system.properties",
-        "operationId": "system.properties",
-        "area": "System",
-        "method": "systemProperties",
+        "id": "update.delete",
+        "operationId": "update.delete",
+        "area": "Update",
+        "method": "delete",
         "status": "verified",
         "versions": [
           "8",
@@ -1173,7 +1158,7 @@
           "10": "tested"
         },
         "implementation": "implemented",
-        "typeCoverage": "complete",
+        "typeCoverage": "partial",
         "unitTests": "present",
         "integrationTests": "tested",
         "evidence": {
@@ -1182,19 +1167,23 @@
           ],
           "path": "docs/api-inventory.json",
           "pointer": "/entries/29",
-          "description": "Read-only JVM and process properties. Response is intentionally extensible because available properties vary by runtime and deployment; integration tests verify a representative response on pinned Solr 8.11.4, 9.11.0, and 10.1.0."
+          "description": "Document deletion by ID is exercised in the CRUD smoke test on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images. Delete-by-ID and delete-by-query serialization are covered by unit tests; SolrDeleteOptions expose route and commitWithin, with runtime verification of these request options remaining unverified on Solr 8/9/10. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0. Delete-by-query is integration-tested with persisted-state assertions: all matching documents are removed while a non-matching document remains on Solr 8.11.4, 9.11.0, and 10.1.0. "
         },
-        "documentation": "docs/administration.md",
+        "documentation": "docs/update.md",
         "testFiles": [
-          "test/admin.test.ts",
-          "test/admin-api-types.ts"
+          "test/modules.test.ts",
+          "test/integration/solr-smoke.test.ts",
+          "test/client.test.ts",
+          "test/cancellation.types.ts",
+          "test/integration/solr-update.test.ts",
+          "test/validation.test.ts"
         ]
       },
       {
-        "id": "system.threads",
-        "operationId": "system.threads",
-        "area": "System",
-        "method": "systemThreads",
+        "id": "update.optimize",
+        "operationId": "update.optimize",
+        "area": "Update",
+        "method": "optimize",
         "status": "verified",
         "versions": [
           "8",
@@ -1207,7 +1196,7 @@
           "10": "tested"
         },
         "implementation": "implemented",
-        "typeCoverage": "complete",
+        "typeCoverage": "partial",
         "unitTests": "present",
         "integrationTests": "tested",
         "evidence": {
@@ -1216,19 +1205,22 @@
           ],
           "path": "docs/api-inventory.json",
           "pointer": "/entries/30",
-          "description": "Read-only JVM thread diagnostics. Thread detail and response payload vary by JVM; integration tests verify a representative response on pinned Solr 8.11.4, 9.11.0, and 10.1.0."
+          "description": "Optimize followed by query asserting committed documents remain available passed on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images. SolrOptimizeOptions expose maxSegments and waitSearcher with unit and consumer type coverage; the existing optimize behavior remains integration-tested on all pinned versions. SolrOptimizeOptions expose maxSegments, waitSearcher, and openSearcher; maxSegments is optimize-only and defaults to Solr's unlimited target. The integration test exercises maxSegments on all pinned versions. openSearcher is request-parameter serialized; its optimize-specific runtime effect remains unverified. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0."
         },
-        "documentation": "docs/administration.md",
+        "documentation": "docs/update.md",
         "testFiles": [
-          "test/admin.test.ts",
-          "test/admin-api-types.ts"
+          "test/client.test.ts",
+          "test/integration/solr-optimize.test.ts",
+          "test/cancellation.types.ts",
+          "test/integration/solr-update.test.ts",
+          "test/validation.test.ts"
         ]
       },
       {
-        "id": "system.logging",
-        "operationId": "system.logging",
-        "area": "System",
-        "method": "systemLogging",
+        "id": "update.rollback",
+        "operationId": "update.rollback",
+        "area": "Update",
+        "method": "rollback",
         "status": "verified",
         "versions": [
           "8",
@@ -1241,7 +1233,7 @@
           "10": "tested"
         },
         "implementation": "implemented",
-        "typeCoverage": "complete",
+        "typeCoverage": "partial",
         "unitTests": "present",
         "integrationTests": "tested",
         "evidence": {
@@ -1250,19 +1242,22 @@
           ],
           "path": "docs/api-inventory.json",
           "pointer": "/entries/31",
-          "description": "Read-only logger configuration and level information. This client method does not mutate logger levels; integration tests verify a representative response on pinned Solr 8.11.4, 9.11.0, and 10.1.0."
+          "description": "Rollback discards a pending, uncommitted document on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images (CI #145). Command-body serialization is covered by explicit unit tests. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0."
         },
-        "documentation": "docs/administration.md",
+        "documentation": "docs/update.md",
         "testFiles": [
-          "test/admin.test.ts",
-          "test/admin-api-types.ts"
+          "test/client.test.ts",
+          "test/integration/solr-update-lifecycle.test.ts",
+          "test/cancellation.types.ts",
+          "test/integration/solr-update.test.ts",
+          "test/validation.test.ts"
         ]
       },
       {
-        "id": "update.addStream",
-        "operationId": "update.addStream",
+        "id": "update.softCommit",
+        "operationId": "update.softCommit",
         "area": "Update",
-        "method": "addStream",
+        "method": "softCommit",
         "status": "verified",
         "versions": [
           "8",
@@ -1275,7 +1270,7 @@
           "10": "tested"
         },
         "implementation": "implemented",
-        "typeCoverage": "complete",
+        "typeCoverage": "partial",
         "unitTests": "present",
         "integrationTests": "tested",
         "evidence": {
@@ -1284,651 +1279,53 @@
           ],
           "path": "docs/api-inventory.json",
           "pointer": "/entries/32",
-          "description": "Consumes an AsyncIterable<SolrDocument> and emits a valid top-level JSON array through a Web ReadableStream with highWaterMark 1. Serializes and validates one document at a time, reuses the configured JSON codec and shared request controls, propagates producer/validation errors, HTTP failures, timeout and caller/consumer cancellation, closes the iterator, and disables retries for the non-replayable POST body. Consumer type fixtures assert default/custom response generics and reject synchronous iterables plus invalid numeric option types. Unit tests explicitly cover slow producers, a slow consumer with bounded pull-ahead, framing, empty input, per-document validation, shared auth/headers/request defaults, HTTP errors, timeout/cancellation cleanup, codec use, and no retries. A deterministic 250-document pinned Solr integration test verifies count/order read-back on Solr 8.11.4, 9.11.0, and 10.1.0. Full combined CI run #42376175065 passed 30/30 jobs across Node.js 20/22/24 and standalone, authenticated, and SolrCloud matrices; the standalone job logs confirm 250-document read-back on each pinned image. Partial ingestion is possible if the source or connection fails after the server has accepted a prefix; the operation is not atomic and does not auto-commit."
+          "description": "A newly added document becomes searchable after softCommit on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images (CI #145). Command-body serialization is covered by explicit unit tests. SolrSoftCommitOptions expose waitSearcher/openSearcher; softCommit() now waits for searcher registration by default and is integration-tested for immediate visibility on all pinned versions. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0."
         },
         "documentation": "docs/update.md",
         "testFiles": [
-          "test/add-stream.test.ts",
-          "test/streaming-add-doc-examples.ts",
-          "test/integration/solr-add-stream.test.ts"
+          "test/client.test.ts",
+          "test/integration/solr-update-lifecycle.test.ts",
+          "test/cancellation.types.ts",
+          "test/integration/solr-update.test.ts",
+          "test/validation.test.ts"
         ]
       },
       {
-        "id": "admin.collections.forceleader",
-        "operationId": "admin.collections.forceleader",
-        "area": "Collections",
-        "method": "collections",
-        "status": "unverified",
+        "id": "update.update",
+        "operationId": "update.update",
+        "area": "Update",
+        "method": "update",
+        "status": "verified",
         "versions": [
           "8",
           "9",
           "10"
         ],
         "versionEvidence": {
-          "8": "unverified",
-          "9": "unverified",
-          "10": "unverified"
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
         },
         "implementation": "implemented",
-        "typeCoverage": "complete",
+        "typeCoverage": "partial",
         "unitTests": "present",
-        "integrationTests": "not-run",
+        "integrationTests": "tested",
         "evidence": {
           "sourceIds": [
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
           "pointer": "/entries/33",
-          "description": "V1 expert-level shard leader recovery action. Exact collection/shard query serialization and ForceLeaderParams/SolrCollectionShardOperationResponse inference are unit/type-tested. A dedicated manual-only test creates a two-replica collection, commits a baseline, stops the follower during acknowledged writes, stops the old leader, promotes the stale replica, and verifies the data-loss boundary. It validates workflow-owned container labels, Solr image tags, dedicated Docker network, and loopback-only host ports; an independent ZooKeeper container remains running. The workflow has not yet been manually dispatched, so integrationTests remains not-run and all pinned versions remain unverified."
+          "description": "Replacing an existing document and reading back its updated field is tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0 images. Atomic updates are integration-tested on all three pinned versions. Typed JSON updateCommands() has its own inventory entry; its add + commit + persisted-document read-back path is integration-tested on all three pinned versions. Named SolrUpdateOptions now expose overwrite, commitWithin, and SolrCloud _route_ serialization; request parameter serialization and invalid values are covered by unit tests. SolrCloud integration tests verify add/update route behavior on an implicit-router collection using shard-scoped query read-back, and verify commitWithin search visibility without a manual commit on the pinned _default configset, across Solr 8.11.4/9.11.0/10.1.0. The commitWithin test asserts bounded eventual visibility only; hard/soft commit behavior remains controlled by server configuration. Field-specific SolrAtomicUpdateOperation and SolrAtomicUpdateDocument types plus atomicUpdate() support set, add, add-distinct, remove, removeregex, and numeric inc. Unit, consumer type, and pinned Solr 8.11.4/9.11.0/10.1.0 integration tests cover atomic updates. Single JSON documents use /update/json/docs; arrays use /update. Both forms are integration-tested on pinned Solr 8.11.4/9.11.0/10.1.0. commitWithin is a scheduling hint whose hard/soft behavior is controlled by Solr's commitWithin configuration; the client does not force either commit type. Update methods default to SolrUpdateResponse; successful output validation is wired to the public operation key. SolrHttpError.errorResponse exposes SolrErrorResponse while solrError remains the normalized detail. Mock validation tests cover success/error paths; add/update responseHeader.status is integration-tested on Solr 8.11.4/9.11.0/10.1.0."
         },
-        "documentation": "docs/administration.md",
+        "documentation": "docs/update.md",
         "testFiles": [
-          "test/admin.test.ts",
-          "test/collections-types.ts",
-          "test/integration/solrcloud-forceleader-optin.test.ts"
-        ]
-      },
-      {
-        "id": "v2.request",
-        "operationId": "v2.request",
-        "area": "V2 Generic",
-        "method": "v2.request",
-        "status": "unverified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "unverified",
-          "10": "unverified"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "generic-by-design",
-        "unitTests": "present",
-        "integrationTests": "not-run",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/34",
-          "description": "Low-level JSON request escape hatch only. The caller owns operation-specific request/response contracts. Shared transport applies auth, defaults, timeout, cancellation, retry, validation and JSON codec. No operation-specific runtime compatibility is claimed."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2.test.ts",
-          "test/v2-types.ts",
-          "test/v2-introspection.test.ts"
-        ]
-      },
-      {
-        "id": "v2.requestRaw",
-        "operationId": "v2.requestRaw",
-        "area": "V2 Generic",
-        "method": "v2.requestRaw",
-        "status": "unverified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "unverified",
-          "10": "unverified"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "generic-by-design",
-        "unitTests": "present",
-        "integrationTests": "not-run",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/35",
-          "description": "Low-level raw-response escape hatch only. The caller owns operation-specific request/response contracts. No operation-specific runtime compatibility is claimed."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2.test.ts",
-          "test/v2-types.ts"
-        ]
-      },
-      {
-        "id": "v2.coreAdmin.list",
-        "operationId": "v2.coreAdmin.list",
-        "area": "Core Admin V2",
-        "method": "v2.coreAdmin.list",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/36",
-          "description": "Explicit V2 read-only contract distinct from V1 Core Admin types. The exact list/status operations are integration-tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0 (CI run #42861195999; test/integration/solr-v2-core-admin.test.ts). This certifies only list and status: reload, rename, and unload remain runtime-unverified on Solr 8.11.4 and are tracked independently. This API is for standalone/user-managed cores, not SolrCloud collection management."
-        },
-        "documentation": "docs/administration.md",
-        "testFiles": [
-          "test/v2-core-admin.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solr-v2-core-admin.test.ts",
-          "test/integration/solr-v2-security.test.ts"
-        ]
-      },
-      {
-        "id": "v2.coreAdmin.status",
-        "operationId": "v2.coreAdmin.status",
-        "area": "Core Admin V2",
-        "method": "v2.coreAdmin.status",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/37",
-          "description": "Explicit V2 read-only contract distinct from V1 Core Admin types. The exact list/status operations are integration-tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0 (CI run #42861195999; test/integration/solr-v2-core-admin.test.ts). This certifies only list and status: reload, rename, and unload remain runtime-unverified on Solr 8.11.4 and are tracked independently. This API is for standalone/user-managed cores, not SolrCloud collection management."
-        },
-        "documentation": "docs/administration.md",
-        "testFiles": [
-          "test/v2-core-admin.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solr-v2-core-admin.test.ts",
-          "test/integration/solr-v2-security.test.ts"
-        ]
-      },
-      {
-        "id": "v2.coreAdmin.reload",
-        "operationId": "v2.coreAdmin.reload",
-        "area": "Core Admin V2",
-        "method": "v2.coreAdmin.reload",
-        "status": "partial",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "partial",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/38",
-          "description": "Explicit V2 contract distinct from V1 CoreAdmin types. Official Solr 9.11 and 10.1 references document this V2 route; the Solr 8.11 CoreAdmin guide documents V1, while the separate 8.11 V2 guide lists the V2 Core Admin route family; runtime verification on pinned 8.11.4 is pending. Runtime tests cover pinned 9.11.0 and 10.1.0, including authenticated/anonymous access. This API is for standalone/user-managed cores, not SolrCloud collection management. POST has no request body."
-        },
-        "documentation": "docs/administration.md",
-        "testFiles": [
-          "test/v2-core-admin.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solr-v2-core-admin.test.ts",
-          "test/integration/solr-v2-security.test.ts"
-        ]
-      },
-      {
-        "id": "v2.coreAdmin.rename",
-        "operationId": "v2.coreAdmin.rename",
-        "area": "Core Admin V2",
-        "method": "v2.coreAdmin.rename",
-        "status": "partial",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "partial",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/39",
-          "description": "Explicit V2 contract distinct from V1 CoreAdmin types. Official Solr 9.11 and 10.1 references document this V2 route; the Solr 8.11 CoreAdmin guide documents V1, while the separate 8.11 V2 guide lists the V2 Core Admin route family; runtime verification on pinned 8.11.4 is pending. Runtime tests cover pinned 9.11.0 and 10.1.0, including authenticated/anonymous access. This API is for standalone/user-managed cores, not SolrCloud collection management. JSON body is { to: string }."
-        },
-        "documentation": "docs/administration.md",
-        "testFiles": [
-          "test/v2-core-admin.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solr-v2-core-admin.test.ts",
-          "test/integration/solr-v2-security.test.ts"
-        ]
-      },
-      {
-        "id": "v2.coreAdmin.unload",
-        "operationId": "v2.coreAdmin.unload",
-        "area": "Core Admin V2",
-        "method": "v2.coreAdmin.unload",
-        "status": "partial",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "partial",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/40",
-          "description": "Explicit V2 contract distinct from V1 CoreAdmin types. Official Solr 9.11 and 10.1 references document this V2 route; the Solr 8.11 CoreAdmin guide documents V1, while the separate 8.11 V2 guide lists the V2 Core Admin route family; runtime verification on pinned 8.11.4 is pending. Runtime tests cover pinned 9.11.0 and 10.1.0, including authenticated/anonymous access. This API is for standalone/user-managed cores, not SolrCloud collection management. Optional deleteIndex/deleteDataDir/deleteInstanceDir flags default to false."
-        },
-        "documentation": "docs/administration.md",
-        "testFiles": [
-          "test/v2-core-admin.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solr-v2-core-admin.test.ts",
-          "test/integration/solr-v2-security.test.ts"
-        ]
-      },
-      {
-        "id": "v2.collections.list",
-        "operationId": "v2.collections.list",
-        "area": "Solr V2 Collections",
-        "method": "v2.collections.list",
-        "status": "verified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "tested",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "tested",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/41",
-          "description": "Read-only SolrCloud collection-name discovery. GET /api/collections is runtime-tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0 in CI run #43211482752 across Node.js 22/24/26. The test creates an isolated collection and verifies it appears in the V2 list. Uses the shared V2 transport."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2-collections.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solr-v2-collections.test.ts",
-          "test/integration/solr-v2-security.test.ts"
-        ]
-      },
-      {
-        "id": "v2.collections.create",
-        "operationId": "v2.collections.create",
-        "area": "Solr V2 Collections",
-        "method": "v2.collections.create",
-        "status": "unverified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "unverified",
-          "10": "unverified"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "not-run",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/42",
-          "description": "Typed post-Solr-9.3 create body with required name/config and common shard/replica fields. Exact unit serialization and consumer type fixtures are present. Runtime and security checks are pending; Solr 8.11 legacy command-envelope payload is intentionally not supported."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2-collections.test.ts",
-          "test/v2-types.ts"
-        ]
-      },
-      {
-        "id": "v2.collections.delete",
-        "operationId": "v2.collections.delete",
-        "area": "Solr V2 Collections",
-        "method": "v2.collections.delete",
-        "status": "unverified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "unverified",
-          "10": "unverified"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "not-run",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/43",
-          "description": "V2 collection deletion with explicit optional directory-deletion query flags. Unit serialization and consumer type fixtures are present. Runtime and security checks are pending; no V1 fallback."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2-collections.test.ts",
-          "test/v2-types.ts"
-        ]
-      },
-      {
-        "id": "v2.collections.reload",
-        "operationId": "v2.collections.reload",
-        "area": "Solr V2 Collections",
-        "method": "v2.collections.reload",
-        "status": "unverified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "unverified",
-          "10": "unverified"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "not-run",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/44",
-          "description": "REST-style V2 collection reload route documented from Solr 9.3. Unit serialization and consumer type fixtures are present. Runtime and security checks are pending; Solr 8.11 is not claimed."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2-collections.test.ts",
-          "test/v2-types.ts"
-        ]
-      },
-      {
-        "id": "v2.collections.status",
-        "operationId": "v2.collections.status",
-        "area": "Solr V2 Collections",
-        "method": "v2.collections.status",
-        "status": "partial",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "partial",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/45",
-          "description": "Read-only per-collection status with narrowly typed common flags and an extensible response. The V2 CollectionStatus route was introduced in Solr 9.3, so pinned Solr 8.11.4 is explicitly not claimed/skipped; runtime tests pass on pinned 9.11.0 and 10.1.0 in CI run #43008748363. This is not full parity with every V1 COLSTATUS detail/size-analysis option."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2-collections.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solr-v2-collections.test.ts",
-          "test/integration/solr-v2-security.test.ts"
-        ]
-      },
-      {
-        "id": "v2.cluster.status",
-        "operationId": "v2.cluster.status",
-        "area": "Solr V2 cluster",
-        "method": "v2.cluster.status",
-        "status": "partial",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "partial",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/46",
-          "description": "Read-only cluster discovery. GET CLUSTERSTATUS at /api/cluster is documented from Solr 9.11; pinned Solr 8.11.4 is explicitly not claimed/skipped. Runtime tests pass on pinned 9.11.0 and 10.1.0 in CI run #43008748363; response preserves unknown fields."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2-collections.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solr-v2-collections.test.ts",
-          "test/integration/solr-v2-security.test.ts"
-        ]
-      },
-      {
-        "id": "v2.collections.addReplica",
-        "operationId": "v2.collections.addReplica",
-        "area": "Solr V2 Replica Administration",
-        "method": "v2.collections.addReplica",
-        "status": "unverified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "unverified",
-          "10": "unverified"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "not-run",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/47",
-          "description": "Adds one or more replicas to an exact shard, or uses the collection-level shards route with route selector. Supports node/nodeSet, NRT/TLOG/PULL type, replica counts, waitForFinalState, and async. REST-style route documented from Solr 9.0; Solr 8.11.4 not claimed. Unit/type and isolated topology/security tests added; runtime evidence pending."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2-collections.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solr-v2-collections.test.ts",
-          "test/integration/solr-v2-security.test.ts"
-        ]
-      },
-      {
-        "id": "v2.collections.deleteReplica",
-        "operationId": "v2.collections.deleteReplica",
-        "area": "Solr V2 Replica Administration",
-        "method": "v2.collections.deleteReplica",
-        "status": "unverified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "unverified",
-          "10": "unverified"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "not-run",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/48",
-          "description": "Deletes only the explicitly named replica. Unlike Solr defaults, the client defaults deleteInstanceDir/deleteDataDir/deleteIndex to false to preserve on-disk data; each deletion flag requires explicit opt-in. Supports onlyIfDown, followAliases, and async. REST-style route documented from Solr 9.0; Solr 8.11.4 not claimed. Unit/type and isolated topology/security tests added; runtime evidence pending."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2-collections.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solr-v2-collections.test.ts",
-          "test/integration/solr-v2-security.test.ts"
-        ]
-      },
-      {
-        "id": "v2.aliases.list",
-        "operationId": "v2.aliases.list",
-        "area": "Solr V2 Aliases",
-        "method": "v2.aliases.list",
-        "status": "partial",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "partial",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/49",
-          "description": "Read-only V2 alias discovery, distinct from V1 LISTALIASES. The exact GET list route and response shape are documented in Solr 9.2, 9.11, and 10.1 guides. Integration and BasicAuth coverage passed on pinned Solr 9.11.0 and 10.1.0 in CI #43211482752; Solr 8.11.4 is explicitly unclaimed."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2-collections.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solr-v2-collections.test.ts",
-          "test/integration/solr-v2-security.test.ts"
-        ]
-      },
-      {
-        "id": "v2.aliases.status",
-        "operationId": "v2.aliases.status",
-        "area": "Solr V2 Aliases",
-        "method": "v2.aliases.status",
-        "status": "partial",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "tested",
-          "10": "tested"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "partial",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/50",
-          "description": "Read one alias and its collection targets/properties. The documented detail GET is used directly when available; pinned Solr 10.1.0 returns 405 (Allow: DELETE,OPTIONS), so the client falls back only on 405 to the V2 alias-list response. This V2-only compatibility path and the direct route passed on pinned Solr 9.11.0/10.1.0 in CI #43211482752. Solr 8.11.4 is explicitly unclaimed."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2-collections.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solr-v2-collections.test.ts",
-          "test/integration/solr-v2-security.test.ts"
+          "test/client.test.ts",
+          "test/integration/solr-update.test.ts",
+          "test/cancellation.types.ts",
+          "test/validation.test.ts",
+          "test/modules.test.ts",
+          "test/integration/solr-update-cloud.test.ts"
         ]
       },
       {
@@ -1956,7 +1353,7 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/51",
+          "pointer": "/entries/34",
           "description": "Create or replace a standard alias using the documented V2 {name, collections[]} request body. The redesigned route is documented from Solr 9.3; Solr 8.11.4 legacy alias commands are not mapped or claimed. Unit/type and disposable SolrCloud/security tests are present; runtime and BasicAuth evidence remains pending."
         },
         "documentation": "docs/solr-v2-api-strategy.md",
@@ -1992,8 +1389,44 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/52",
+          "pointer": "/entries/35",
           "description": "Delete only the alias, not its backing collections. Supports the documented async query parameter. The redesigned route is documented from Solr 9.3; Solr 8.11.4 is not claimed. Runtime and security evidence remains pending."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-collections.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.aliases.deleteProperty",
+        "operationId": "v2.aliases.deleteProperty",
+        "area": "Solr V2 Aliases",
+        "method": "v2.aliases.deleteProperty",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/36",
+          "description": "Delete one metadata property with the property-level DELETE route and optional async query parameter. Solr 9.3+ route; Solr 8.11.4 is not claimed; runtime evidence pending."
         },
         "documentation": "docs/solr-v2-api-strategy.md",
         "testFiles": [
@@ -2028,7 +1461,7 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/53",
+          "pointer": "/entries/37",
           "description": "Read all metadata properties for one alias using the documented Solr 9.3+ property subresource. Solr 8.11.4 is not claimed; runtime evidence pending."
         },
         "documentation": "docs/solr-v2-api-strategy.md",
@@ -2064,8 +1497,44 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/54",
+          "pointer": "/entries/38",
           "description": "Read one metadata property using the documented Solr 9.3+ property subresource. Solr 8.11.4 is not claimed; runtime evidence pending."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-collections.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.aliases.list",
+        "operationId": "v2.aliases.list",
+        "area": "Solr V2 Aliases",
+        "method": "v2.aliases.list",
+        "status": "partial",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "partial",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/39",
+          "description": "Read-only V2 alias discovery, distinct from V1 LISTALIASES. The exact GET list route and response shape are documented in Solr 9.2, 9.11, and 10.1 guides. Integration and BasicAuth coverage passed on pinned Solr 9.11.0 and 10.1.0 in CI #43211482752; Solr 8.11.4 is explicitly unclaimed."
         },
         "documentation": "docs/solr-v2-api-strategy.md",
         "testFiles": [
@@ -2100,7 +1569,7 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/55",
+          "pointer": "/entries/40",
           "description": "Set a map of metadata properties using the {properties} JSON body and optional async query parameter. Solr 9.3+ route; Solr 8.11.4 is not claimed; runtime evidence pending."
         },
         "documentation": "docs/solr-v2-api-strategy.md",
@@ -2136,7 +1605,7 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/56",
+          "pointer": "/entries/41",
           "description": "Set one metadata property using the {value} JSON body and optional async query parameter. Solr 9.3+ route; Solr 8.11.4 is not claimed; runtime evidence pending."
         },
         "documentation": "docs/solr-v2-api-strategy.md",
@@ -2148,10 +1617,82 @@
         ]
       },
       {
-        "id": "v2.aliases.deleteProperty",
-        "operationId": "v2.aliases.deleteProperty",
+        "id": "v2.aliases.status",
+        "operationId": "v2.aliases.status",
         "area": "Solr V2 Aliases",
-        "method": "v2.aliases.deleteProperty",
+        "method": "v2.aliases.status",
+        "status": "partial",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "partial",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/42",
+          "description": "Read one alias and its collection targets/properties. The documented detail GET is used directly when available; pinned Solr 10.1.0 returns 405 (Allow: DELETE,OPTIONS), so the client falls back only on 405 to the V2 alias-list response. This V2-only compatibility path and the direct route passed on pinned Solr 9.11.0/10.1.0 in CI #43211482752. Solr 8.11.4 is explicitly unclaimed."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-collections.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.cluster.status",
+        "operationId": "v2.cluster.status",
+        "area": "Solr V2 cluster",
+        "method": "v2.cluster.status",
+        "status": "partial",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "partial",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/43",
+          "description": "Read-only cluster discovery. GET CLUSTERSTATUS at /api/cluster is documented from Solr 9.11; pinned Solr 8.11.4 is explicitly not claimed/skipped. Runtime tests pass on pinned 9.11.0 and 10.1.0 in CI run #43008748363; response preserves unknown fields."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-collections.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.collections.addReplica",
+        "operationId": "v2.collections.addReplica",
+        "area": "Solr V2 Replica Administration",
+        "method": "v2.collections.addReplica",
         "status": "unverified",
         "versions": [
           "8",
@@ -2172,8 +1713,8 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/57",
-          "description": "Delete one metadata property with the property-level DELETE route and optional async query parameter. Solr 9.3+ route; Solr 8.11.4 is not claimed; runtime evidence pending."
+          "pointer": "/entries/44",
+          "description": "Adds one or more replicas to an exact shard, or uses the collection-level shards route with route selector. Supports node/nodeSet, NRT/TLOG/PULL type, replica counts, waitForFinalState, and async. REST-style route documented from Solr 9.0; Solr 8.11.4 not claimed. Unit/type and isolated topology/security tests added; runtime evidence pending."
         },
         "documentation": "docs/solr-v2-api-strategy.md",
         "testFiles": [
@@ -2208,7 +1749,7 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/58",
+          "pointer": "/entries/45",
           "description": "Typed REST-style collection backup contract introduced by the Solr 9.3 V2 route redesign. Solr 8.11.4's older command envelope is intentionally not mapped. Unit serialization, consumer type fixtures, and an isolated SolrCloud read-back test are present; runtime and BasicAuth route-probe evidence is pending CI."
         },
         "documentation": "docs/solr-v2-api-strategy.md",
@@ -2220,10 +1761,10 @@
         ]
       },
       {
-        "id": "v2.backups.list",
-        "operationId": "v2.backups.list",
-        "area": "Solr V2 Collection Backups",
-        "method": "v2.backups.list",
+        "id": "v2.collections.create",
+        "operationId": "v2.collections.create",
+        "area": "Solr V2 Collections",
+        "method": "v2.collections.create",
         "status": "unverified",
         "versions": [
           "8",
@@ -2244,8 +1785,326 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/59",
-          "description": "Typed REST-style collection backup contract introduced by the Solr 9.3 V2 route redesign. Solr 8.11.4's older command envelope is intentionally not mapped. Unit serialization, consumer type fixtures, and an isolated SolrCloud read-back test are present; runtime and BasicAuth route-probe evidence is pending CI."
+          "pointer": "/entries/46",
+          "description": "Typed post-Solr-9.3 create body with required name/config and common shard/replica fields. Exact unit serialization and consumer type fixtures are present. Runtime and security checks are pending; Solr 8.11 legacy command-envelope payload is intentionally not supported."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts"
+        ]
+      },
+      {
+        "id": "v2.collections.delete",
+        "operationId": "v2.collections.delete",
+        "area": "Solr V2 Collections",
+        "method": "v2.collections.delete",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/47",
+          "description": "V2 collection deletion with explicit optional directory-deletion query flags. Unit serialization and consumer type fixtures are present. Runtime and security checks are pending; no V1 fallback."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts"
+        ]
+      },
+      {
+        "id": "v2.collections.deleteProperty",
+        "operationId": "v2.collections.deleteProperty",
+        "area": "Solr V2 Collections",
+        "method": "v2.collections.deleteProperty",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/48",
+          "description": "Deletes exactly one named custom collection property. The property subresource is documented from Solr 9.3; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-collections.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.collections.deleteReplica",
+        "operationId": "v2.collections.deleteReplica",
+        "area": "Solr V2 Replica Administration",
+        "method": "v2.collections.deleteReplica",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/49",
+          "description": "Deletes only the explicitly named replica. Unlike Solr defaults, the client defaults deleteInstanceDir/deleteDataDir/deleteIndex to false to preserve on-disk data; each deletion flag requires explicit opt-in. Supports onlyIfDown, followAliases, and async. REST-style route documented from Solr 9.0; Solr 8.11.4 not claimed. Unit/type and isolated topology/security tests added; runtime evidence pending."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-collections.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.collections.getProperties",
+        "operationId": "v2.collections.getProperties",
+        "area": "Solr V2 Collections",
+        "method": "v2.collections.getProperties",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/50",
+          "description": "Reads all custom properties on one collection and returns the documented properties string map. The property subresource is documented in the Solr 9.11 guide; no earlier minimum is claimed; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-collections.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.collections.getProperty",
+        "operationId": "v2.collections.getProperty",
+        "area": "Solr V2 Collections",
+        "method": "v2.collections.getProperty",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/51",
+          "description": "Reads one custom collection property and returns its string value. The property subresource is documented in the Solr 9.11 guide; no earlier minimum is claimed; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-collections.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.collections.list",
+        "operationId": "v2.collections.list",
+        "area": "Solr V2 Collections",
+        "method": "v2.collections.list",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/52",
+          "description": "Read-only SolrCloud collection-name discovery. GET /api/collections is runtime-tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0 in CI run #43211482752 across Node.js 22/24/26. The test creates an isolated collection and verifies it appears in the V2 list. Uses the shared V2 transport."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-collections.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.collections.modify",
+        "operationId": "v2.collections.modify",
+        "area": "Solr V2 Collections",
+        "method": "v2.collections.modify",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/53",
+          "description": "Typed V2 modify command for replicationFactor, collection.configName, and readOnly. Attributes are sent inside the {modify:{...}} body; async is part of that command body. This updates collection metadata and does not change replica topology. readOnly transitions can reject writes and trigger a commit/reload. Unit/type and isolated SolrCloud/security tests are present; runtime evidence remains pending CI. Solr 8.11 legacy command behavior is not claimed."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-collections.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.collections.reload",
+        "operationId": "v2.collections.reload",
+        "area": "Solr V2 Collections",
+        "method": "v2.collections.reload",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/54",
+          "description": "REST-style V2 collection reload route documented from Solr 9.3. Unit serialization and consumer type fixtures are present. Runtime and security checks are pending; Solr 8.11 is not claimed."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts"
+        ]
+      },
+      {
+        "id": "v2.backups.restore",
+        "operationId": "v2.backups.restore",
+        "area": "Solr V2 Collection Backups",
+        "method": "v2.backups.restore",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/55",
+          "description": "Restores a backup point into an existing or new collection using the redesigned V2 backup API. Restore replaces target index contents; unit/type coverage and isolated SolrCloud verification are tracked separately."
         },
         "documentation": "docs/solr-v2-api-strategy.md",
         "testFiles": [
@@ -2280,8 +2139,8 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/60",
-          "description": "Deletes exactly one backup point by numeric ID and requires the same repository location used for creation. This is a permanent storage mutation; no bulk retainLatest or purgeUnused operation is included in this first slice. Runtime and BasicAuth evidence is pending."
+          "pointer": "/entries/56",
+          "description": "Deletes one incremental backup point by ID from the specified repository location. Destructive backup metadata/files removal; unit/type coverage and cleanup behavior are tracked separately."
         },
         "documentation": "docs/solr-v2-api-strategy.md",
         "testFiles": [
@@ -2292,46 +2151,10 @@
         ]
       },
       {
-        "id": "v2.backups.restore",
-        "operationId": "v2.backups.restore",
-        "area": "Solr V2 Collection Backups",
-        "method": "v2.backups.restore",
-        "status": "unverified",
-        "versions": [
-          "8",
-          "9",
-          "10"
-        ],
-        "versionEvidence": {
-          "8": "unverified",
-          "9": "unverified",
-          "10": "unverified"
-        },
-        "implementation": "implemented",
-        "typeCoverage": "complete",
-        "unitTests": "present",
-        "integrationTests": "not-run",
-        "evidence": {
-          "sourceIds": [
-            "api-inventory"
-          ],
-          "path": "docs/api-inventory.json",
-          "pointer": "/entries/61",
-          "description": "Restores a selected backup point into an existing or newly created collection. Restore replaces target index contents; the caller must select a compatible or disposable target. Optional backupId is sent as a query parameter and create-collection options use the documented V2 body shape. Runtime and BasicAuth evidence is pending."
-        },
-        "documentation": "docs/solr-v2-api-strategy.md",
-        "testFiles": [
-          "test/v2-collections.test.ts",
-          "test/v2-types.ts",
-          "test/integration/solrcloud-backup-restore.test.ts",
-          "test/integration/solr-v2-security.test.ts"
-        ]
-      },
-      {
-        "id": "v2.collections.modify",
-        "operationId": "v2.collections.modify",
+        "id": "v2.collections.setProperty",
+        "operationId": "v2.collections.setProperty",
         "area": "Solr V2 Collections",
-        "method": "v2.collections.modify",
+        "method": "v2.collections.setProperty",
         "status": "unverified",
         "versions": [
           "8",
@@ -2352,14 +2175,335 @@
             "api-inventory"
           ],
           "path": "docs/api-inventory.json",
-          "pointer": "/entries/62",
-          "description": "Typed V2 modify command for replicationFactor, collection.configName, and readOnly. Attributes are sent inside the {modify:{...}} body; async is part of that command body. This updates collection metadata and does not change replica topology. readOnly transitions can reject writes and trigger a commit/reload. Unit/type and isolated SolrCloud/security tests are present; runtime evidence remains pending CI. Solr 8.11 legacy command behavior is not claimed."
+          "pointer": "/entries/57",
+          "description": "Creates or updates one custom collection property using the documented {value} JSON body; values are strings. The property subresource is documented from Solr 9.3; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
         },
         "documentation": "docs/solr-v2-api-strategy.md",
         "testFiles": [
           "test/v2-collections.test.ts",
           "test/v2-types.ts",
           "test/integration/solr-v2-collections.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.collections.status",
+        "operationId": "v2.collections.status",
+        "area": "Solr V2 Collections",
+        "method": "v2.collections.status",
+        "status": "partial",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "partial",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/58",
+          "description": "Read-only per-collection status with narrowly typed common flags and an extensible response. The V2 CollectionStatus route was introduced in Solr 9.3, so pinned Solr 8.11.4 is explicitly not claimed/skipped; runtime tests pass on pinned 9.11.0 and 10.1.0 in CI run #43008748363. This is not full parity with every V1 COLSTATUS detail/size-analysis option."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-collections.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.coreAdmin.list",
+        "operationId": "v2.coreAdmin.list",
+        "area": "Core Admin V2",
+        "method": "v2.coreAdmin.list",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/59",
+          "description": "Explicit V2 read-only contract distinct from V1 Core Admin types. The exact list/status operations are integration-tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0 (CI run #42861195999; test/integration/solr-v2-core-admin.test.ts). This certifies only list and status: reload, rename, and unload remain runtime-unverified on Solr 8.11.4 and are tracked independently. This API is for standalone/user-managed cores, not SolrCloud collection management."
+        },
+        "documentation": "docs/administration.md",
+        "testFiles": [
+          "test/v2-core-admin.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-core-admin.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.coreAdmin.reload",
+        "operationId": "v2.coreAdmin.reload",
+        "area": "Core Admin V2",
+        "method": "v2.coreAdmin.reload",
+        "status": "partial",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "partial",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/60",
+          "description": "Explicit V2 contract distinct from V1 CoreAdmin types. Official Solr 9.11 and 10.1 references document this V2 route; the Solr 8.11 CoreAdmin guide documents V1, while the separate 8.11 V2 guide lists the V2 Core Admin route family; runtime verification on pinned 8.11.4 is pending. Runtime tests cover pinned 9.11.0 and 10.1.0, including authenticated/anonymous access. This API is for standalone/user-managed cores, not SolrCloud collection management. POST has no request body."
+        },
+        "documentation": "docs/administration.md",
+        "testFiles": [
+          "test/v2-core-admin.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-core-admin.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.coreAdmin.rename",
+        "operationId": "v2.coreAdmin.rename",
+        "area": "Core Admin V2",
+        "method": "v2.coreAdmin.rename",
+        "status": "partial",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "partial",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/61",
+          "description": "Explicit V2 contract distinct from V1 CoreAdmin types. Official Solr 9.11 and 10.1 references document this V2 route; the Solr 8.11 CoreAdmin guide documents V1, while the separate 8.11 V2 guide lists the V2 Core Admin route family; runtime verification on pinned 8.11.4 is pending. Runtime tests cover pinned 9.11.0 and 10.1.0, including authenticated/anonymous access. This API is for standalone/user-managed cores, not SolrCloud collection management. JSON body is { to: string }."
+        },
+        "documentation": "docs/administration.md",
+        "testFiles": [
+          "test/v2-core-admin.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-core-admin.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.coreAdmin.status",
+        "operationId": "v2.coreAdmin.status",
+        "area": "Core Admin V2",
+        "method": "v2.coreAdmin.status",
+        "status": "verified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "tested",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "tested",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/62",
+          "description": "Explicit V2 read-only contract distinct from V1 Core Admin types. The exact list/status operations are integration-tested on pinned Solr 8.11.4, 9.11.0, and 10.1.0 (CI run #42861195999; test/integration/solr-v2-core-admin.test.ts). This certifies only list and status: reload, rename, and unload remain runtime-unverified on Solr 8.11.4 and are tracked independently. This API is for standalone/user-managed cores, not SolrCloud collection management."
+        },
+        "documentation": "docs/administration.md",
+        "testFiles": [
+          "test/v2-core-admin.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-core-admin.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.coreAdmin.unload",
+        "operationId": "v2.coreAdmin.unload",
+        "area": "Core Admin V2",
+        "method": "v2.coreAdmin.unload",
+        "status": "partial",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "tested",
+          "10": "tested"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "partial",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/63",
+          "description": "Explicit V2 contract distinct from V1 CoreAdmin types. Official Solr 9.11 and 10.1 references document this V2 route; the Solr 8.11 CoreAdmin guide documents V1, while the separate 8.11 V2 guide lists the V2 Core Admin route family; runtime verification on pinned 8.11.4 is pending. Runtime tests cover pinned 9.11.0 and 10.1.0, including authenticated/anonymous access. This API is for standalone/user-managed cores, not SolrCloud collection management. Optional deleteIndex/deleteDataDir/deleteInstanceDir flags default to false."
+        },
+        "documentation": "docs/administration.md",
+        "testFiles": [
+          "test/v2-core-admin.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solr-v2-core-admin.test.ts",
+          "test/integration/solr-v2-security.test.ts"
+        ]
+      },
+      {
+        "id": "v2.request",
+        "operationId": "v2.request",
+        "area": "V2 Generic",
+        "method": "v2.request",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "generic-by-design",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/64",
+          "description": "Low-level JSON request escape hatch only. The caller owns operation-specific request/response contracts. Shared transport applies auth, defaults, timeout, cancellation, retry, validation and JSON codec. No operation-specific runtime compatibility is claimed."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2.test.ts",
+          "test/v2-types.ts",
+          "test/v2-introspection.test.ts"
+        ]
+      },
+      {
+        "id": "v2.requestRaw",
+        "operationId": "v2.requestRaw",
+        "area": "V2 Generic",
+        "method": "v2.requestRaw",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "generic-by-design",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/65",
+          "description": "Low-level raw-response escape hatch only. The caller owns operation-specific request/response contracts. No operation-specific runtime compatibility is claimed."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2.test.ts",
+          "test/v2-types.ts"
+        ]
+      },
+      {
+        "id": "v2.backups.list",
+        "operationId": "v2.backups.list",
+        "area": "Solr V2 Collection Backups",
+        "method": "v2.backups.list",
+        "status": "unverified",
+        "versions": [
+          "8",
+          "9",
+          "10"
+        ],
+        "versionEvidence": {
+          "8": "unverified",
+          "9": "unverified",
+          "10": "unverified"
+        },
+        "implementation": "implemented",
+        "typeCoverage": "complete",
+        "unitTests": "present",
+        "integrationTests": "not-run",
+        "evidence": {
+          "sourceIds": [
+            "api-inventory"
+          ],
+          "path": "docs/api-inventory.json",
+          "pointer": "/entries/66",
+          "description": "Lists incremental backup points stored at a repository location. Requires a non-empty location query parameter; unit/type coverage and SolrCloud runtime evidence are tracked separately."
+        },
+        "documentation": "docs/solr-v2-api-strategy.md",
+        "testFiles": [
+          "test/v2-collections.test.ts",
+          "test/v2-types.ts",
+          "test/integration/solrcloud-backup-restore.test.ts",
           "test/integration/solr-v2-security.test.ts"
         ]
       }
@@ -2371,7 +2515,7 @@
       "github-actions",
       "ci-workflow"
     ],
-    "observedAt": "2026-11-14T21:01:52.000Z",
+    "observedAt": "2026-11-17T21:03:11.000Z",
     "configuredMatrix": [
       {
         "dimension": "node",
@@ -2394,281 +2538,263 @@
     ],
     "records": [
       {
-        "id": "43640606830",
-        "runId": "43640606830",
+        "id": "44176151243",
+        "runId": "44176151243",
+        "workflow": "Pull request website preview",
+        "event": "pull_request",
+        "status": "pending",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44176151243",
+        "commit": "65da1e763a3690df7d6628f865899dc903051b2e",
+        "ref": "refs/heads/feat/409-v2-collections-lifecycle",
+        "startedAt": "2026-11-17T21:05:36Z",
+        "observed": true
+      },
+      {
+        "id": "44176151091",
+        "runId": "44176151091",
+        "workflow": "CI",
+        "event": "pull_request",
+        "status": "queued",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44176151091",
+        "commit": "65da1e763a3690df7d6628f865899dc903051b2e",
+        "ref": "refs/heads/feat/409-v2-collections-lifecycle",
+        "startedAt": "2026-11-17T21:05:36Z",
+        "observed": true
+      },
+      {
+        "id": "44176142678",
+        "runId": "44176142678",
+        "workflow": "Pull request website preview",
+        "event": "pull_request",
+        "status": "pending",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44176142678",
+        "commit": "3d046ddb6716b6de84e461fd2fcbdbff7f19fb7e",
+        "ref": "refs/heads/feat/410-v2-alias-mutations",
+        "startedAt": "2026-11-17T21:05:34Z",
+        "observed": true
+      },
+      {
+        "id": "44176096708",
+        "runId": "44176096708",
+        "workflow": "Pull request website preview",
+        "event": "pull_request",
+        "status": "pending",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44176096708",
+        "commit": "3d046ddb6716b6de84e461fd2fcbdbff7f19fb7e",
+        "ref": "refs/heads/feat/410-v2-alias-mutations",
+        "startedAt": "2026-11-17T21:05:19Z",
+        "observed": true
+      },
+      {
+        "id": "44176086725",
+        "runId": "44176086725",
+        "workflow": "Pull request website preview",
+        "event": "pull_request",
+        "status": "pending",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44176086725",
+        "commit": "b0674b477fcdc4d5d5576a6084ebfc2c1051735e",
+        "ref": "refs/heads/feat/411-v2-shard-replica-admin",
+        "startedAt": "2026-11-17T21:05:16Z",
+        "observed": true
+      },
+      {
+        "id": "44176009549",
+        "runId": "44176009549",
+        "workflow": "Pull request website preview",
+        "event": "pull_request",
+        "status": "pending",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44176009549",
+        "commit": "b0674b477fcdc4d5d5576a6084ebfc2c1051735e",
+        "ref": "refs/heads/feat/411-v2-shard-replica-admin",
+        "startedAt": "2026-11-17T21:04:51Z",
+        "observed": true
+      },
+      {
+        "id": "44176001125",
+        "runId": "44176001125",
+        "workflow": "Pull request website preview",
+        "event": "pull_request",
+        "status": "pending",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44176001125",
+        "commit": "bd5528a820a44ec35dc8d3691e5a51cdcb48facb",
+        "ref": "refs/heads/feat/412-v2-collection-backup-restore",
+        "startedAt": "2026-11-17T21:04:48Z",
+        "observed": true
+      },
+      {
+        "id": "44175934327",
+        "runId": "44175934327",
+        "workflow": "Pull request website preview",
+        "event": "pull_request",
+        "status": "pending",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44175934327",
+        "commit": "bd5528a820a44ec35dc8d3691e5a51cdcb48facb",
+        "ref": "refs/heads/feat/412-v2-collection-backup-restore",
+        "startedAt": "2026-11-17T21:04:25Z",
+        "observed": true
+      },
+      {
+        "id": "44175920692",
+        "runId": "44175920692",
+        "workflow": "Pull request website preview",
+        "event": "pull_request",
+        "status": "pending",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44175920692",
+        "commit": "64876ef44abdbf7d946aed9014e5fc5978be6b27",
+        "ref": "refs/heads/feat/418-v2-collection-modify",
+        "startedAt": "2026-11-17T21:04:20Z",
+        "observed": true
+      },
+      {
+        "id": "44175797643",
+        "runId": "44175797643",
+        "workflow": "pages build and deployment",
+        "event": "dynamic",
+        "status": "completed",
+        "conclusion": "success",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44175797643",
+        "commit": "b226efd53ac49bc861cd5295366cdddc82f5dc4a",
+        "ref": "refs/heads/gh-pages",
+        "startedAt": "2026-11-17T21:03:38Z",
+        "completedAt": "2026-11-17T21:05:52Z",
+        "observed": true
+      },
+      {
+        "id": "44175725817",
+        "runId": "44175725817",
         "workflow": "Pull request website preview",
         "event": "pull_request",
         "status": "in_progress",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43640606830",
-        "commit": "9218170df4c9bc181dca3f951d225d78acc11a71",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44175725817",
+        "commit": "64876ef44abdbf7d946aed9014e5fc5978be6b27",
         "ref": "refs/heads/feat/418-v2-collection-modify",
-        "startedAt": "2026-11-14T21:01:55Z",
+        "startedAt": "2026-11-17T21:03:15Z",
         "observed": true
       },
       {
-        "id": "43614653409",
-        "runId": "43614653409",
-        "workflow": "pages build and deployment",
-        "event": "dynamic",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43614653409",
-        "commit": "c956a5ef32ea3cd0a8c196f3dc3165449c23a14e",
-        "ref": "refs/heads/gh-pages",
-        "startedAt": "2026-11-14T16:15:57Z",
-        "completedAt": "2026-11-14T16:16:22Z",
-        "observed": true
-      },
-      {
-        "id": "43614624193",
-        "runId": "43614624193",
+        "id": "44175713253",
+        "runId": "44175713253",
         "workflow": "Pull request website preview",
         "event": "pull_request",
         "status": "completed",
         "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43614624193",
-        "commit": "56fff27504e5d5d71d5307434ede6a8dc5ca2d2c",
-        "ref": "refs/heads/feat/412-v2-collection-backup-restore",
-        "startedAt": "2026-11-14T16:15:37Z",
-        "completedAt": "2026-11-14T16:16:22Z",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44175713253",
+        "commit": "5cc4fe94b4008027fd1c90faa7c37b8adb2c2a71",
+        "ref": "refs/heads/feat/419-v2-collection-properties",
+        "startedAt": "2026-11-17T21:03:10Z",
+        "completedAt": "2026-11-17T21:05:53Z",
         "observed": true
       },
       {
-        "id": "43606456302",
-        "runId": "43606456302",
-        "workflow": "pages build and deployment",
-        "event": "dynamic",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43606456302",
-        "commit": "a23609626b88116d64b46e5ab24d500f873eaa1a",
-        "ref": "refs/heads/gh-pages",
-        "startedAt": "2026-11-14T14:44:48Z",
-        "completedAt": "2026-11-14T14:45:14Z",
-        "observed": true
-      },
-      {
-        "id": "43606399247",
-        "runId": "43606399247",
-        "workflow": "Pull request website preview",
-        "event": "pull_request",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43606399247",
-        "commit": "af57512d014ec2e995456b84d56c94ed1daa8696",
-        "ref": "refs/heads/feat/412-v2-collection-backup-restore",
-        "startedAt": "2026-11-14T14:44:07Z",
-        "completedAt": "2026-11-14T14:45:21Z",
-        "observed": true
-      },
-      {
-        "id": "43606360477",
-        "runId": "43606360477",
-        "workflow": "Pull request website preview",
-        "event": "pull_request",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43606360477",
-        "commit": "c409c62a814c2d1085969ab820968cb0fb78711a",
-        "ref": "refs/heads/feat/412-v2-collection-backup-restore",
-        "startedAt": "2026-11-14T14:43:40Z",
-        "completedAt": "2026-11-14T14:44:33Z",
-        "observed": true
-      },
-      {
-        "id": "43606351105",
-        "runId": "43606351105",
-        "workflow": "Pull request website preview",
-        "event": "pull_request",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43606351105",
-        "commit": "5fd4d52c5c3ddcdfc820f22ca9bc56a960f84a98",
-        "ref": "refs/heads/feat/412-v2-collection-backup-restore",
-        "startedAt": "2026-11-14T14:43:34Z",
-        "completedAt": "2026-11-14T14:44:25Z",
-        "observed": true
-      },
-      {
-        "id": "43606342149",
-        "runId": "43606342149",
-        "workflow": "Pull request website preview",
-        "event": "pull_request",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43606342149",
-        "commit": "a38e445f0dfeb884ca4c69f1e9a22120e3d8e4fd",
-        "ref": "refs/heads/feat/412-v2-collection-backup-restore",
-        "startedAt": "2026-11-14T14:43:27Z",
-        "completedAt": "2026-11-14T14:44:14Z",
-        "observed": true
-      },
-      {
-        "id": "43606321789",
-        "runId": "43606321789",
-        "workflow": "Pull request website preview",
-        "event": "pull_request",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43606321789",
-        "commit": "3c67a77b8300db86e38402f622060918d5ed4599",
-        "ref": "refs/heads/feat/412-v2-collection-backup-restore",
-        "startedAt": "2026-11-14T14:43:12Z",
-        "completedAt": "2026-11-14T14:44:01Z",
-        "observed": true
-      },
-      {
-        "id": "43606289129",
-        "runId": "43606289129",
-        "workflow": "Pull request website preview",
-        "event": "pull_request",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43606289129",
-        "commit": "adaf2ba3d9104a9217aa2fc71d6c99f48c2d66ee",
-        "ref": "refs/heads/feat/412-v2-collection-backup-restore",
-        "startedAt": "2026-11-14T14:42:50Z",
-        "completedAt": "2026-11-14T14:43:48Z",
-        "observed": true
-      },
-      {
-        "id": "43606284038",
-        "runId": "43606284038",
-        "workflow": "Pull request website preview",
-        "event": "pull_request",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43606284038",
-        "commit": "40fa509bb7eae19c919e864bff1bf5246848e1a2",
-        "ref": "refs/heads/feat/412-v2-collection-backup-restore",
-        "startedAt": "2026-11-14T14:42:46Z",
-        "completedAt": "2026-11-14T14:43:32Z",
-        "observed": true
-      },
-      {
-        "id": "43606275746",
-        "runId": "43606275746",
-        "workflow": "Pull request website preview",
-        "event": "pull_request",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43606275746",
-        "commit": "fea4e57a868e0fb5812c18b8df610aa4a028f82f",
-        "ref": "refs/heads/feat/412-v2-collection-backup-restore",
-        "startedAt": "2026-11-14T14:42:40Z",
-        "completedAt": "2026-11-14T14:43:15Z",
-        "observed": true
-      },
-      {
-        "id": "43606261360",
-        "runId": "43606261360",
-        "workflow": "pages build and deployment",
-        "event": "dynamic",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43606261360",
-        "commit": "d5f60a05b77d853da50a16321e63e57ba869d87b",
-        "ref": "refs/heads/gh-pages",
-        "startedAt": "2026-11-14T14:42:30Z",
-        "completedAt": "2026-11-14T14:42:57Z",
-        "observed": true
-      },
-      {
-        "id": "43606239740",
-        "runId": "43606239740",
-        "workflow": "Pull request website preview",
-        "event": "pull_request",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43606239740",
-        "commit": "667e5c9b1798a16098d531fa2e5bef76b0056ef6",
-        "ref": "refs/heads/feat/412-v2-collection-backup-restore",
-        "startedAt": "2026-11-14T14:42:14Z",
-        "completedAt": "2026-11-14T14:43:03Z",
-        "observed": true
-      },
-      {
-        "id": "43596724701",
-        "runId": "43596724701",
-        "workflow": "pages build and deployment",
-        "event": "dynamic",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43596724701",
-        "commit": "d322869a77ac572dca9da964bcbfc43cc1a2dce3",
-        "ref": "refs/heads/gh-pages",
-        "startedAt": "2026-11-14T12:49:54Z",
-        "completedAt": "2026-11-14T12:51:08Z",
-        "observed": true
-      },
-      {
-        "id": "43596674280",
-        "runId": "43596674280",
-        "workflow": "pages build and deployment",
-        "event": "dynamic",
-        "status": "completed",
-        "conclusion": "cancelled",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43596674280",
-        "commit": "36bf690e8eddc091cb8c34ec697f16f046ec1e55",
-        "ref": "refs/heads/gh-pages",
-        "startedAt": "2026-11-14T12:49:14Z",
-        "completedAt": "2026-11-14T12:49:56Z",
-        "observed": true
-      },
-      {
-        "id": "43596655713",
-        "runId": "43596655713",
-        "workflow": "Pull request website preview",
-        "event": "pull_request",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43596655713",
-        "commit": "5dbcc7e1cba2662cca8f28059e31190b9d5ac999",
-        "ref": "refs/heads/chore/agent-skills",
-        "startedAt": "2026-11-14T12:49:00Z",
-        "completedAt": "2026-11-14T12:51:10Z",
-        "observed": true
-      },
-      {
-        "id": "43596654830",
-        "runId": "43596654830",
-        "workflow": "Deploy GitHub Pages",
-        "event": "push",
-        "status": "completed",
-        "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43596654830",
-        "commit": "2ad8a78c675ebf637b840e1dfdf3eb5a42e2a466",
-        "ref": "refs/heads/master",
-        "startedAt": "2026-11-14T12:48:59Z",
-        "completedAt": "2026-11-14T12:49:15Z",
-        "observed": true
-      },
-      {
-        "id": "43596654788",
-        "runId": "43596654788",
+        "id": "44172614133",
+        "runId": "44172614133",
         "workflow": "CI",
-        "event": "push",
+        "event": "workflow_dispatch",
         "status": "completed",
         "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43596654788",
-        "commit": "2ad8a78c675ebf637b840e1dfdf3eb5a42e2a466",
-        "ref": "refs/heads/master",
-        "startedAt": "2026-11-14T12:48:59Z",
-        "completedAt": "2026-11-14T12:52:32Z",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44172614133",
+        "commit": "5cc4fe94b4008027fd1c90faa7c37b8adb2c2a71",
+        "ref": "refs/heads/feat/419-v2-collection-properties",
+        "startedAt": "2026-11-17T20:45:16Z",
+        "completedAt": "2026-11-17T20:55:13Z",
         "observed": true
       },
       {
-        "id": "43591221335",
-        "runId": "43591221335",
+        "id": "44172518126",
+        "runId": "44172518126",
         "workflow": "pages build and deployment",
         "event": "dynamic",
         "status": "completed",
         "conclusion": "success",
-        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/43591221335",
-        "commit": "f74d9170b6ecc2e0ff6822d8869e03cead76268e",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44172518126",
+        "commit": "ca505a3f7958af7eb7f0b4add579849e9c0a7496",
         "ref": "refs/heads/gh-pages",
-        "startedAt": "2026-11-14T11:41:28Z",
-        "completedAt": "2026-11-14T11:41:51Z",
+        "startedAt": "2026-11-17T20:44:45Z",
+        "completedAt": "2026-11-17T20:49:12Z",
+        "observed": true
+      },
+      {
+        "id": "44172394797",
+        "runId": "44172394797",
+        "workflow": "Pull request website preview",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44172394797",
+        "commit": "5cc4fe94b4008027fd1c90faa7c37b8adb2c2a71",
+        "ref": "refs/heads/feat/419-v2-collection-properties",
+        "startedAt": "2026-11-17T20:44:03Z",
+        "completedAt": "2026-11-17T20:49:17Z",
+        "observed": true
+      },
+      {
+        "id": "44169973207",
+        "runId": "44169973207",
+        "workflow": "CI",
+        "event": "workflow_dispatch",
+        "status": "completed",
+        "conclusion": "failure",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44169973207",
+        "commit": "9c3a0a23c302dc101bd9722050df54ade69ed32a",
+        "ref": "refs/heads/feat/419-v2-collection-properties",
+        "startedAt": "2026-11-17T20:30:16Z",
+        "completedAt": "2026-11-17T20:38:06Z",
+        "observed": true
+      },
+      {
+        "id": "44145572862",
+        "runId": "44145572862",
+        "workflow": "pages build and deployment",
+        "event": "dynamic",
+        "status": "completed",
+        "conclusion": "success",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44145572862",
+        "commit": "a2d1409c921a326ff9967f93a073064cd38cbfd6",
+        "ref": "refs/heads/gh-pages",
+        "startedAt": "2026-11-17T18:13:52Z",
+        "completedAt": "2026-11-17T18:14:25Z",
+        "observed": true
+      },
+      {
+        "id": "44145510290",
+        "runId": "44145510290",
+        "workflow": "Pull request website preview",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44145510290",
+        "commit": "9c3a0a23c302dc101bd9722050df54ade69ed32a",
+        "ref": "refs/heads/feat/419-v2-collection-properties",
+        "startedAt": "2026-11-17T18:13:31Z",
+        "completedAt": "2026-11-17T18:14:27Z",
+        "observed": true
+      },
+      {
+        "id": "44145478318",
+        "runId": "44145478318",
+        "workflow": "Pull request website preview",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44145478318",
+        "commit": "f073024033927d4e6f21b0d741de1afce6c920f6",
+        "ref": "refs/heads/feat/419-v2-collection-properties",
+        "startedAt": "2026-11-17T18:13:21Z",
+        "completedAt": "2026-11-17T18:13:32Z",
+        "observed": true
+      },
+      {
+        "id": "44118674166",
+        "runId": "44118674166",
+        "workflow": "pages build and deployment",
+        "event": "dynamic",
+        "status": "completed",
+        "conclusion": "success",
+        "runUrl": "https://github.com/vsimko/solr-ts-client/actions/runs/44118674166",
+        "commit": "6a1e5cd1ffc8dda84c133a9cef87fa1062d3da86",
+        "ref": "refs/heads/gh-pages",
+        "startedAt": "2026-11-17T15:49:10Z",
+        "completedAt": "2026-11-17T15:49:44Z",
         "observed": true
       }
     ]
@@ -2679,7 +2805,7 @@
       "roadmap",
       "github-issues"
     ],
-    "observedAt": "2026-11-14T21:01:52.000Z",
+    "observedAt": "2026-11-17T21:03:11.000Z",
     "records": [
       {
         "id": "github-310",
@@ -3052,7 +3178,7 @@
       "npm-registry",
       "npm-downloads"
     ],
-    "observedAt": "2026-11-14T21:01:52.000Z",
+    "observedAt": "2026-11-17T21:03:11.000Z",
     "records": [
       {
         "id": "npm-latest",
@@ -3062,10 +3188,10 @@
         "publishedAt": null,
         "downloads": 135,
         "window": "last-7-days",
-        "windowStart": "2026-11-08T00:00:00.000Z",
-        "windowEnd": "2026-11-14T23:59:59.000Z",
+        "windowStart": "2026-11-11T00:00:00.000Z",
+        "windowEnd": "2026-11-17T23:59:59.000Z",
         "sourceUrl": "https://www.npmjs.com/package/solr-ts-client",
-        "retrievedAt": "2026-11-14T21:01:52.000Z"
+        "retrievedAt": "2026-11-17T21:03:11.000Z"
       }
     ]
   },
@@ -3077,13 +3203,13 @@
       "npm-registry",
       "changelog"
     ],
-    "observedAt": "2026-11-14T21:01:52.000Z",
+    "observedAt": "2026-11-17T21:03:11.000Z",
     "unreleased": {
       "sourceId": "changelog",
       "path": "CHANGELOG.md",
       "url": "https://github.com/vsimko/solr-ts-client/blob/master/CHANGELOG.md",
       "content": "### Added\n\n- Replace the v3 functional Axios client with a TypeScript-first Fetch-based `SolrClient`, supporting Node.js 22/24/26, ESM and CommonJS, and no required runtime dependencies; keep Zod optional for runtime validation.\n- Add Node.js 26 Active LTS support and expand the unit/type, standalone, security, and SolrCloud CI matrices to Node.js 22/24/26; exclude Node.js 20 because it reached end-of-life.\n- Add typed transport configuration for Basic/Bearer authentication, headers, request defaults, retries, timeouts, cancellation, structured HTTP/network/timeout/abort/validation errors, and safe raw/streaming requests.\n- Add an autocomplete-first Query API covering parser-specific options, filters, sorting, cursorMark pagination, classic and JSON facets, highlighting, grouping, stats, MoreLikeThis, debug/explain, spatial helpers, and optional SpellCheck and Suggester components.\n- Add typed document contracts including RealTime Get (`get()`), JSON documents and command objects, atomic updates, update/delete options, commit/soft-commit/optimize behavior, and update response/error envelopes.\n- Add `SolrClient.addStream()` for backpressure-aware JSON-array document ingestion from async iterables, with bounded buffering, cancellation, and explicit partial-ingestion semantics.\n- Add an injectable `SolrJsonCodec` for caller-selected lossless JSON parsing and serialization, including BigInt-safe handling; native JSON behavior remains the default.\n- Add typed Core Admin, Collections, Schema, Config, Security, Metrics, and System API contracts, with action-specific request models and response shapes for the operations documented in the API reference.\n- Add an explicit shared-transport Solr V2 namespace and typed Core Admin V2 list/status/reload/rename/unload operations, with isolated runtime and security evidence on Solr 9.11.0 and 10.1.0; Solr 8.11.4 V2 Core Admin remains unverified.\n- Add the typed V1 Collections `FORCELEADER` action with exact serialization and consumer type coverage; stale-replica runtime verification remains unverified pending isolated fault-injection testing.\n- Add an explicit `client.v2` namespace with generic JSON and raw request methods over the shared transport; V1 methods remain unchanged, and operation-specific V2 contracts/runtime compatibility remain unverified.\n- Add a reproducible query, bulk-ingestion, and streaming benchmark harness comparing the client with direct Node.js Fetch; reports include host OS release and physical-memory metadata, and no performance leadership claim is made.\n\n- Add Update API unit coverage for JSON endpoint selection, typed success responses, and Solr HTTP failures, plus Solr 8/9/10 delete-by-query persisted-state integration coverage.\n\n- Add Solr 8/9/10 integration coverage for Schema API dynamic-field add/replace/delete and copy-field add/delete, including copy-rule replacement via delete+add.\n\n- Add unit and Solr 8/9/10 integration coverage for Schema API add, replace, and delete field-type operations, including analyzer, tokenizer, and filter read-back.\n\n- Add unit and Solr 8/9/10 integration coverage for Schema API add, replace, and delete field operations, including typed mutation responses and schema read-back.\n\n- Add end-to-end v3-to-v4 migration coverage for health checks, document add/replace/delete, and typed query read-back on Solr 8/9/10.\n\n- Add typed core-level and SolrCloud collection backup/restore APIs with asynchronous status handling.\n- Add typed V1 ReplicationHandler commands and raw file-content streaming through `replication()` and `replicationFile()`.\n- Add typed response contracts for Schema and Config reads, Security authentication/authorization, Metrics, System diagnostics, Core Admin status/async actions, and Collections aliases/cluster status.\n- Add typed Collections shard lifecycle and MIGRATE operations, including V1 wire-name corrections and explicit runtime-verification boundaries.\n- Complete typed V1 Collections CREATE options for shard/replica layouts, routing, node placement, aliases, core properties, and legacy Solr 8.11 placement controls; add compile-time and serialization coverage.\n- Add typed Streaming Expressions JSON envelopes and Export Handler request/sort models; distinguish parsed JSON expressions from raw streamed Export responses.\n- Harden the public client boundary by keeping transport configuration private and verifying the package-root stable/experimental/internal export decisions.\n- Verify the packed npm tarball in clean consumers, including ESM/CommonJS runtime imports, TypeScript declarations, optional Zod absence, and prerelease/stable dist-tag policy.\n\n### Documentation\n\n- Add a public API reference and machine-readable operation inventory, with consistency checks against package exports and client methods.\n- Document the explicit generic Solr V2 namespace, its `/api/` path constraints, shared-transport behavior, introspection fixture policy, and unverified operation-specific compatibility boundary.\n- Add action-specific Collections API evidence and an explicit public API review, including the stable, generic escape-hatch, and internal export decisions.\n- Document npm tarball validation, prerelease dist-tag behavior, release rollback, and the manually gated GitHub Actions/npm OIDC trusted-publishing workflow.\n- Add a Solr 8.11.4/9.11.0/10.1.0 Schema API compatibility matrix with explicit V1/V2 scope and unverified similarity plugin behavior.\n- Add typed Schema API command responses and read-response models for schema metadata, fields, dynamic fields, field types, copy fields, uniqueKey, and similarity.\n- Add compile-time checks for the documented Update API examples, including atomic update modifiers, JSON update commands, delete options, and commit/optimize semantics.\n- Expand the v3-to-v4 migration guide with a complete v4 CRUD example and link its compile-time and Solr integration checks.\n- Clarify Solr 8/9/10 runtime evidence per endpoint and document the remaining unverified query, update-option, and generic transport behaviors.\n- Record the historical standalone, authenticated, and SolrCloud integration matrix on Node.js 20/22/24/26 across Solr 8.11.4/9.11.0/10.1.0. Node.js 20 has since reached EOL and is excluded from the current 22/24/26 support matrix.\n- Document ReplicationHandler abort lifecycle evidence per Solr version, including the Solr 8.11.4 observability limitation, and keep one-shot fetch verification separate.\n- Document the opt-in SPLITSHARD/MIGRATE workflow and retain explicit non-certification until a maintainer manually runs it on every pinned Solr version.\n\nAll notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.\n\n### [3.0.5](https://github.com/vsimko/node-solr-lambda/compare/v3.0.4...v3.0.5) (2023-06-27)\n\n### [3.0.4](https://github.com/vsimko/node-solr-lambda/compare/v3.0.3...v3.0.4) (2020-05-12)\n\n### [3.0.3](https://github.com/vsimko/node-solr-lambda/compare/v3.0.1...v3.0.3) (2020-05-12)\n\n\n### Bug Fixes\n\n* link to types.d.ts mentioned in jsdocs ([c732f02](https://github.com/vsimko/node-solr-lambda/commit/c732f02bdd16a5be414658b4d92bbc46187af3b7))\n\n<a name=\"3.0.1\"></a>",
-      "observedAt": "2026-11-14T21:01:52.000Z"
+      "observedAt": "2026-11-17T21:03:11.000Z"
     },
     "records": [
       {
@@ -3237,7 +3363,7 @@
     "sourceIds": [
       "docs-index"
     ],
-    "observedAt": "2026-11-14T21:01:52.000Z",
+    "observedAt": "2026-11-17T21:03:11.000Z",
     "records": [
       {
         "id": "docs/getting-started.md",
