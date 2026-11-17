@@ -6,7 +6,7 @@ import type { RequestControlOptions, RequestOptions, SolrV2ClusterStatusResponse
  * Explicit Solr V2 API namespace sharing the configured V1 transport.
  *
  * Exposes a generic JSON/raw request escape hatch and operation-specific typed
- * typed Core Admin, Collections, alias, and cluster operations. V1 methods never fall back to V2 routes.
+ * Core Admin, Collections, alias, and cluster operations. V1 methods never fall back to V2 routes.
  */
 export class SolrV2Client {
   private readonly apiBaseUrl: string;
