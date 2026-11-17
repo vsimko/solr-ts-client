@@ -1298,6 +1298,34 @@ export interface SolrV2CollectionCreateParams {
   properties?: Readonly<Record<string, string | number | boolean>>;
 }
 
+/**
+ * Attributes accepted by the V2 collection "modify" command.
+ * This updates collection metadata only; it does not change replica topology.
+ */
+export interface SolrV2CollectionModifyParams {
+  replicationFactor?: number;
+  "collection.configName"?: string;
+  readOnly?: boolean;
+  async?: string;
+}
+
+/** String value accepted by the V2 collection property API. */
+export type SolrV2CollectionPropertyValue = string;
+
+/** Response from GET /api/collections/{collection}/properties. */
+export interface SolrV2CollectionPropertiesResponse {
+  responseHeader?: SolrResponseHeader;
+  properties?: Readonly<Record<string, string>>;
+  readonly [key: string]: unknown;
+}
+
+/** Response from GET /api/collections/{collection}/properties/{property}. */
+export interface SolrV2CollectionPropertyResponse {
+  responseHeader?: SolrResponseHeader;
+  value?: string;
+  readonly [key: string]: unknown;
+}
+
 /** Query controls for deleting a V2 collection. Destructive directory deletion is opt-in. */
 export interface SolrV2CollectionDeleteOptions {
   deleteInstanceDir?: boolean;
@@ -1310,6 +1338,51 @@ export interface SolrV2CollectionOperationResponse {
   responseHeader?: SolrResponseHeader;
   requestid?: string;
   collection?: string;
+  [key: string]: unknown;
+}
+
+/** Supported replica types accepted by the V2 ADDREPLICA endpoint. */
+export type SolrV2ReplicaType = "nrt" | "tlog" | "pull";
+
+/** Parameters for adding one or more replicas to a shard (Solr 9+). */
+export type SolrV2AddReplicaParams = (
+  /** Exact shard name or route selector; at least one is required. */
+  | { shard: string; route?: string }
+  | { shard?: never; route: string }
+) & {
+  node?: string;
+  nodeSet?: readonly string[];
+  instanceDir?: string;
+  dataDir?: string;
+  type?: SolrV2ReplicaType;
+  nrtReplicas?: number;
+  tlogReplicas?: number;
+  pullReplicas?: number;
+  waitForFinalState?: boolean;
+};
+
+/** Async tracking option for replica administration requests. */
+export interface SolrV2ReplicaMutationOptions {
+  async?: string;
+}
+
+/** Controls the filesystem cleanup performed by deleting one replica. */
+export interface SolrV2DeleteReplicaOptions extends SolrV2ReplicaMutationOptions {
+  /** Defaults to false in this client to preserve the replica's instance directory. */
+  deleteInstanceDir?: boolean;
+  /** Defaults to false in this client to preserve the replica's data directory. */
+  deleteDataDir?: boolean;
+  /** Defaults to false in this client to preserve the replica's index. */
+  deleteIndex?: boolean;
+  onlyIfDown?: boolean;
+  followAliases?: boolean;
+}
+
+/** Extensible response envelope for V2 replica administration. */
+export interface SolrV2ReplicaOperationResponse {
+  responseHeader?: SolrResponseHeader;
+  success?: Readonly<Record<string, unknown>>;
+  requestid?: string;
   [key: string]: unknown;
 }
 
@@ -1363,6 +1436,91 @@ export interface SolrV2AliasPropertyResponse {
   responseHeader?: SolrResponseHeader;
   value?: string;
   readonly [key: string]: unknown;
+}
+
+/** Shared options for collection backup operations. These V2 routes require Solr 9.3+. */
+export interface SolrV2BackupLocationOptions {
+  /** Shared or configured repository location; must be consistent across SolrCloud nodes. */
+  location: string;
+  repository?: string;
+  async?: string;
+}
+
+/** Additional options accepted when creating an incremental collection backup. */
+export interface SolrV2CollectionBackupParams extends SolrV2BackupLocationOptions {
+  maxNumBackupPoints?: number;
+  backupConfigset?: boolean;
+  extraProperties?: Readonly<Record<string, string>>;
+  incremental?: boolean;
+  backupStrategy?: "copy-files" | "none";
+  snapshotName?: string;
+}
+
+/** Options for listing collection backup points. */
+export interface SolrV2BackupListOptions {
+  location: string;
+  repository?: string;
+  async?: string;
+}
+
+/** Options for deleting one backup point by its numeric ID. */
+export interface SolrV2BackupDeleteOptions extends SolrV2BackupListOptions {}
+
+/** Parameters for creating a collection when restoring a backup to a new name. */
+export interface SolrV2RestoreCreateCollectionParams {
+  config?: string;
+  nodeSet?: readonly string[];
+  shuffleNodes?: boolean;
+  nrtReplicas?: number;
+  tlogReplicas?: number;
+  pullReplicas?: number;
+  replicationFactor?: number;
+  properties?: Readonly<Record<string, string | number | boolean>>;
+}
+
+/** Parameters for restoring a collection backup to an existing or new collection. */
+export interface SolrV2BackupRestoreParams {
+  collection: string;
+  backupId?: number;
+  location?: string;
+  repository?: string;
+  "create-collection"?: SolrV2RestoreCreateCollectionParams;
+}
+
+/** One incremental backup point's stable metadata fields. */
+export interface SolrV2BackupMetadata {
+  backupId?: number;
+  collection?: string;
+  startTime?: string;
+  endTime?: string;
+  indexVersion?: string;
+  indexFileCount?: number;
+  uploadedIndexFileCount?: number;
+  indexSizeMB?: number;
+  uploadedIndexFileMB?: number;
+  shardBackupIds?: readonly string[] | Readonly<Record<string, string>>;
+  [key: string]: unknown;
+}
+
+/** Response returned by collection backup creation and restore operations. */
+export interface SolrV2BackupOperationResponse {
+  responseHeader?: SolrResponseHeader;
+  response?: Readonly<Record<string, unknown>>;
+  requestid?: string;
+  [key: string]: unknown;
+}
+
+/** Response returned by GET /api/backups/{backup}/versions. */
+export interface SolrV2BackupListResponse {
+  responseHeader?: SolrResponseHeader;
+  collection?: string;
+  backups?: readonly SolrV2BackupMetadata[];
+  [key: string]: unknown;
+}
+
+/** Response returned by DELETE /api/backups/{backup}/versions/{backupId}. */
+export interface SolrV2BackupDeleteResponse extends SolrV2BackupOperationResponse {
+  deleted?: readonly unknown[];
 }
 
 /**

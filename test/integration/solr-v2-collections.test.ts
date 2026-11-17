@@ -38,6 +38,92 @@ cloudIntegrationTest("V2 cluster status reports the isolated collection", async 
   ? undefined
   : "GET /api/cluster CLUSTERSTATUS is documented from Solr 9.11; Solr 8.11 is not claimed");
 
+cloudIntegrationTest("V2 Collections modify updates collection attributes on an isolated collection", async ({
+  client,
+  createCollection
+}) => {
+  const collection = await createCollection("v2_modify");
+  await client.v2.collections.modify(collection, { replicationFactor: 2 });
+  const status = await client.v2.collections.status(collection);
+  assert.equal(Number(status.properties?.replicationFactor), 2,
+    "MODIFY must persist replicationFactor in the collection properties");
+}, false, false, ["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")
+  ? undefined
+  : "The redesigned V2 modify command is not claimed on Solr 8.11.4");
+
+cloudIntegrationTest("V2 collection properties round-trip on an isolated collection", async ({
+  client,
+  createCollection
+}) => {
+  const collection = await createCollection("v2_collection_properties");
+  await client.v2.collections.setProperty(collection, "test.owner", "integration");
+  const one = await client.v2.collections.getProperty(collection, "test.owner");
+  assert.equal(one.value, "integration");
+
+  const all = await client.v2.collections.getProperties(collection);
+  assert.equal(all.properties?.["test.owner"], "integration");
+
+  await client.v2.collections.setProperty(collection, "test.owner", "updated");
+  const updated = await client.v2.collections.getProperty(collection, "test.owner");
+  assert.equal(updated.value, "updated");
+
+  await client.v2.collections.deleteProperty(collection, "test.owner");
+  const afterDelete = await client.v2.collections.getProperties(collection);
+  assert.equal(afterDelete.properties?.["test.owner"], undefined);
+}, false, false, ["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")
+  ? undefined
+  : "The collection-property GET routes are documented in Solr 9.11; PUT/DELETE are documented from Solr 9.3. Solr 8.11.4 is not claimed");
+
+cloudIntegrationTest("V2 replica add and exact delete update isolated collection topology", async ({
+  client,
+  createCollection
+}) => {
+  const collection = await createCollection("v2_replica_admin");
+  const before = await client.collections("CLUSTERSTATUS", { collection });
+  const beforeShardNames = Object.keys(before.cluster?.collections?.[collection]?.shards ?? {});
+  assert.ok(beforeShardNames.length > 0, "the disposable collection must expose at least one shard");
+  const shard = beforeShardNames[0]!;
+  const beforeReplicas = Object.keys(before.cluster?.collections?.[collection]?.shards?.[shard]?.replicas ?? {});
+  let addedReplica: string | undefined;
+  try {
+    await client.v2.collections.addReplica(collection, { shard, waitForFinalState: true });
+    let afterReplicas: string[] = [];
+    for (let attempt = 0; attempt < 60; attempt++) {
+      const afterAdd = await client.collections("CLUSTERSTATUS", { collection });
+      const replicas = afterAdd.cluster?.collections?.[collection]?.shards?.[shard]?.replicas ?? {};
+      afterReplicas = Object.keys(replicas);
+      addedReplica = afterReplicas.find(name => !beforeReplicas.includes(name));
+      if (addedReplica && replicas[addedReplica]?.state === "active") break;
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+    assert.ok(addedReplica, "ADDREPLICA must add one distinct replica to the requested shard");
+    const activeStatus = await client.collections("CLUSTERSTATUS", { collection });
+    const activeReplicas = activeStatus.cluster?.collections?.[collection]?.shards?.[shard]?.replicas ?? {};
+    assert.equal(activeReplicas[addedReplica]?.state, "active",
+      "ADDREPLICA must wait until the new replica is active");
+    assert.equal(afterReplicas.length, beforeReplicas.length + 1);
+
+    await client.v2.collections.deleteReplica(collection, shard, addedReplica);
+    for (let attempt = 0; attempt < 60; attempt++) {
+      const afterDelete = await client.collections("CLUSTERSTATUS", { collection });
+      const replicas = afterDelete.cluster?.collections?.[collection]?.shards?.[shard]?.replicas ?? {};
+      if (!Object.hasOwn(replicas, addedReplica)) break;
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+    addedReplica = undefined;
+    const finalStatus = await client.collections("CLUSTERSTATUS", { collection });
+    const finalReplicas = finalStatus.cluster?.collections?.[collection]?.shards?.[shard]?.replicas ?? {};
+    assert.equal(Object.keys(finalReplicas).length, beforeReplicas.length,
+      "DELETEREPLICA must remove only the named replica");
+  } finally {
+    if (addedReplica) {
+      await client.v2.collections.deleteReplica(collection, shard, addedReplica);
+    }
+  }
+}, false, false, ["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")
+  ? undefined
+  : "The REST-style replica routes are documented from Solr 9.0; Solr 8.11.4 is not claimed");
+
 cloudIntegrationTest("V2 Aliases create, update and delete an isolated standard alias", async ({
   client,
   createCollection
