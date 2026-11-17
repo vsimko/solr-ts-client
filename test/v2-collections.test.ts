@@ -145,12 +145,27 @@ test("V2 collection property methods reject invalid collection/property paths an
   }
   assert.throws(
     () => client.v2.collections.setProperty("books", "owner", 1 as unknown as string),
-    /value must be a non-empty string/
+    /value must be a string/
   );
-  assert.throws(
-    () => client.v2.collections.setProperty("books", "owner", ""),
-    /value must be a non-empty string/
-  );
+});
+
+test("V2 collection properties accept and send an empty string value", async () => {
+  let captured: { url: URL; method: string; body: string } | undefined;
+  const client = createSolrClient({
+    fetch: async (input, init) => {
+      captured = {
+        url: new URL(String(input)),
+        method: String(init?.method),
+        body: String(init?.body ?? "")
+      };
+      return new Response(JSON.stringify({ responseHeader: { status: 0 } }));
+    }
+  });
+
+  await client.v2.collections.setProperty("books", "owner", "");
+  assert.equal(captured!.url.pathname, "/api/collections/books/properties/owner");
+  assert.equal(captured!.method, "PUT");
+  assert.deepEqual(JSON.parse(captured!.body), { value: "" });
 });
 
 test("V2 Collections reload uses POST /api/collections/{collection}/reload", async () => {
