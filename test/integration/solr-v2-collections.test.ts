@@ -79,47 +79,41 @@ cloudIntegrationTest("V2 replica add and exact delete update isolated collection
   createCollection
 }) => {
   const collection = await createCollection("v2_replica_admin");
-  const before = await client.v2.collections.status(collection);
-  const shardNames = Object.keys(before.shards ?? {});
-  assert.ok(shardNames.length > 0, "the disposable collection must expose at least one shard");
-  const shard = shardNames[0]!;
-  const beforeShard = (before.shards as Record<string, { replicas?: Record<string, unknown> }>)[shard]!;
-  const beforeReplicas = Object.keys(beforeShard.replicas ?? {});
+  const before = await client.collections("CLUSTERSTATUS", { collection });
+  const beforeShardNames = Object.keys(before.cluster?.collections?.[collection]?.shards ?? {});
+  assert.ok(beforeShardNames.length > 0, "the disposable collection must expose at least one shard");
+  const shard = beforeShardNames[0]!;
+  const beforeReplicas = Object.keys(before.cluster?.collections?.[collection]?.shards?.[shard]?.replicas ?? {});
   let addedReplica: string | undefined;
   try {
     await client.v2.collections.addReplica(collection, { shard, waitForFinalState: true });
     let afterReplicas: string[] = [];
-    for (let attempt = 0; attempt < 120; attempt++) {
-      const afterAdd = await client.v2.collections.status(collection);
-      const afterShard = (afterAdd.shards as Record<string, {
-        replicas?: Record<string, { state?: string }>
-      }>)[shard]!;
-      const replicas = afterShard.replicas ?? {};
+    for (let attempt = 0; attempt < 60; attempt++) {
+      const afterAdd = await client.collections("CLUSTERSTATUS", { collection });
+      const replicas = afterAdd.cluster?.collections?.[collection]?.shards?.[shard]?.replicas ?? {};
       afterReplicas = Object.keys(replicas);
       addedReplica = afterReplicas.find(name => !beforeReplicas.includes(name));
       if (addedReplica && replicas[addedReplica]?.state === "active") break;
       await new Promise(resolve => setTimeout(resolve, 500));
     }
     assert.ok(addedReplica, "ADDREPLICA must add one distinct replica to the requested shard");
-    const activeStatus = await client.v2.collections.status(collection);
-    const activeShard = (activeStatus.shards as Record<string, {
-      replicas?: Record<string, { state?: string }>
-    }>)[shard]!;
-    assert.equal(activeShard.replicas?.[addedReplica]?.state, "active",
+    const activeStatus = await client.collections("CLUSTERSTATUS", { collection });
+    const activeReplicas = activeStatus.cluster?.collections?.[collection]?.shards?.[shard]?.replicas ?? {};
+    assert.equal(activeReplicas[addedReplica]?.state, "active",
       "ADDREPLICA must wait until the new replica is active");
     assert.equal(afterReplicas.length, beforeReplicas.length + 1);
 
     await client.v2.collections.deleteReplica(collection, shard, addedReplica);
     for (let attempt = 0; attempt < 60; attempt++) {
-      const afterDelete = await client.v2.collections.status(collection);
-      const finalShard = (afterDelete.shards as Record<string, { replicas?: Record<string, unknown> }>)[shard]!;
-      if (!Object.hasOwn(finalShard.replicas ?? {}, addedReplica)) break;
+      const afterDelete = await client.collections("CLUSTERSTATUS", { collection });
+      const replicas = afterDelete.cluster?.collections?.[collection]?.shards?.[shard]?.replicas ?? {};
+      if (!Object.hasOwn(replicas, addedReplica)) break;
       await new Promise(resolve => setTimeout(resolve, 500));
     }
     addedReplica = undefined;
-    const finalStatus = await client.v2.collections.status(collection);
-    const finalShard = (finalStatus.shards as Record<string, { replicas?: Record<string, unknown> }>)[shard]!;
-    assert.equal(Object.keys(finalShard.replicas ?? {}).length, beforeReplicas.length,
+    const finalStatus = await client.collections("CLUSTERSTATUS", { collection });
+    const finalReplicas = finalStatus.cluster?.collections?.[collection]?.shards?.[shard]?.replicas ?? {};
+    assert.equal(Object.keys(finalReplicas).length, beforeReplicas.length,
       "DELETEREPLICA must remove only the named replica");
   } finally {
     if (addedReplica) {
