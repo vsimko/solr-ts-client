@@ -2,17 +2,31 @@ import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { cloudIntegrationTest, type SolrCloudIntegrationFixture } from "./fixtures.js";
 
+function v2CommandStatusPath(requestid: string): `/api/cluster/${string}/${string}` {
+  // Solr 10.1 renamed the cluster async command endpoint from command-status to commands.
+  const resource = process.env.SOLR_VERSION === "10.1.0" ? "commands" : "command-status";
+  return `/api/cluster/${resource}/${encodeURIComponent(requestid)}`;
+}
+
 async function waitForCollectionRequest(
   client: SolrCloudIntegrationFixture["client"],
-  requestid: string
+  requestid: string,
+  useV2 = false
 ): Promise<void> {
   for (let attempt = 0; attempt < 120; attempt++) {
-    const status = await client.collections("REQUESTSTATUS", { requestid });
+    const status = useV2
+      ? await client.v2.request<{ status?: { state?: string; msg?: string } }>(
+        v2CommandStatusPath(requestid),
+        { method: "GET" }
+      )
+      : await client.collections("REQUESTSTATUS", { requestid });
     const state = status.status?.state;
     if (state === "completed") return;
-    if (state === "failed" || state === "notfound") {
+    if (state === "failed" || (state === "notfound" && !useV2)) {
       throw new Error(`Collection request ${requestid} ended in ${state}: ${JSON.stringify(status)}`);
     }
+    // V2 async commands can briefly be absent from the status queue immediately
+    // after the accepting POST returns; keep polling until they are registered.
     await new Promise(resolve => setTimeout(resolve, 500));
   }
   throw new Error(`Timed out waiting for collection request ${requestid}`);
@@ -95,8 +109,6 @@ cloudIntegrationTest(
     const targetClient = clientForCollection(target);
     const id = `v2_backup_doc_${randomUUID().replaceAll("-", "")}`;
     const backupName = `v2_backup_${randomUUID().replaceAll("-", "")}`;
-    const backupRequest = `v2_backup_req_${randomUUID().replaceAll("-", "")}`;
-    const restoreRequest = `v2_restore_req_${randomUUID().replaceAll("-", "")}`;
     let backupId: number | undefined;
 
     try {
@@ -105,13 +117,11 @@ cloudIntegrationTest(
 
       const backup = await client.v2.collections.backup(source, backupName, {
         location,
-        async: backupRequest,
         backupConfigset: true,
         incremental: true,
         backupStrategy: "copy-files"
       });
       assert.ok(backup.response || backup.requestid, JSON.stringify(backup));
-      await waitForCollectionRequest(client, backupRequest);
 
       const listed = await client.v2.backups.list(backupName, { location });
       const backupPoint = listed.backups?.[0];
@@ -122,10 +132,9 @@ cloudIntegrationTest(
       const restore = await client.v2.backups.restore(
         backupName,
         { collection: target, location, backupId },
-        { async: restoreRequest }
+        {}
       );
-      assert.ok(restore.response || restore.requestid, JSON.stringify(restore));
-      await waitForCollectionRequest(client, restoreRequest);
+      assert.equal(restore.responseHeader?.status, 0, JSON.stringify(restore));
 
       const restored = await targetClient.query({ query: `id:${id}`, limit: 1 }) as {
         response?: { numFound?: number; docs?: readonly { title?: string | readonly string[] }[] };
@@ -151,13 +160,6 @@ cloudIntegrationTest(
       for (const id of backupIds) {
         try {
           await client.v2.backups.delete(backupName, id, { location });
-        } catch (error) {
-          cleanupErrors.push(error);
-        }
-      }
-      for (const requestid of [backupRequest, restoreRequest]) {
-        try {
-          await client.collections("DELETESTATUS", { requestid });
         } catch (error) {
           cleanupErrors.push(error);
         }

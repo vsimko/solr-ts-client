@@ -62,6 +62,112 @@ test("V2 Collections delete uses DELETE and serializes only explicit directory f
   assert.equal(captured!.url.searchParams.has("deleteInstanceDir"), false);
 });
 
+test("V2 Collections modify posts the documented modify command and preserves async in its body", async () => {
+  let captured: { url: URL; method: string; body: string | undefined } | undefined;
+  const client = createSolrClient({
+    fetch: async (input, init) => {
+      captured = { url: new URL(String(input)), method: String(init?.method), body: String(init?.body ?? "") };
+      return new Response(JSON.stringify({ responseHeader: { status: 0 } }));
+    }
+  });
+  await client.v2.collections.modify("books archive", {
+    replicationFactor: 2,
+    "collection.configName": "books-config",
+    readOnly: false,
+    async: "modify-books"
+  });
+  assert.equal(captured!.url.pathname, "/api/collections/books%20archive");
+  assert.equal(captured!.method, "POST");
+  assert.deepEqual(JSON.parse(captured!.body!), {
+    modify: {
+      replicationFactor: 2,
+      "collection.configName": "books-config",
+      readOnly: false,
+      async: "modify-books"
+    }
+  });
+});
+
+test("V2 Collections modify rejects empty and invalid attributes before fetch", () => {
+  const client = createSolrClient({ fetch: async () => { throw new Error("fetch must not run"); } });
+  assert.throws(() => client.v2.collections.modify("books", {}), /at least one collection attribute/);
+  assert.throws(() => client.v2.collections.modify("books", { replicationFactor: 0 }), /positive safe integer/);
+  assert.throws(() => client.v2.collections.modify("books", { "collection.configName": " " }), /configName must be non-empty/);
+  assert.throws(() => client.v2.collections.modify("books", { readOnly: "true" as unknown as boolean }), /readOnly must be a boolean/);
+  assert.throws(() => client.v2.collections.modify("books", { replicationFactor: 2, async: " " }), /async request id/);
+  assert.throws(() => client.v2.collections.modify("books", { replicationFactor: 2, async: "bad/id" }), /must not contain/);
+});
+
+test("V2 collection properties serialize GET, PUT and DELETE routes", async () => {
+  const requests: { url: URL; method: string; body: string }[] = [];
+  const client = createSolrClient({
+    fetch: async (input, init) => {
+      const url = new URL(String(input));
+      const method = String(init?.method);
+      requests.push({ url, method, body: String(init?.body ?? "") });
+      const payload = method === "GET" && url.pathname.endsWith("/properties")
+        ? { responseHeader: { status: 0 }, properties: { owner: "tests", generation: "2" } }
+        : method === "GET"
+          ? { responseHeader: { status: 0 }, value: "tests" }
+          : { responseHeader: { status: 0 } };
+      return new Response(JSON.stringify(payload));
+    }
+  });
+
+  const all = await client.v2.collections.getProperties("books archive");
+  const one = await client.v2.collections.getProperty("books archive", "owner name");
+  await client.v2.collections.setProperty("books archive", "owner name", "tests");
+  await client.v2.collections.deleteProperty("books archive", "owner name");
+
+  assert.deepEqual(all.properties, { owner: "tests", generation: "2" });
+  assert.equal(one.value, "tests");
+  assert.deepEqual(requests.map(({ url, method }) => [url.pathname, method]), [
+    ["/api/collections/books%20archive/properties", "GET"],
+    ["/api/collections/books%20archive/properties/owner%20name", "GET"],
+    ["/api/collections/books%20archive/properties/owner%20name", "PUT"],
+    ["/api/collections/books%20archive/properties/owner%20name", "DELETE"]
+  ]);
+  assert.deepEqual(JSON.parse(requests[2]!.body), { value: "tests" });
+  assert.equal(requests[0]!.body, "");
+  assert.equal(requests[1]!.body, "");
+  assert.equal(requests[3]!.body, "");
+});
+
+test("V2 collection property methods reject invalid collection/property paths and values", () => {
+  const client = createSolrClient({ fetch: async () => { throw new Error("fetch must not run"); } });
+  for (const collection of ["", " ", ".", "..", "../admin", "a/b", "a\\\\b"]) {
+    assert.throws(() => client.v2.collections.getProperties(collection), /non-empty collection name/);
+  }
+  for (const property of ["", " ", ".", "..", "../admin", "a/b", "a\\\\b"]) {
+    assert.throws(() => client.v2.collections.getProperty("books", property), /non-empty property name/);
+    assert.throws(() => client.v2.collections.setProperty("books", property, "value"), /non-empty property name/);
+    assert.throws(() => client.v2.collections.deleteProperty("books", property), /non-empty property name/);
+  }
+  assert.throws(
+    () => client.v2.collections.setProperty("books", "owner", 1 as unknown as string),
+    /value must be a string/
+  );
+});
+
+test("V2 collection properties accept and send an empty string value", async () => {
+  let captured: { url: URL; method: string; body: string } | undefined;
+  const client = createSolrClient({
+    fetch: async (input, init) => {
+      captured = {
+        url: new URL(String(input)),
+        method: String(init?.method),
+        body: String(init?.body ?? "")
+      };
+      return new Response(JSON.stringify({ responseHeader: { status: 0 } }));
+    }
+  });
+
+  await client.v2.collections.setProperty("books", "owner", "");
+  assert.equal(captured!.url.pathname, "/api/collections/books/properties/owner");
+  assert.equal(captured!.method, "PUT");
+  assert.deepEqual(JSON.parse(captured!.body), { value: "" });
+});
+
 test("V2 Collections reload uses POST /api/collections/{collection}/reload", async () => {
   let captured: { url: URL; method: string } | undefined;
   const client = createSolrClient({
@@ -195,12 +301,13 @@ test("V2 replica administration serializes add and exact delete routes safely", 
 
   assert.deepEqual(requests.map(({ url, method }) => [url.pathname, method]), [
     ["/api/collections/books/shards/shard%201/replicas", "POST"],
-    ["/api/collections/books/shards/replicas", "POST"],
+    ["/api/collections/books/replicas", "POST"],
     ["/api/collections/books/shards/shard%201/replicas/core_node%202", "DELETE"]
   ]);
   assert.deepEqual(JSON.parse(requests[0]!.body), {
-    nodeSet: ["node-a", "node-b"], type: "tlog", waitForFinalState: true
+    nodeSet: ["node-a", "node-b"], type: "tlog"
   });
+  assert.equal(requests[0]!.url.searchParams.get("waitForFinalState"), "true");
   assert.equal(requests[0]!.url.searchParams.get("async"), "add-1");
   assert.deepEqual(JSON.parse(requests[1]!.body), { route: "tenant!42", node: "node-a" });
   assert.deepEqual(Object.fromEntries(requests[2]!.url.searchParams), {
@@ -210,6 +317,7 @@ test("V2 replica administration serializes add and exact delete routes safely", 
 
 test("V2 replica administration validates required selectors and path segments", () => {
   const client = createSolrClient({ fetch: async () => { throw new Error("fetch must not run"); } });
+  // @ts-expect-error Intentionally exercise runtime validation for an invalid public API call.
   assert.throws(() => client.v2.collections.addReplica("books", {}), /shard or route/);
   assert.throws(() => client.v2.collections.addReplica("books", { shard: "s", route: "r" }), /shard or route, not both/);
   assert.throws(() => client.v2.collections.addReplica("books", { shard: "../admin" }), /shard name/);
