@@ -353,8 +353,8 @@ export class SolrV2CollectionsClient {
     value: SolrV2CollectionPropertyValue,
     requestOptions: RequestControlOptions = {}
   ): Promise<SolrV2CollectionOperationResponse> {
-    if (typeof value !== "string" || value.length === 0) {
-      throw new TypeError("Solr V2 collection property value must be a non-empty string");
+    if (typeof value !== "string") {
+      throw new TypeError("Solr V2 collection property value must be a string");
     }
     return this.v2.request<SolrV2CollectionOperationResponse>(this.propertyPath(collection, property), {
       ...requestOptions,
