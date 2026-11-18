@@ -169,3 +169,4 @@ The website is a discovery and evidence surface, not a second source of technica
 The feature work is independent of the stable-release approval gate (#110) and the manually dispatched destructive SolrCloud verification gate (#232).
 
 - **V2 Collections RENAME (#421):** typed `client.v2.collections.rename(collection, { to })` implemented; runtime evidence pending CI on Solr 9.11.0 and 10.1.0.
+- **V2 collection administration runtime evidence (#409/#410/#411/#412/#419):** lifecycle, collection-property, replica, alias, and collection-backup round-trips plus BasicAuth route gates passed on Solr 9.11.0 and 10.1.0 in [CI run #44288956186](https://github.com/vsimko/solr-ts-client/actions/runs/44288956186). PR #425 adds the missing CREATE/RELOAD/DELETE lifecycle round-trip; Solr 8.11.4 remains unclaimed for these redesigned V2 REST routes.
