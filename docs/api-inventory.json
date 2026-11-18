@@ -844,11 +844,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -857,7 +857,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Create or replace a standard alias using the documented V2 {name, collections[]} request body. The redesigned route is documented from Solr 9.3; Solr 8.11.4 legacy alias commands are not mapped or claimed. Unit/type and disposable SolrCloud/security tests are present; runtime and BasicAuth evidence remains pending."
+      "notes": "Creates or replaces a standard alias over existing collections. Isolated SolrCloud alias mapping and metadata-property round-trip passed. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "id": "v2.aliases.delete",
@@ -868,11 +868,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -881,7 +881,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Delete only the alias, not its backing collections. Supports the documented async query parameter. The redesigned route is documented from Solr 9.3; Solr 8.11.4 is not claimed. Runtime and security evidence remains pending."
+      "notes": "Deletes only the named alias, not its backing collections. Isolated SolrCloud deletion/read-back and BasicAuth route probes passed. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "id": "v2.aliases.deleteProperty",
@@ -892,11 +892,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -905,7 +905,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Delete one metadata property with the property-level DELETE route and optional async query parameter. Solr 9.3+ route; Solr 8.11.4 is not claimed; runtime evidence pending."
+      "notes": "Deletes one named alias metadata property. Isolated SolrCloud property read-back and BasicAuth route probes passed. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "id": "v2.aliases.getProperties",
@@ -916,11 +916,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -929,7 +929,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Read all metadata properties for one alias using the documented Solr 9.3+ property subresource. Solr 8.11.4 is not claimed; runtime evidence pending."
+      "notes": "Reads all metadata properties for one alias. Isolated SolrCloud property read-back and BasicAuth route probes passed. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "id": "v2.aliases.getProperty",
@@ -940,11 +940,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -953,7 +953,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Read one metadata property using the documented Solr 9.3+ property subresource. Solr 8.11.4 is not claimed; runtime evidence pending."
+      "notes": "Reads one metadata property for an alias. Isolated SolrCloud property read-back and BasicAuth route probes passed. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "area": "Solr V2 Aliases",
@@ -988,11 +988,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1001,7 +1001,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Set a map of metadata properties using the {properties} JSON body and optional async query parameter. Solr 9.3+ route; Solr 8.11.4 is not claimed; runtime evidence pending."
+      "notes": "Sets the alias metadata property map. Isolated SolrCloud property round-trip and BasicAuth route probes passed. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "id": "v2.aliases.setProperty",
@@ -1012,11 +1012,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1025,7 +1025,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Set one metadata property using the {value} JSON body and optional async query parameter. Solr 9.3+ route; Solr 8.11.4 is not claimed; runtime evidence pending."
+      "notes": "Creates or updates one alias metadata property. Isolated SolrCloud property round-trip and BasicAuth route probes passed. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "area": "Solr V2 Aliases",
@@ -1080,11 +1080,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1097,18 +1097,18 @@
       "clientMethod": "v2.collections.addReplica",
       "httpMethod": "POST",
       "path": "/api/collections/{collection}/shards/{shard}/replicas",
-      "notes": "Adds one or more replicas to an exact shard, or uses the collection-level shards route with route selector. Supports node/nodeSet, NRT/TLOG/PULL type, replica counts, waitForFinalState, and async. REST-style route documented from Solr 9.0; Solr 8.11.4 not claimed. Unit/type and isolated topology/security tests added; runtime evidence pending."
+      "notes": "Adds a replica to one exact shard and verifies the new replica becomes active. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "area": "Solr V2 Collection Backups",
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1117,7 +1117,7 @@
         "test/integration/solrcloud-backup-restore.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Typed REST-style collection backup contract introduced by the Solr 9.3 V2 route redesign. Solr 8.11.4's older command envelope is intentionally not mapped. Unit serialization, consumer type fixtures, and an isolated SolrCloud read-back test are present; runtime and BasicAuth route-probe evidence is pending CI.",
+      "notes": "Creates a V2 collection backup using shared SolrCloud filesystem storage; the backup point is listed and read back after restore. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed.",
       "id": "v2.collections.backup",
       "clientMethod": "v2.collections.backup",
       "httpMethod": "POST",
@@ -1132,18 +1132,18 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
         "test/v2-collections.test.ts",
         "test/v2-types.ts"
       ],
-      "notes": "Typed post-Solr-9.3 create body with required name/config and common shard/replica fields. Exact unit serialization and consumer type fixtures are present. Runtime and security checks are pending; Solr 8.11 legacy command-envelope payload is intentionally not supported."
+      "notes": "Uses the flat post-Solr-9.3 create body. A disposable collection is created and verified through V2 list/status read-back. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "id": "v2.collections.delete",
@@ -1154,18 +1154,18 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
         "test/v2-collections.test.ts",
         "test/v2-types.ts"
       ],
-      "notes": "V2 collection deletion with explicit optional directory-deletion query flags. Unit serialization and consumer type fixtures are present. Runtime and security checks are pending; no V1 fallback."
+      "notes": "Deletes a disposable collection and verifies it disappears from the V2 collection list. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "id": "v2.collections.deleteProperty",
@@ -1176,11 +1176,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1189,18 +1189,18 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Deletes exactly one named custom collection property. The property subresource is documented from Solr 9.3; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
+      "notes": "Deletes exactly one custom collection property after a SolrCloud property round-trip. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "area": "Solr V2 Replica Administration",
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1213,7 +1213,7 @@
       "clientMethod": "v2.collections.deleteReplica",
       "httpMethod": "DELETE",
       "path": "/api/collections/{collection}/shards/{shard}/replicas/{replica}",
-      "notes": "Deletes only the explicitly named replica. Unlike Solr defaults, the client defaults deleteInstanceDir/deleteDataDir/deleteIndex to false to preserve on-disk data; each deletion flag requires explicit opt-in. Supports onlyIfDown, followAliases, and async. REST-style route documented from Solr 9.0; Solr 8.11.4 not claimed. Unit/type and isolated topology/security tests added; runtime evidence pending."
+      "notes": "Deletes only the explicitly named replica and verifies the shard topology returns to its original replica count. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "id": "v2.collections.getProperties",
@@ -1224,11 +1224,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1237,7 +1237,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Reads all custom properties on one collection and returns the documented properties string map. The property subresource is documented in the Solr 9.11 guide; no earlier minimum is claimed; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
+      "notes": "Reads the complete custom collection property map after a SolrCloud property round-trip. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "id": "v2.collections.getProperty",
@@ -1248,11 +1248,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1261,7 +1261,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Reads one custom collection property and returns its string value. The property subresource is documented in the Solr 9.11 guide; no earlier minimum is claimed; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
+      "notes": "Reads one custom collection property after a SolrCloud property round-trip. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "id": "v2.collections.list",
@@ -1296,11 +1296,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1309,7 +1309,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Typed V2 modify command for replicationFactor, collection.configName, and readOnly. Attributes are sent inside the {modify:{...}} body; async is part of that command body. This updates collection metadata and does not change replica topology. readOnly transitions can reject writes and trigger a commit/reload. Unit/type and isolated SolrCloud/security tests are present; runtime evidence remains pending CI. Solr 8.11 legacy command behavior is not claimed."
+      "notes": "Updates replicationFactor through the V2 modify command and verifies the persisted collection property. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "id": "v2.collections.reload",
@@ -1320,29 +1320,29 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
         "test/v2-collections.test.ts",
         "test/v2-types.ts"
       ],
-      "notes": "REST-style V2 collection reload route documented from Solr 9.3. Unit serialization and consumer type fixtures are present. Runtime and security checks are pending; Solr 8.11 is not claimed."
+      "notes": "Reloads a disposable V2-created collection and verifies it remains readable through V2 status. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "area": "Solr V2 Collection Backups",
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1351,7 +1351,7 @@
         "test/integration/solrcloud-backup-restore.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Restores a backup point into an existing or new collection using the redesigned V2 backup API. Restore replaces target index contents; unit/type coverage and isolated SolrCloud verification are tracked separately.",
+      "notes": "Restores a selected V2 backup point to a disposable collection and verifies document read-back. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed.",
       "id": "v2.backups.restore",
       "clientMethod": "v2.backups.restore",
       "httpMethod": "POST",
@@ -1362,11 +1362,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1375,7 +1375,7 @@
         "test/integration/solrcloud-backup-restore.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Deletes one incremental backup point by ID from the specified repository location. Destructive backup metadata/files removal; unit/type coverage and cleanup behavior are tracked separately.",
+      "notes": "Deletes a selected V2 backup point during the isolated backup/restore/delete cycle. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed.",
       "id": "v2.backups.delete",
       "clientMethod": "v2.backups.delete",
       "httpMethod": "DELETE",
@@ -1390,11 +1390,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1403,7 +1403,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Creates or updates one custom collection property using the documented {value} JSON body; values are strings. The property subresource is documented from Solr 9.3; Solr 8.11.4 is not claimed. Exact serialization, consumer types, isolated SolrCloud read-back, and BasicAuth route-gate fixtures are present; runtime evidence is pending CI."
+      "notes": "Creates and updates one custom collection property using the documented string value body. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed."
     },
     {
       "id": "v2.collections.status",
@@ -1623,11 +1623,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1636,7 +1636,7 @@
         "test/integration/solrcloud-backup-restore.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Lists incremental backup points stored at a repository location. Requires a non-empty location query parameter; unit/type coverage and SolrCloud runtime evidence are tracked separately.",
+      "notes": "Lists V2 backup points and verifies the created backup metadata before restore. Runtime-tested on pinned Solr 9.11.0 and 10.1.0 across Node.js 22/24/26 in CI run #44288956186; BasicAuth allow/deny route probes passed on both versions. Solr 8.11.4 remains unclaimed.",
       "id": "v2.backups.list",
       "clientMethod": "v2.backups.list",
       "httpMethod": "GET",
