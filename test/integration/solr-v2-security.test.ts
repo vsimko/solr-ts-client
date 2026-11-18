@@ -68,6 +68,8 @@ test("V2 Collections, cluster, and alias discovery/mutation routes enforce Basic
     const createProbe = probe + "_create_missing";
     const deleteProbe = probe + "_delete_missing";
     const reloadProbe = probe + "_reload_missing";
+    const statusProbe = probe + "_status_missing";
+
     requests.push(
       {
         path: "/api/collections",
@@ -79,6 +81,7 @@ test("V2 Collections, cluster, and alias discovery/mutation routes enforce Basic
           replicationFactor: 1
         })
       },
+      { path: "/api/collections/" + statusProbe, method: "GET" },
       { path: "/api/collections/" + deleteProbe, method: "DELETE" },
       { path: "/api/collections/" + reloadProbe + "/reload", method: "POST" }
     );
