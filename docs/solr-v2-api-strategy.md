@@ -268,4 +268,4 @@ Unit serialization and consumer type fixtures are in `test/v2-collections.test.t
 
 `client.v2.collections.rename(collection, { to })` uses `POST /api/collections/{collection}/rename`. Solr creates a standard one-to-one alias to the same physical collection; it does not rename the underlying collection. Existing aliases are updated by Solr to refer to the new name. Routed aliases, aliases targeting multiple collections, and targets that are already aliases are rejected server-side. The client validates source and target path-segment shape and leaves topology checks to Solr.
 
-The route is documented from Solr 9.2; Solr 8.11.4 is not claimed. Unit serialization, consumer type, isolated SolrCloud alias/physical-collection read-back, and BasicAuth fixtures are present. Runtime evidence is pending CI on pinned Solr 9.11.0 and 10.1.0.
+The route is documented from Solr 9.2; Solr 8.11.4 is not claimed. Unit serialization and consumer type fixtures are present. The isolated SolrCloud alias/physical-collection read-back and BasicAuth route gate passed on pinned Solr 9.11.0 and 10.1.0 in CI run #44192948696 (Node.js 22/24/26).
