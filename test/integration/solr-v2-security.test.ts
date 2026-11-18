@@ -65,6 +65,23 @@ test("V2 Collections, cluster, and alias discovery/mutation routes enforce Basic
     { path: "/api/collections/" + probe + "_missing/properties/owner", method: "DELETE" }
   ];
   if (["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")) {
+    const createProbe = probe + "_create_missing";
+    const deleteProbe = probe + "_delete_missing";
+    const reloadProbe = probe + "_reload_missing";
+    requests.push(
+      {
+        path: "/api/collections",
+        method: "POST",
+        body: JSON.stringify({
+          name: createProbe,
+          config: "__missing_auth_probe_config__",
+          numShards: 1,
+          replicationFactor: 1
+        })
+      },
+      { path: "/api/collections/" + deleteProbe, method: "DELETE" },
+      { path: "/api/collections/" + reloadProbe + "/reload", method: "POST" }
+    );
     const backup = "security_backup_" + randomUUID().replaceAll("-", "");
     const location = "/var/solr/backups";
     requests.push(
