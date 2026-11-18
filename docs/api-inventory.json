@@ -1438,7 +1438,7 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "tested",
+      "integrationTests": "partial",
       "versions": {
         "8": "unverified",
         "9": "tested",
