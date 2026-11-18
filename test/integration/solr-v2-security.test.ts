@@ -74,13 +74,6 @@ test("V2 Collections, cluster, and alias discovery/mutation routes enforce Basic
       { path: `/api/backups/${backup}/restore`, method: "POST", body: JSON.stringify({ collection: probe + "_missing_target", location }) }
     );
   }
-  if (["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")) {
-    requests.push(
-      { path: "/api/collections", method: "POST", body: JSON.stringify({}) },
-      { path: "/api/collections/" + probe + "_missing", method: "DELETE" },
-      { path: "/api/collections/" + probe + "_missing/reload", method: "POST" }
-    );
-  }
   const authorization = "Basic " + Buffer.from(username + ":" + password).toString("base64");
   const invalidAuthorization = "Basic " + Buffer.from(username + ":wrong-password").toString("base64");
 

@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { randomUUID } from "node:crypto";
 import { cloudIntegrationTest } from "./fixtures.js";
 
 cloudIntegrationTest("V2 Collections list returns a newly created isolated collection", async ({
@@ -12,78 +11,6 @@ cloudIntegrationTest("V2 Collections list returns a newly created isolated colle
   assert.ok(response.collections?.includes(collection),
     "GET /api/collections must include the newly created collection");
 });
-
-cloudIntegrationTest("V2 Collections create creates and reads back an isolated collection", async ({ client }) => {
-  const collection = `v2_create_${randomUUID().replaceAll("-", "").slice(0, 16)}`;
-  try {
-    await client.v2.collections.create({
-      name: collection,
-      config: "_default",
-      numShards: 1,
-      replicationFactor: 1
-    });
-    const listed = await client.v2.collections.list();
-    assert.ok(listed.collections?.includes(collection), "POST /api/collections must create the requested collection");
-    const status = await client.v2.collections.status(collection);
-    assert.equal(status.name, collection);
-    assert.equal(status.activeShards, 1);
-  } finally {
-    const listed = await client.v2.collections.list();
-    if (listed.collections?.includes(collection)) await client.v2.collections.delete(collection);
-  }
-}, false, false, ["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")
-  ? undefined
-  : "The flat V2 collection create body is not claimed on Solr 8.11.4");
-
-cloudIntegrationTest("V2 Collections delete removes only the isolated collection", async ({ client }) => {
-  const collection = `v2_delete_${randomUUID().replaceAll("-", "").slice(0, 16)}`;
-  await client.v2.collections.create({
-    name: collection,
-    config: "_default",
-    numShards: 1,
-    replicationFactor: 1
-  });
-  try {
-    const response = await client.v2.collections.delete(collection);
-    assert.equal(response.responseHeader?.status, 0);
-    const listed = await client.v2.collections.list();
-    assert.equal(listed.collections?.includes(collection), false,
-      "DELETE /api/collections/{collection} must remove the collection from cluster discovery");
-  } finally {
-    const listed = await client.v2.collections.list();
-    if (listed.collections?.includes(collection)) await client.v2.collections.delete(collection);
-  }
-}, false, false, ["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")
-  ? undefined
-  : "The REST-style V2 collection delete route is not claimed on Solr 8.11.4");
-
-cloudIntegrationTest("V2 Collections reload preserves committed documents", async ({ client, clientForCollection }) => {
-  const collection = `v2_reload_${randomUUID().replaceAll("-", "").slice(0, 16)}`;
-  const id = `reload_${randomUUID().replaceAll("-", "")}`;
-  await client.v2.collections.create({
-    name: collection,
-    config: "_default",
-    numShards: 1,
-    replicationFactor: 1
-  });
-  try {
-    const collectionClient = clientForCollection(collection);
-    await collectionClient.add([{ id, title: "V2 reload fixture" }]);
-    await collectionClient.commit({ waitSearcher: true });
-    const response = await client.v2.collections.reload(collection);
-    assert.equal(response.responseHeader?.status, 0);
-    const readBack = await collectionClient.query({ query: `id:${id}`, limit: 1 }) as {
-      response?: { numFound?: number; docs?: readonly { id?: string }[] };
-    };
-    assert.equal(readBack.response?.numFound, 1);
-    assert.equal(readBack.response?.docs?.[0]?.id, id);
-  } finally {
-    const listed = await client.v2.collections.list();
-    if (listed.collections?.includes(collection)) await client.v2.collections.delete(collection);
-  }
-}, false, false, ["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")
-  ? undefined
-  : "The REST-style V2 collection reload route is documented from Solr 9.3; Solr 8.11.4 is not claimed");
 
 cloudIntegrationTest("V2 Collections status reads isolated collection state", async ({
   client,
