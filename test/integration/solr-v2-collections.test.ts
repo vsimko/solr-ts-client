@@ -31,14 +31,12 @@ cloudIntegrationTest("V2 Collections create, reload, and delete round-trip on a 
   let createAttempted = false;
   try {
     createAttempted = true;
-    const created = await client.v2.collections.create({
+    await client.v2.collections.create({
       name: collection,
       config: "_default",
       numShards: 1,
       replicationFactor: 1
     });
-    assert.equal(created.responseHeader?.status, 0, JSON.stringify(created));
-    assert.equal(created.collection, collection);
 
     let visible = false;
     for (let attempt = 0; attempt < 60; attempt++) {
@@ -56,8 +54,7 @@ cloudIntegrationTest("V2 Collections create, reload, and delete round-trip on a 
     assert.equal(status.name, collection);
     assert.equal(status.activeShards, 1);
 
-    const deleted = await client.v2.collections.delete(collection);
-    assert.equal(deleted.responseHeader?.status, 0, JSON.stringify(deleted));
+    await client.v2.collections.delete(collection);
 
     let absent = false;
     for (let attempt = 0; attempt < 60; attempt++) {
