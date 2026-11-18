@@ -169,3 +169,4 @@ The website is a discovery and evidence surface, not a second source of technica
 The feature work is independent of the stable-release approval gate (#110) and the manually dispatched destructive SolrCloud verification gate (#232).
 
 - **V2 Collections RENAME (#421, PR #422):** merged; alias/physical-collection read-back passed on Solr 9.11.0 and 10.1.0, with the BasicAuth route gate in CI run #44192948696. Solr 8.11.4 is not claimed.
+- **V2 Collections lifecycle (#409, PR #425):** CREATE/RELOAD/DELETE SolrCloud round-trip and BasicAuth route gates passed on Solr 9.11.0 and 10.1.0 in CI run #44288956186; Solr 8.11.4 remains unclaimed.
