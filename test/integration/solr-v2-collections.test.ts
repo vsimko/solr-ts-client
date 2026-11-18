@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { randomUUID } from "node:crypto";
 import { cloudIntegrationTest } from "./fixtures.js";
 
 cloudIntegrationTest("V2 Collections list returns a newly created isolated collection", async ({
@@ -24,6 +25,61 @@ cloudIntegrationTest("V2 Collections status reads isolated collection state", as
 }, false, false, ["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")
   ? undefined
   : "The V2 per-collection status route is available from Solr 9.3; the pinned 8.11 line is not claimed");
+
+cloudIntegrationTest("V2 Collections create, reload, and delete round-trip on a disposable collection", async ({ client }) => {
+  const collection = `v2_lifecycle_${randomUUID().replaceAll("-", "")}`;
+  let createAttempted = false;
+  try {
+    createAttempted = true;
+    const created = await client.v2.collections.create({
+      name: collection,
+      config: "_default",
+      numShards: 1,
+      replicationFactor: 1
+    });
+    assert.equal(created.responseHeader?.status, 0, JSON.stringify(created));
+    assert.equal(created.collection, collection);
+
+    let visible = false;
+    for (let attempt = 0; attempt < 60; attempt++) {
+      const listed = await client.v2.collections.list();
+      if (listed.collections?.includes(collection)) {
+        visible = true;
+        break;
+      }
+      await new Promise(resolve => setTimeout(resolve, 250));
+    }
+    assert.ok(visible, "V2 CREATE must make the new collection visible");
+
+    await client.v2.collections.reload(collection);
+    const status = await client.v2.collections.status(collection);
+    assert.equal(status.name, collection);
+    assert.equal(status.activeShards, 1);
+
+    const deleted = await client.v2.collections.delete(collection);
+    assert.equal(deleted.responseHeader?.status, 0, JSON.stringify(deleted));
+
+    let absent = false;
+    for (let attempt = 0; attempt < 60; attempt++) {
+      const listed = await client.v2.collections.list();
+      if (!listed.collections?.includes(collection)) {
+        absent = true;
+        break;
+      }
+      await new Promise(resolve => setTimeout(resolve, 250));
+    }
+    assert.ok(absent, "V2 DELETE must remove the collection from the cluster");
+  } finally {
+    if (createAttempted) {
+      const listed = await client.v2.collections.list();
+      if (listed.collections?.includes(collection)) {
+        await client.v2.collections.delete(collection);
+      }
+    }
+  }
+}, false, false, ["9.11.0", "10.1.0"].includes(process.env.SOLR_VERSION ?? "")
+  ? undefined
+  : "The flat V2 collection lifecycle routes are post-Solr-9.3; Solr 8.11.4 is not claimed", 120_000);
 
 cloudIntegrationTest("V2 Collections rename creates an alias without renaming the physical collection", async ({client,createCollection}) => {
   const collection=await createCollection("v2_rename");
