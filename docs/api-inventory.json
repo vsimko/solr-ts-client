@@ -1132,18 +1132,20 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "partial",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
         "test/v2-collections.test.ts",
-        "test/v2-types.ts"
+        "test/v2-types.ts",
+        "test/integration/solr-v2-collections.test.ts",
+        "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "Typed post-Solr-9.3 create body with required name/config and common shard/replica fields. Exact unit serialization and consumer type fixtures are present. Runtime and security checks are pending; Solr 8.11 legacy command-envelope payload is intentionally not supported."
+      "notes": "Typed post-Solr-9.3 flat create body. A unique disposable collection is created and read back through V2 collection list/status; the BasicAuth create-route gate also passed in CI run #44288956186 on Solr 9.11.0 and 10.1.0. Solr 8.11.4 legacy command-envelope behavior is not claimed."
     },
     {
       "id": "v2.collections.delete",
@@ -1154,18 +1156,20 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "partial",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
         "test/v2-collections.test.ts",
-        "test/v2-types.ts"
+        "test/v2-types.ts",
+        "test/integration/solr-v2-collections.test.ts",
+        "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "V2 collection deletion with explicit optional directory-deletion query flags. Unit serialization and consumer type fixtures are present. Runtime and security checks are pending; no V1 fallback."
+      "notes": "V2 DELETE removes a uniquely created disposable collection and V2 list confirms its absence; directory-deletion flags are omitted by default. The SolrCloud round-trip and BasicAuth delete-route gate passed in CI run #44288956186 on Solr 9.11.0 and 10.1.0. Solr 8.11.4 is not claimed."
     },
     {
       "id": "v2.collections.deleteProperty",
@@ -1320,18 +1324,20 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "partial",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
         "test/v2-collections.test.ts",
-        "test/v2-types.ts"
+        "test/v2-types.ts",
+        "test/integration/solr-v2-collections.test.ts",
+        "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "REST-style V2 collection reload route documented from Solr 9.3. Unit serialization and consumer type fixtures are present. Runtime and security checks are pending; Solr 8.11 is not claimed."
+      "notes": "V2 RELOAD was exercised after creating a disposable collection; the test verifies the collection remains active after reload. The SolrCloud test and BasicAuth reload-route gate passed in CI run #44288956186 on Solr 9.11.0 and 10.1.0. Solr 8.11.4 is not claimed."
     },
     {
       "area": "Solr V2 Collection Backups",
