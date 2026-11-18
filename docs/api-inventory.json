@@ -1438,11 +1438,11 @@
       "methodImplemented": true,
       "typeCoverage": "complete",
       "unitTests": "present",
-      "integrationTests": "not-run",
+      "integrationTests": "tested",
       "versions": {
         "8": "unverified",
-        "9": "unverified",
-        "10": "unverified"
+        "9": "tested",
+        "10": "tested"
       },
       "documentation": "docs/solr-v2-api-strategy.md",
       "testFiles": [
@@ -1451,7 +1451,7 @@
         "test/integration/solr-v2-collections.test.ts",
         "test/integration/solr-v2-security.test.ts"
       ],
-      "notes": "V2 Collections RENAME accepts { to } and creates a standard alias to the same physical collection; it does not rename the underlying collection. Documented from Solr 9.2. Solr 8.11.4 is not claimed; runtime evidence is pending CI on pinned Solr 9.11.0 and 10.1.0."
+      "notes": "V2 Collections RENAME accepts { to } and creates a standard alias to the same physical collection; it does not rename the underlying collection. Documented from Solr 9.2. SolrCloud alias/physical-collection read-back passed on pinned Solr 9.11.0 and 10.1.0, and the BasicAuth route gate passed in CI run #44192948696 (Node.js 22/24/26). Solr 8.11.4 is not claimed."
     },
     {
       "area": "Core Admin V2",

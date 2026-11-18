@@ -80,4 +80,4 @@ FORCELEADER is serialization/type-covered and now has a dedicated manual-only st
 
 ## V2 Collections rename
 
-`client.v2.collections.rename(collection, { to })` sends `POST /api/collections/{collection}/rename`. Solr creates a standard alias to the existing physical collection; it does not rename the underlying collection. The route is documented from Solr 9.2. Unit, consumer type, isolated SolrCloud, and BasicAuth fixtures are present; runtime evidence is pending CI on pinned Solr 9.11.0 and 10.1.0. Solr 8.11.4 is not claimed.
+`client.v2.collections.rename(collection, { to })` sends `POST /api/collections/{collection}/rename`. Solr creates a standard alias to the existing physical collection; it does not rename the underlying collection. The route is documented from Solr 9.2. Unit and consumer type fixtures are present; the isolated SolrCloud alias/physical-collection read-back and BasicAuth route gate passed on pinned Solr 9.11.0 and 10.1.0 in CI run #44192948696 (Node.js 22/24/26). Solr 8.11.4 is not claimed.
