@@ -1,4 +1,4 @@
-# node-solr-lambda
+# Solr TS Client
 
 A modern Apache Solr client for JavaScript and TypeScript on Node.js, with TypeScript-first contracts and a first-class JavaScript experience. Version 4 replaces the v3 Axios-based functional API with a Fetch-based client, discoverable request models, and a shared transport for query, update, administration, and raw requests.
 
@@ -10,7 +10,7 @@ A modern Apache Solr client for JavaScript and TypeScript on Node.js, with TypeS
 ## Install
 
 ```sh
-npm install node-solr-lambda
+npm install solr-ts-client
 ```
 
 Runtime validation is disabled by default. Install Zod only if your application uses Zod schemas:
@@ -22,7 +22,7 @@ npm install zod
 ## Quick start
 
 ```ts
-import { createSolrClient } from "node-solr-lambda";
+import { createSolrClient } from "solr-ts-client";
 
 interface Book {
   id: string;
@@ -53,7 +53,7 @@ Create the target core or collection on the Solr server before using the client.
 ## Client configuration
 
 ```ts
-import { createSolrClient } from "node-solr-lambda";
+import { createSolrClient } from "solr-ts-client";
 
 const solr = createSolrClient({
   baseUrl: "https://solr.example.com/solr",
@@ -79,7 +79,7 @@ The public client exposes typed methods for the main Solr API families:
 - **Query:** `query()` and `queryJson()`, including typed parser options, filters, facets, highlighting, grouping, stats, cursor pagination, and response models.
 - **Documents:** `get()` for RealTime Get, `add()`, backpressure-aware `addStream()` for `AsyncIterable` sources, `update()`, `atomicUpdate()`, `updateCommands()`, `delete()`, `commit()`, `softCommit()`, `optimize()`, and `rollback()`.
 - **Schema and Config:** `schema()` and `config()` with typed command models.
-- **Administration:** `coreAdmin()`, `collections()`, `ping()`, `security()`, `systemInfo()`, and `metrics()`. The explicit `client.v2.coreAdmin` namespace adds typed V2 core status/reload/rename/unload methods for Solr 9.11.0 and 10.1.0 standalone/user-managed cores; SolrCloud users should use Collections APIs.
+- **Administration:** `coreAdmin()`, `collections()`, `ping()`, `security()`, `systemInfo()`, and `metrics()`. The explicit `client.v2.coreAdmin` namespace adds typed V2 core status/reload/rename/unload methods for Solr 9.11.0 and 10.1.0 standalone/user-managed cores; SolrCloud users should use Collections APIs. The `client.v2.aliases` namespace adds standard alias create/delete and metadata-property operations using the redesigned Solr 9.3+ V2 routes; routed-alias creation remains an advanced generic V2 request. The `client.v2.collections` namespace adds typed create/delete/reload operations using the post-Solr-9.3 V2 routes; runtime certification is pending.
 - **Replication and backups:** `replication()`, `replicationFile()`, and the SolrCloud backup/restore actions exposed through `collections()`.
 - **Streaming:** `stream()`, `export()`, and `exportStream()`.
 - **Advanced/custom endpoints:** `request()` and `requestRaw()` use the shared V1 transport. The explicit `solr.v2.request<T>()` and `solr.v2.requestRaw()` namespace provides a generic `/api/` V2 escape hatch over the same transport; callers own V2 request/response contracts, and operation-specific runtime compatibility remains unverified. Raw requests are not a claim that every Solr handler has a dedicated type or has been integration-tested.
@@ -98,11 +98,13 @@ The project tests exact pinned baselines: Solr 10.1.0 (current primary target), 
 
 ## Product direction
 
-The primary goal is to build the best Apache Solr client in the world for JavaScript, TypeScript, and Node.js, with measurable leadership in API coverage, correctness, compatibility, testing, performance, and developer experience. See the [north-star strategy and roadmap](docs/roadmap.md#north-star-objective-best-in-class-solr-client) and tracking issue [#310](https://github.com/vsimko/node-solr-lambda/issues/310).
+The primary goal is to build the best Apache Solr client in the world for JavaScript, TypeScript, and Node.js, with measurable leadership in API coverage, correctness, compatibility, testing, performance, and developer experience. See the [north-star strategy and roadmap](docs/roadmap.md#north-star-objective-best-in-class-solr-client) and tracking issue [#310](https://github.com/vsimko/solr-ts-client/issues/310).
 
 ## Documentation
 
 - [Complete documentation index](docs/index.md)
+- [Contributor guide](docs/contributor/README.md)
+- [Agent Skills for coding agents](.agents/skills/README.md)
 - [Getting started](docs/getting-started.md)
 - [Configuration](docs/configuration.md)
 - [Query API](docs/query.md)

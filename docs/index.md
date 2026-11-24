@@ -1,5 +1,14 @@
 # Documentation
 
+- [Documentation overview](README.md)
+- [Documentation policy](DOCUMENTATION.md)
+- [Contributor guide](contributor/README.md)
+- [Architecture index](architecture/README.md)
+- [Architecture decision records](adr/README.md)
+- [ADR 0008 — Agent skills and documentation infrastructure](adr/0008-agent-skills-and-documentation-infrastructure.md)
+- [Testing and verification guide](testing/README.md)
+- [Agent Skills index](../.agents/skills/README.md)
+
 This is the canonical catalogue for the project's guides, API references, compatibility evidence, and release documentation.
 
 ## Getting started and client fundamentals
@@ -46,6 +55,7 @@ This is the canonical catalogue for the project's guides, API references, compat
 
 ## Migration, development, and release
 
+- [Package identity migration to Solr TS Client](migration-to-solr-ts-client.md)
 - [Migration from v3 to v4](migration-v3-to-v4.md)
 - [Development roadmap](roadmap.md)
 - [Comparison with solr-client](solr-client-comparison.md)
@@ -57,6 +67,7 @@ This is the canonical catalogue for the project's guides, API references, compat
 - [Public project website](../website/index.html)
 
 - [GitHub Pages architecture decision (ADR 0001)](adr/0001-github-pages-site.md)
+- [Project identity migration (ADR 0007)](adr/0007-project-identity-migration.md)
 - [Solr client API coverage and implementation principles (ADR 0002)](adr/0002-solr-client-api-coverage.md)
 - [Cross-client regression test strategy (ADR 0003)](adr/0003-cross-client-test-strategy.md)
 - [Suggester query-component decision (ADR 0004)](adr/0004-suggester-query-component.md)

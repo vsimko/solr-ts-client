@@ -79,4 +79,4 @@ A client from another language (for example Apache SolrJ) is not a like-for-like
 
 ## Further work
 
-Use [Issue #339](https://github.com/vsimko/node-solr-lambda/issues/339) for the bounded wrapper-overhead baseline and candidate evaluation. Keep broader performance research under [Issue #314](https://github.com/vsimko/node-solr-lambda/issues/314), but do not expand it into long-running benchmark infrastructure unless real user workloads justify it.
+Use [Issue #339](https://github.com/vsimko/solr-ts-client/issues/339) for the bounded wrapper-overhead baseline and candidate evaluation. Keep broader performance research under [Issue #314](https://github.com/vsimko/solr-ts-client/issues/314), but do not expand it into long-running benchmark infrastructure unless real user workloads justify it.
