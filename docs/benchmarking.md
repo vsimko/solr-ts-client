@@ -38,11 +38,11 @@ For a local exploratory run:
 ```sh
 npm ci
 npm run build
-SOLR_BASE_URL=http://127.0.0.1:8983/solr \\
-SOLR_COLLECTION=benchmark \\
-SOLR_VERSION=10.1.0 \\
-npm run bench -- --workload query --mode both \\
-  --iterations 25 --rows 10 --concurrency 1 --warmup 3 \\
+SOLR_BASE_URL=http://127.0.0.1:8983/solr \
+SOLR_COLLECTION=benchmark \
+SOLR_VERSION=10.1.0 \
+npm run bench -- --workload query --mode both \
+  --iterations 25 --rows 10 --concurrency 1 --warmup 3 \
   --output benchmark-query.json
 ```
 
